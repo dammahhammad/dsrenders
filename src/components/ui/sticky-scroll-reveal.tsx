@@ -49,10 +49,15 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [content.length]);
 
-  const linearGradients = [
-    "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)", // cyan
-    "linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)", // pink to purple
-    "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)", // orange to red
+  const buildingImages = [
+    "/home_animation/building-1.png",
+    "/home_animation/building-2.png",
+    "/home_animation/building-3.png",
+    "/home_animation/building-4.png",
+    "/home_animation/building-5.png",
+    "/home_animation/building-6.png",
+    "/home_animation/building-7.png",
+    "/home_animation/building-8.png",
   ];
 
   return (
@@ -61,7 +66,7 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
       className="relative w-full"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="flex gap-16 px-6 py-20 lg:px-12">
+        <div className="flex gap-24 px-6 py-20 lg:px-16">
           {/* Sticky Image - Left Side */}
           <div className="hidden lg:block lg:w-1/2">
             <div className="sticky top-24">
@@ -69,84 +74,70 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
                 key={activeCard}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                transition={{ duration: 2, ease: "easeOut" }}
                 className={cn(
-                  "h-[70vh] w-full overflow-hidden rounded-3xl shadow-2xl",
+                  "h-[75vh] w-full overflow-hidden rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat relative",
                   contentClassName
                 )}
-                style={{ 
-                  background: linearGradients[activeCard % linearGradients.length],
-                }}
+                style={{ backgroundImage: `url(${buildingImages[activeCard % buildingImages.length]})`}}
               >
-                <div className="flex h-full w-full items-center justify-center p-8">
-                  {content[activeCard].content ?? (
-                    <div className="text-center">
-                      <h3 className="text-3xl font-bold">{content[activeCard].title}</h3>
-                    </div>
-                  )}
-                </div>
+                {/* Subtle overlay for better text readability if needed */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent pointer-events-none" />
               </motion.div>
             </div>
           </div>
 
           {/* Scrolling Content - Right Side */}
           <div className="w-full lg:w-1/2">
-            <div className="space-y-48">
+            <div className="space-y-56">
               {content.map((item, index) => (
                 <div 
                   key={item.title + index} 
                   ref={(el) => {
                     contentRefs.current[index] = el;
                   }}
-                  className="min-h-[60vh] flex flex-col justify-center"
+                  className="min-h-[70vh] flex flex-col justify-center"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, margin: "-20%" }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    transition={{ duration: 2, ease: "easeOut" }}
                   >
                     <motion.h2
                       animate={{
-                        opacity: activeCard === index ? 1 : 0.4,
+                        opacity: activeCard === index ? 1 : 0.3,
                         scale: activeCard === index ? 1 : 0.95,
                       }}
-                      transition={{ duration: 0.4 }}
-                      className="text-4xl font-bold lg:text-5xl"
+                      transition={{ duration: 1 }}
+                      className="text-3xl font-bold lg:text-4xl tracking-tight leading-tight"
                     >
                       {item.title}
                     </motion.h2>
                     
                     <motion.p
                       animate={{
-                        opacity: activeCard === index ? 1 : 0.4,
+                        opacity: activeCard === index ? 1 : 0.3,
                       }}
                       transition={{ duration: 0.4 }}
-                      className="mt-6 text-lg leading-relaxed lg:text-xl"
+                      className="mt-8 text-xl leading-relaxed lg:text-xl text-gray-600 max-w-2xl"
                     >
                       {item.description}
                     </motion.p>
 
                     {/* Mobile Image */}
-                    <div className="mt-8 lg:hidden">
+                    <div className="mt-12 lg:hidden">
                       <div 
-                        className="h-64 w-full overflow-hidden rounded-2xl"
-                        style={{ background: linearGradients[index % linearGradients.length] }}
+                        className="h-80 w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat shadow-xl"
+                        style={{ backgroundImage: `url(${buildingImages[index % buildingImages.length]})` }}
                       >
-                        <div className="flex h-full items-center justify-center p-6">
-                          {item.content ?? (
-                            <div className="text-center">
-                              <h3 className="text-2xl font-bold">{item.title}</h3>
-                            </div>
-                          )}
-                        </div>
                       </div>
                     </div>
                   </motion.div>
                 </div>
               ))}
               {/* Extra spacing at the end */}
-              <div className="h-[15vh]" />
+              <div className="h-[20vh]" />
             </div>
           </div>
         </div>

@@ -245,7 +245,7 @@ export const NavbarLogo = () => {
         height={30}
         priority
       />
-      <span className="font-medium text-black dark:text-white">Startup</span>
+      <span className="font-medium text-black dark:text-white">DsRenders</span>
     </Link>
   );
 };

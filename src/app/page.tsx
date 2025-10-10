@@ -5,142 +5,127 @@ export const products = [
   {
     title: "Moonbeam",
     link: "https://gomoonbeam.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
+    thumbnail: "/home_animation/building-1.png"
   },
   {
     title: "Cursor",
     link: "/architecture",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+    thumbnail: "/home_animation/building-2.png",
   },
   {
     title: "Rogue",
     link: "/interiors",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/rogue.png",
+    thumbnail: "/home_animation/building-3.png",
   },
 
   {
     title: "Editorially",
     link: "/about",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editorially.png",
+    thumbnail: "/home_animation/building-4.png",
   },
   {
     title: "Editrix AI",
     link: "https://editrix.ai",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editrix.png",
+    thumbnail: "/home_animation/building-5.png",
   },
   {
     title: "Pixel Perfect",
     link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+    thumbnail: "/home_animation/building-6.png",
   },
 
   {
     title: "Algochurn",
     link: "https://algochurn.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+    thumbnail: "/home_animation/building-7.png",
   },
   {
     title: "Aceternity UI",
     link: "https://ui.aceternity.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
+    thumbnail: "/home_animation/building-8.png",
   },
   {
     title: "Tailwind Master Kit",
     link: "https://tailwindmasterkit.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
+    thumbnail: "/home_animation/building-2.png",
   },
   {
     title: "SmartBridge",
     link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
+    thumbnail: "/home_animation/building-3.png",
   },
   {
     title: "Renderwork Studio",
     link: "https://renderwork.studio",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
+    thumbnail: "/home_animation/building-4.png",
   },
 
   {
     title: "Creme Digital",
     link: "https://cremedigital.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
+    thumbnail: "/home_animation/building-5.png",
   },
   {
     title: "Golden Bells Academy",
     link: "https://goldenbellsacademy.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
+    thumbnail: "/home_animation/building-6.png",
   },
   {
     title: "Invoker Labs",
     link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
+    thumbnail: "/home_animation/building-7.png",
   },
   {
     title: "E Free Invoice",
     link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
+    thumbnail: "/home_animation/building-8.png",
   },
 ];
 
 const content = [
   {
-    title: "Collaborative Editing",
+    title: "Architecture",
     description:
-      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
+      "Our architectural designs blend creativity with functionality — shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
-        Collaborative Editing
+        Architecture
       </div>
     ),
   },
   {
-    title: "Real time changes",
+    title: "Interiors",
     description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
+      "We craft interiors that reflect individuality and comfort. Every space we design tells a story — blending aesthetics, material, and light to create environments that feel both elegant and livable.",
     content: (
       <div className="flex h-full w-full items-center justify-center text-white">
         <img
-          src="/linear.webp"
+          src="/interiors.webp"
           width={300}
           height={300}
           className="h-full w-full object-cover"
-          alt="linear board demo"
+          alt="Interiors"
         />
       </div>
     ),
   },
   {
-    title: "Version control",
+    title: "Furniture",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Our bespoke furniture is designed to complement the architecture it inhabits. With a focus on craftsmanship and sustainability, each piece adds both form and function — tailored to fit your lifestyle.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
-        Version control
+        Furniture
       </div>
     ),
   },
   {
-    title: "Running out of content",
+    title: "Landscape",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "We design landscapes that connect people with nature — integrating greenery, water, and space to create harmony between built form and environment. Every project is an expression of balance and beauty.",
     content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
-        Running out of content
+      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--emerald-500),var(--lime-500))] text-white">
+        Landscape
       </div>
     ),
   },
