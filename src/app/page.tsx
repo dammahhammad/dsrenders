@@ -1,5 +1,6 @@
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { WorldMapComponent } from "@/components/world-map";
 
 export const products = [
   {
