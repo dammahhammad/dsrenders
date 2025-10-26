@@ -2,7 +2,9 @@
 
 import { useRef } from "react";
 import { motion } from "motion/react";
-import DottedMap from "dotted-map";
+import DottedMap from "dotted-map/without-countries";
+import myMap from "@/app/data/myMap";
+import Image from "next/image";
 
 import { useTheme } from "next-themes";
 
@@ -19,7 +21,7 @@ export default function WorldMap({
   lineColor = "#0ea5e9",
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const map = new DottedMap({ height: 150, grid: "diagonal" });
+  const map = new DottedMap({ map: JSON.parse(myMap) });
 
   const { theme } = useTheme();
 
@@ -29,7 +31,7 @@ export default function WorldMap({
     shape: "circle",
     backgroundColor: theme === "dark" ? "black" : "white",
   });
-  
+
   const projectPoint = (lat: number, lng: number) => {
     const x = (lng + 180) * (800 / 360);
     const y = (90 - lat) * (400 / 180);
@@ -46,10 +48,10 @@ export default function WorldMap({
   };
 
   return (
-    <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg  relative font-sans">
-      <img
+    <div className="dark:bg-black bg-[#F7F8FA] rounded-lg relative font-sans w-full h-[600px]">
+      <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
-        className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"
+        className="h-full w-full"
         alt="world map"
         height="495"
         width="1056"

@@ -7,6 +7,7 @@ import {
   useSpring,
   MotionValue,
 } from "motion/react";
+import Image from "next/image";
 
 
 export const HeroParallax = ({
@@ -20,7 +21,6 @@ export const HeroParallax = ({
 }) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -56,7 +56,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="pb-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="pb-40 overflow-hidden antialiased dark:bg-black bg-[#F7F8FA] relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -140,12 +140,12 @@ export const ProductCard = ({
         href={product.link}
         className="block group-hover/product:shadow-2xl "
       >
-        <img
+        <Image
           src={product.thumbnail}
-          height="600"
-          width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.title}
+          height={600}
+          width={600}
+          className="object-cover object-left-top absolute h-full w-full inset-0"
         />
       </a>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>

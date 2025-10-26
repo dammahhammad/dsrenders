@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 const ArchitecturePage = () => {
@@ -66,22 +66,22 @@ const ArchitecturePage = () => {
       {/* Sliding Content Section */}
       <motion.div
         style={{ y: contentY, width: contentWidth }}
-        className="relative z-20 min-h-screen bg-white"
+        className="relative z-20 min-h-screen bg-[#F7F8FA] dark:bg-black"
       >
         <div className="mx-auto max-w-7xl px-6 py-32 lg:px-16">
           {/* Mission Statement */}
           <div className="max-w-4xl">
-            <p className="text-2xl leading-relaxed text-gray-700 lg:text-3xl">
+            <p className="text-2xl leading-relaxed text-gray-700 lg:text-3xl dark:text-white">
               Our practice connects communities and is committed to the stewardship of people, place, and the environment.
             </p>
             
             <div className="mt-12">
               <a 
                 href="#" 
-                className="group inline-flex items-center text-xl font-semibold text-red-600 hover:text-red-700 transition-colors"
+                className="group inline-flex items-center text-xl font-semibold text-black dark:text-white hover:text-black dark:hover:text-white transition-colors"
               >
                 Learn about us
-                <div className="ml-2 h-0.5 w-16 bg-red-600 group-hover:w-20 transition-all duration-300" />
+                <div className="ml-2 h-0.5 w-16 bg-black dark:bg-[#F7F8FA] group-hover:w-20 transition-all duration-300" />
               </a>
             </div>
           </div>
@@ -92,7 +92,7 @@ const ArchitecturePage = () => {
               {/* Project 1 */}
               <div className="group">
                 <div 
-                  className="h-96 w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat shadow-xl group-hover:shadow-2xl transition-shadow duration-500"
+                  className="h-96 w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat shadow-xl group-hover:shadow-2xl transition-shadow duration-500 dark:bg-[#F7F8FA] "
                   style={{ backgroundImage: `url(/home_animation/building-2.png)` }}
                 >
                   <div className="flex h-full items-end">
@@ -111,7 +111,7 @@ const ArchitecturePage = () => {
               {/* Project 2 */}
               <div className="group">
                 <div 
-                  className="h-96 w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat shadow-xl group-hover:shadow-2xl transition-shadow duration-500"
+                className="h-96 w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat shadow-xl group-hover:shadow-2xl transition-shadow duration-500"
                   style={{ backgroundImage: `url(/home_animation/building-3.png)` }}
                 >
                   <div className="flex h-full items-end">
@@ -133,15 +133,15 @@ const ArchitecturePage = () => {
           <div className="mt-32">
             <div className="grid gap-12 lg:grid-cols-3">
               <div className="text-center">
-                <h4 className="text-4xl font-bold text-gray-900">70+</h4>
+                <h4 className="text-4xl font-bold text-gray-900 dark:text-white">70+</h4>
                 <p className="mt-2 text-lg text-gray-600">Years of Excellence</p>
               </div>
               <div className="text-center">
-                <h4 className="text-4xl font-bold text-gray-900">500+</h4>
+                <h4 className="text-4xl font-bold text-gray-900 dark:text-white">500+</h4>
                 <p className="mt-2 text-lg text-gray-600">Projects Completed</p>
               </div>
               <div className="text-center">
-                <h4 className="text-4xl font-bold text-gray-900">50+</h4>
+                <h4 className="text-4xl font-bold text-gray-900 dark:text-white">50+</h4>
                 <p className="mt-2 text-lg text-gray-600">Awards Won</p>
               </div>
             </div>

@@ -12,9 +12,13 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 import Link from "next/link";
-import { ModeToggle } from "@/components/ui/theme-selector";
+import ContactDialog from "@/components/forms/contact-dialog";
+import { Button } from "@/components/ui/button";
+import { AnimatedThemeToggler } from "./animated-theme-toggler";
 
 export function Header() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   const navItems = [
     {
       name: "Architecture",
@@ -25,8 +29,8 @@ export function Header() {
       link: "interiors",
     },
     {
-      name: "About",
-      link: "about",
+      name: "Woods",
+      link: "furniture",
     },
   ];
 
@@ -40,8 +44,17 @@ export function Header() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <ModeToggle />
-            <NavbarButton variant="primary">Contact Us</NavbarButton>
+            <AnimatedThemeToggler />
+            <Button
+              className="px-4 py-2 bg-transparent hover:bg-transparent text-primary-foreground font-mono text-sm transition-all duration-300 hover:cursor-pointer"
+              onClick={() => setIsContactOpen(true)}
+            >
+              <div className="relative inline-block px-4 py-2 font-medium group">
+                <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black dark:bg-white group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                <span className="absolute inset-0 w-full h-full bg-white dark:bg-black border-2 border-black dark:border-white group-hover:bg-black dark:group-hover:bg-white"></span>
+                <span className="relative text-black dark:text-white group-hover:text-white dark:group-hover:text-black">Contact Us</span>
+              </div>
+            </Button>
           </div>
         </NavBody>
 
@@ -50,7 +63,7 @@ export function Header() {
           <MobileNavHeader>
             <NavbarLogo />
             <div className="flex items-center gap-4">
-              <ModeToggle />
+              <AnimatedThemeToggler />
               <MobileNavToggle
                 isOpen={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -91,6 +104,8 @@ export function Header() {
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
+
+      <ContactDialog isOpen={isContactOpen} onOpenChange={setIsContactOpen} />
     </div>
   );
 }
