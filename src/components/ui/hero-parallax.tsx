@@ -102,14 +102,64 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The Ultimate <br /> architecture studio
-      </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We are a team of passionate architects and designers that love to build
-        amazing products. We are here to help you with your architecture needs.
-      </p>
+    <div className="max-w-7xl relative mx-auto py-16 md:py-32 lg:py-40 px-4 sm:px-6 lg:px-8 w-full left-0 top-0">
+      {/* Main Brand Title */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold dark:text-white text-zinc-900 font-[var(--font-cinzel)] tracking-tight">
+          DsRenders
+        </h1>
+      </motion.div>
+
+      {/* Tagline */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+        className="mt-4 md:mt-6"
+      >
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light dark:text-zinc-400 text-zinc-600 tracking-wide">
+          The Ultimate Architecture Studio
+        </p>
+      </motion.div>
+
+      {/* Description */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+        className="max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl mt-6 md:mt-8 dark:text-neutral-300 text-zinc-700 leading-relaxed"
+      >
+        We are a team of passionate architects and designers creating extraordinary spaces.
+        From visionary architecture to bespoke interiors, we bring your dreams to life with precision and innovation.
+      </motion.p>
+
+      {/* CTA Buttons */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
+        className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4"
+      >
+        <a
+          href="#portfolio"
+          className="group inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-medium bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-none hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all duration-300"
+        >
+          View Our Work
+          <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a
+          href="#services"
+          className="inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-medium border-2 border-zinc-900 dark:border-white text-zinc-900 dark:text-white rounded-none hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition-all duration-300"
+        >
+          Our Services
+        </a>
+      </motion.div>
     </div>
   );
 };

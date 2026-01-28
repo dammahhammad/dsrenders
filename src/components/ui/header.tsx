@@ -32,6 +32,10 @@ export function Header() {
       name: "Woods",
       link: "furniture",
     },
+    {
+      name: "Landscape",
+      link: "landscape",
+    },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

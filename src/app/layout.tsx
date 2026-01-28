@@ -20,8 +20,21 @@ const cinzelDisplay = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: "DsRenders",
-  description: "A leading architecture studio",
+  title: "DsRenders | Modern Architecture Studio",
+  description: "Award-winning architecture, interior design, furniture, and landscape studio. Creating spaces that inspire, connect, and enhance human experience through innovative design.",
+  keywords: ["architecture", "interior design", "furniture design", "landscape architecture", "modern design", "sustainable architecture"],
+  authors: [{ name: "DsRenders" }],
+  openGraph: {
+    title: "DsRenders | Modern Architecture Studio",
+    description: "Award-winning architecture and design studio creating spaces that inspire.",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DsRenders | Modern Architecture Studio",
+    description: "Award-winning architecture and design studio creating spaces that inspire.",
+  },
 };
 
 export default function RootLayout({
@@ -30,13 +43,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cinzelDisplay.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

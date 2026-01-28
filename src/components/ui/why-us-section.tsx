@@ -14,8 +14,8 @@ export const WhyUsSection: React.FC = () => {
     const textBlockY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
     return (
-        <div className="relative p-32 h-screen bg-[#F7F8FA] dark:bg-black py-12 flex items-center justify-center">
-             <div ref={containerRef} className="relative overflow-visible h-[70vh] w-[70%] mx-auto">
+        <div className="relative px-4 sm:px-8 lg:px-16 xl:px-32 min-h-[60vh] sm:min-h-[70vh] lg:min-h-screen bg-[#F7F8FA] dark:bg-black py-12 lg:py-0 flex items-center justify-center">
+            <div ref={containerRef} className="relative overflow-visible h-[50vh] sm:h-[60vh] lg:h-[70vh] w-full lg:w-[70%] mx-auto">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <Image
@@ -27,19 +27,19 @@ export const WhyUsSection: React.FC = () => {
                     />
                 </div>
 
-                 {/* Text Block - Top Right Corner - 30% on image, 70% outside */}
-                 <motion.div
-                     style={{ y: textBlockY }}
-                     className="absolute top-12 right-[-80%] lg:top-16 lg:right-[-25%] w-[50%] z-20"
-                 >
-                    <div className="bg-black p-6 lg:p-8">
+                {/* Text Block - Responsive positioning */}
+                <motion.div
+                    style={{ y: textBlockY }}
+                    className="absolute bottom-4 left-4 right-4 sm:bottom-auto sm:left-auto sm:top-8 sm:right-[-10%] lg:top-12 lg:right-[-25%] w-auto sm:w-[60%] lg:w-[50%] z-20"
+                >
+                    <div className="bg-black p-4 sm:p-6 lg:p-8">
                         {/* Title */}
-                        <h2 className="text-lg lg:text-xl font-bold text-white mb-4 leading-tight uppercase">
+                        <h2 className="text-sm sm:text-lg lg:text-xl font-bold text-white mb-2 sm:mb-4 leading-tight uppercase">
                             BUILT TO EVOLVE: HOW WE ARE ARCHITECTING THE FUTURE
                         </h2>
 
                         {/* Description */}
-                        <p className="text-white text-sm lg:text-base leading-relaxed mb-6">
+                        <p className="text-white text-xs sm:text-sm lg:text-base leading-relaxed mb-3 sm:mb-6">
                             We are using the latest technologies and techniques to create spaces that are not only functional but also sustainable and efficient.
                         </p>
 

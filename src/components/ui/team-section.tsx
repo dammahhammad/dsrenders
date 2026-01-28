@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { motion, useInView } from "motion/react";
 
 interface TeamMember {
     name: string;
@@ -33,36 +34,43 @@ const teamMembers: TeamMember[] = [
 ];
 
 export const TeamSection: React.FC = () => {
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
     return (
-        <section className="py-20 px-16 text-zinc-800 dark:text-white relative overflow-hidden bg-[#F7F8FA] dark:bg-black">
+        <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-16 text-zinc-800 dark:text-white relative overflow-hidden bg-[#F7F8FA] dark:bg-black">
 
             <div className="mx-auto relative z-10">
                 {/* Header Section */}
-                <div className="mb-16">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-10 sm:mb-12 lg:mb-16"
+                >
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-8">
                         <div className="lg:w-1/2">
-                            <h2 className="text-4xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight text-zinc-800 dark:text-white">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mb-4 sm:mb-6 leading-tight text-zinc-800 dark:text-white">
                                 Built by a world-class team of architectural experts
                             </h2>
                         </div>
                         <div className="lg:w-1/2 lg:pl-8">
-                            <div className="flex items-start gap-4">
-                                <span className="text-2xl font-bold text-gray-400 dark:text-zinc-600">04</span>
-                                <p className="text-lg leading-relaxed text-gary-400 dark:text-zinc-600">
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <span className="text-xl sm:text-2xl font-bold text-gray-400 dark:text-zinc-600">04</span>
+                                <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-500 dark:text-zinc-500">
                                     Our architectural team, comprised of over 40 designers, engineers, and consultants,
                                     continuously pushes the boundaries of design through cutting-edge innovation,
-                                    sustainable practices, and collaborative excellence—sharing insights through
-                                    our design research publications.
+                                    sustainable practices, and collaborative excellence.
                                 </p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Team Leadership Section */}
                 <div className="max-w-7xl mx-auto">
-                    <div className="mb-8">
-                        <h3 className="text-sm font-semibold tracking-widest uppercase text-gray-400 dark:text-zinc-600 mb-12">
+                    <div className="mb-6 sm:mb-8">
+                        <h3 className="text-xs sm:text-sm font-semibold tracking-[0.15em] sm:tracking-widest uppercase text-gray-400 dark:text-zinc-600 mb-8 sm:mb-12">
                             ARCHITECTURAL TEAM LEADERSHIP
                         </h3>
                     </div>
@@ -87,35 +95,35 @@ export const TeamSection: React.FC = () => {
                                 )}
                             />
 
-                             {/* Team Grid Content */}
-                             <div className="relative z-10 py-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                                 {teamMembers.map((member, index) => (
-                                     <div key={index} className="group">
-                                         <div className="text-center transform group-hover:scale-110 transition-all duration-300 ease-out">
-                                             {/* Avatar */}
-                                             <div className="relative mb-4 mx-auto w-24 h-24 rounded-full overflow-hidden border-2 border-gray-700 dark:border-zinc-300 group-hover:border-blue-500 transition-colors duration-300">
-                                                 <Image
-                                                     src={member.avatar}
-                                                     alt={member.name}
-                                                     width={96}
-                                                     height={96}
-                                                     className="w-full h-full object-cover"
-                                                 />
-                                             </div>
+                            {/* Team Grid Content */}
+                            <div className="relative z-10 py-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {teamMembers.map((member, index) => (
+                                    <div key={index} className="group">
+                                        <div className="text-center transform group-hover:scale-110 transition-all duration-300 ease-out">
+                                            {/* Avatar */}
+                                            <div className="relative mb-4 mx-auto w-24 h-24 rounded-full overflow-hidden border-2 border-gray-700 dark:border-zinc-300 group-hover:border-blue-500 transition-colors duration-300">
+                                                <Image
+                                                    src={member.avatar}
+                                                    alt={member.name}
+                                                    width={96}
+                                                    height={96}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
 
-                                             {/* Name */}
-                                             <h4 className="text-lg font-semibold mb-2 text-zinc-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                                                 {member.name}
-                                             </h4>
+                                            {/* Name */}
+                                            <h4 className="text-lg font-semibold mb-2 text-zinc-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                                                {member.name}
+                                            </h4>
 
-                                             {/* Role */}
-                                             <p className="text-sm text-gray-400 dark:text-zinc-600 group-hover:text-gray-600 dark:group-hover:text-zinc-400 transition-colors duration-300">
-                                                 {member.role}
-                                             </p>
-                                         </div>
-                                     </div>
-                                 ))}
-                             </div>
+                                            {/* Role */}
+                                            <p className="text-sm text-gray-400 dark:text-zinc-600 group-hover:text-gray-600 dark:group-hover:text-zinc-400 transition-colors duration-300">
+                                                {member.role}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

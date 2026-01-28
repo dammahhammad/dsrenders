@@ -4,86 +4,84 @@ import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { WhyUsSection } from "@/components/ui/why-us-section";
 import { TeamSection } from "@/components/ui/team-section";
 import { WorldMapComponent } from "@/components/world-map";
+import { PortfolioGrid } from "@/components/ui/portfolio-grid";
 import Image from "next/image";
 const Footer = React.lazy(() => import("@/components/footer"));
 
 export const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
+    title: "Modern Villa",
+    link: "/architecture",
     thumbnail: "/home_animation/building-1.png"
   },
   {
-    title: "Cursor",
+    title: "Urban Complex",
     link: "/architecture",
     thumbnail: "/home_animation/building-2.png",
   },
   {
-    title: "Rogue",
+    title: "Luxury Interiors",
     link: "/interiors",
     thumbnail: "/home_animation/building-3.png",
   },
-
   {
-    title: "Editorially",
-    link: "/about",
+    title: "Art Gallery",
+    link: "/architecture",
     thumbnail: "/home_animation/building-4.png",
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
+    title: "Eco Residence",
+    link: "/architecture",
     thumbnail: "/home_animation/building-5.png",
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
+    title: "Glass Tower",
+    link: "/architecture",
     thumbnail: "/home_animation/building-6.png",
   },
-
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
+    title: "Minimalist Home",
+    link: "/interiors",
     thumbnail: "/home_animation/building-7.png",
   },
   {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
+    title: "Cultural Center",
+    link: "/architecture",
     thumbnail: "/home_animation/building-8.png",
   },
   {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
+    title: "Waterfront Plaza",
+    link: "/landscape",
     thumbnail: "/home_animation/building-2.png",
   },
   {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
+    title: "Heritage Restoration",
+    link: "/architecture",
     thumbnail: "/home_animation/building-3.png",
   },
   {
-    title: "Renderwork Studio",
-    link: "https://renderwork.studio",
+    title: "Boutique Hotel",
+    link: "/interiors",
     thumbnail: "/home_animation/building-4.png",
   },
-
   {
-    title: "Creme Digital",
-    link: "https://cremedigital.com",
+    title: "Sky Garden",
+    link: "/landscape",
     thumbnail: "/home_animation/building-5.png",
   },
   {
-    title: "Golden Bells Academy",
-    link: "https://goldenbellsacademy.com",
+    title: "Corporate HQ",
+    link: "/architecture",
     thumbnail: "/home_animation/building-6.png",
   },
   {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
+    title: "Sustainable Campus",
+    link: "/architecture",
     thumbnail: "/home_animation/building-7.png",
   },
   {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
+    title: "Private Retreat",
+    link: "/interiors",
     thumbnail: "/home_animation/building-8.png",
   },
 ];
@@ -92,18 +90,7 @@ const content = [
   {
     title: "Architecture",
     description:
-      "Our architectural designs blend creativity with functionality — " +
-      "shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation." +
-      "Our architectural designs blend creativity with functionality — " +
-      "shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation." +
-      "Our architectural designs blend creativity with functionality — " +
-      "shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation." +
-      "Our architectural designs blend creativity with functionality — " +
-      "shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation." +
-      "Our architectural designs blend creativity with functionality — " +
-      "shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation." +
-      "Our architectural designs blend creativity with functionality — " +
-      "shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation.",
+      "Our architectural designs blend creativity with functionality — shaping spaces that inspire and stand the test of time. From residential masterpieces to commercial landmarks, we bring vision to life with precision and innovation.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
         Architecture
@@ -113,10 +100,6 @@ const content = [
   {
     title: "Interiors",
     description:
-      "We craft interiors that reflect individuality and comfort. Every space we design tells a story — blending aesthetics, material, and light to create environments that feel both elegant and livable." +
-      "We craft interiors that reflect individuality and comfort. Every space we design tells a story — blending aesthetics, material, and light to create environments that feel both elegant and livable." +
-      "We craft interiors that reflect individuality and comfort. Every space we design tells a story — blending aesthetics, material, and light to create environments that feel both elegant and livable." +
-      "We craft interiors that reflect individuality and comfort. Every space we design tells a story — blending aesthetics, material, and light to create environments that feel both elegant and livable." +
       "We craft interiors that reflect individuality and comfort. Every space we design tells a story — blending aesthetics, material, and light to create environments that feel both elegant and livable.",
     content: (
       <div className="flex h-full w-full items-center justify-center text-white">
@@ -133,10 +116,6 @@ const content = [
   {
     title: "Furniture",
     description:
-      "Our bespoke furniture is designed to complement the architecture it inhabits. With a focus on craftsmanship and sustainability, each piece adds both form and function — tailored to fit your lifestyle."+
-      "Our bespoke furniture is designed to complement the architecture it inhabits. With a focus on craftsmanship and sustainability, each piece adds both form and function — tailored to fit your lifestyle."+
-      "Our bespoke furniture is designed to complement the architecture it inhabits. With a focus on craftsmanship and sustainability, each piece adds both form and function — tailored to fit your lifestyle."+
-      "Our bespoke furniture is designed to complement the architecture it inhabits. With a focus on craftsmanship and sustainability, each piece adds both form and function — tailored to fit your lifestyle."+
       "Our bespoke furniture is designed to complement the architecture it inhabits. With a focus on craftsmanship and sustainability, each piece adds both form and function — tailored to fit your lifestyle.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
@@ -147,10 +126,6 @@ const content = [
   {
     title: "Landscape",
     description:
-      "We design landscapes that connect people with nature — integrating greenery, water, and space to create harmony between built form and environment. Every project is an expression of balance and beauty."+
-      "We design landscapes that connect people with nature — integrating greenery, water, and space to create harmony between built form and environment. Every project is an expression of balance and beauty."+
-      "We design landscapes that connect people with nature — integrating greenery, water, and space to create harmony between built form and environment. Every project is an expression of balance and beauty."+
-      "We design landscapes that connect people with nature — integrating greenery, water, and space to create harmony between built form and environment. Every project is an expression of balance and beauty."+
       "We design landscapes that connect people with nature — integrating greenery, water, and space to create harmony between built form and environment. Every project is an expression of balance and beauty.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--emerald-500),var(--lime-500))] text-white">
@@ -164,11 +139,19 @@ export default function Home() {
   return (
     <div>
       <HeroParallax products={products} />
-      <StickyScroll content={content} />
+      <PortfolioGrid />
+      <section id="services">
+        <StickyScroll content={content} />
+      </section>
       <WhyUsSection />
-      <TeamSection />
-      <WorldMapComponent />
+      <section id="team">
+        <TeamSection />
+      </section>
+      <section id="global">
+        <WorldMapComponent />
+      </section>
       <Footer />
     </div>
   );
 }
+
