@@ -1,0 +1,9 @@
+- remove slider on landing page
+- teams - about us
+- our story remove
+- architecture page, remove video, use image
+- remove landscape page
+- make interiors page like furniture
+- use sheet for interiors page 
+- increase size of images
+- 

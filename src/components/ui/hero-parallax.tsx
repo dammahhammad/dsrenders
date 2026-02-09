@@ -8,7 +8,7 @@ import {
   MotionValue,
 } from "motion/react";
 import Image from "next/image";
-
+import Link from "next/link";
 
 export const HeroParallax = ({
   products,
@@ -29,12 +29,13 @@ export const HeroParallax = ({
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
+  // Responsive translation values - smaller on mobile
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    useTransform(scrollYProgress, [0, 1], [0, 500]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(scrollYProgress, [0, 1], [0, -500]),
     springConfig
   );
   const rotateX = useSpring(
@@ -50,13 +51,14 @@ export const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 100]),
+    useTransform(scrollYProgress, [0, 0.2], [-500, 50]),
     springConfig
   );
+
   return (
     <div
       ref={ref}
-      className="pb-40 overflow-hidden antialiased dark:bg-black bg-[#F7F8FA] relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="pb-20 sm:pb-40 overflow-hidden antialiased bg-background relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -68,7 +70,8 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        {/* First Row - Hidden on small mobile, visible on larger screens */}
+        <motion.div className="hidden sm:flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -77,7 +80,9 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row mb-20 space-x-20 ">
+
+        {/* Second Row */}
+        <motion.div className="flex flex-row space-x-4 sm:space-x-10 md:space-x-20 mb-10 md:mb-20 overflow-x-auto sm:overflow-visible px-4 sm:px-0 scrollbar-hide">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -86,15 +91,13 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        {/* <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
+
+        {/* Mobile: Show stacked cards instead of parallax rows */}
+        <div className="sm:hidden px-4 space-y-4">
+          {products.slice(0, 4).map((product) => (
+            <MobileProductCard product={product} key={product.title} />
           ))}
-        </motion.div> */}
+        </div>
       </motion.div>
     </div>
   );
@@ -102,14 +105,43 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The Ultimate <br /> architecture studio
-      </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We are a team of passionate architects and designers that love to build
-        amazing products. We are here to help you with your architecture needs.
-      </p>
+    <div className="max-w-7xl relative mx-auto py-12 sm:py-20 md:py-40 px-4 sm:px-6 w-full left-0 top-0">
+      <motion.h1
+        className="text-3xl sm:text-5xl md:text-7xl font-display font-bold text-foreground leading-tight"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+      >
+        Crafting Spaces <br className="hidden sm:block" />
+        That <span className="text-gradient">Inspire</span>
+      </motion.h1>
+      <motion.p
+        className="max-w-2xl text-base sm:text-lg md:text-xl mt-6 sm:mt-8 text-muted-foreground font-body leading-relaxed"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        Award-winning architecture studio blending innovation with timeless design.
+        From concept to creation, we shape environments that define the future.
+      </motion.p>
+
+      {/* Category Pills */}
+      <motion.div
+        className="flex flex-wrap gap-2 sm:gap-3 mt-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+      >
+        {["Architecture", "Interiors", "Furniture"].map((category) => (
+          <Link
+            key={category}
+            href={`/${category.toLowerCase()}`}
+            className="px-4 py-2 rounded-full border border-border/50 text-sm font-body text-muted-foreground hover:bg-foreground hover:text-background hover:border-transparent transition-all duration-300"
+          >
+            {category}
+          </Link>
+        ))}
+      </motion.div>
     </div>
   );
 };
@@ -134,24 +166,62 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative shrink-0"
+      className="group/product h-48 w-60 sm:h-64 sm:w-80 md:h-96 md:w-[30rem] relative shrink-0 rounded-xl sm:rounded-2xl overflow-hidden"
     >
-      <a
+      <Link
         href={product.link}
-        className="block group-hover/product:shadow-2xl "
+        className="block group-hover/product:shadow-2xl h-full w-full"
       >
         <Image
           src={product.thumbnail}
           alt={product.title}
-          height={600}
-          width={600}
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          fill
+          sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 480px"
+          className="object-cover object-center"
         />
-      </a>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
-        {product.title}
-      </h2>
+      </Link>
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-60 bg-black pointer-events-none transition-opacity duration-300" />
+      <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover/product:opacity-100 transition-opacity duration-300">
+        <h2 className="text-white font-display font-semibold text-lg">
+          {product.title}
+        </h2>
+      </div>
+    </motion.div>
+  );
+};
+
+// Mobile-optimized product card
+const MobileProductCard = ({
+  product,
+}: {
+  product: {
+    title: string;
+    link: string;
+    thumbnail: string;
+  };
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="relative h-48 rounded-xl overflow-hidden"
+    >
+      <Link href={product.link} className="block h-full w-full">
+        <Image
+          src={product.thumbnail}
+          alt={product.title}
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute bottom-4 left-4">
+          <h3 className="text-white font-display font-semibold text-lg">
+            {product.title}
+          </h3>
+        </div>
+      </Link>
     </motion.div>
   );
 };
