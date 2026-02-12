@@ -59,19 +59,19 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full dark:bg-black bg-[#F7F8FA] px-12"
+      className="relative w-full bg-background px-4 sm:px-8 lg:px-12"
     >
-      <div className="flex gap-24 px-6 py-20 lg:px-16">
-        {/* Sticky Image - Left Side */}
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-24 px-0 sm:px-6 py-12 sm:py-16 lg:py-20 lg:px-16">
+        {/* Sticky Image - Left Side (Hidden on mobile, shown on desktop) */}
         <div className="hidden lg:block lg:w-1/2">
           <div className="sticky top-24">
             <motion.div
               key={activeCard}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className={cn(
-                "h-[80vh] w-[90%] overflow-hidden rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat relative",
+                "h-[70vh] xl:h-[80vh] w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl bg-cover bg-center bg-no-repeat relative",
                 contentClassName
               )}
               style={{ backgroundImage: `url(${buildingImages[activeCard % buildingImages.length]})` }}
@@ -84,28 +84,28 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
 
         {/* Scrolling Content - Right Side */}
         <div className="w-full lg:w-1/2">
-          <div className="space-y-56">
+          <div className="space-y-24 sm:space-y-40 lg:space-y-56">
             {content.map((item, index) => (
               <div
                 key={item.title + index}
                 ref={(el) => {
                   contentRefs.current[index] = el;
                 }}
-                className="min-h-[70vh] flex flex-col justify-center"
+                className="min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-center"
               >
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, margin: "-20%" }}
-                  transition={{ duration: 2, ease: "easeOut" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                   <motion.h2
                     animate={{
                       opacity: activeCard === index ? 1 : 0.3,
                       scale: activeCard === index ? 1 : 0.95,
                     }}
-                    transition={{ duration: 1 }}
-                    className="text-3xl font-bold lg:text-4xl tracking-tight leading-tight"
+                    transition={{ duration: 0.5 }}
+                    className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-tight text-foreground"
                   >
                     {item.title}
                   </motion.h2>
@@ -115,15 +115,15 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
                       opacity: activeCard === index ? 1 : 0.3,
                     }}
                     transition={{ duration: 0.4 }}
-                    className="mt-8 text-xl leading-relaxed lg:text-xl text-gray-800 dark:text-zinc-400 max-w-2xl"
+                    className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg lg:text-xl leading-relaxed text-muted-foreground font-body max-w-2xl"
                   >
                     {item.description}
                   </motion.p>
 
                   {/* Mobile Image */}
-                  <div className="mt-12 lg:hidden">
+                  <div className="mt-8 sm:mt-12 lg:hidden">
                     <div
-                      className="h-80 w-full overflow-hidden rounded-3xl bg-contain bg-center bg-no-repeat shadow-xl"
+                      className="h-56 sm:h-72 w-full overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat shadow-xl"
                       style={{ backgroundImage: `url(${buildingImages[index % buildingImages.length]})` }}
                     >
                     </div>

@@ -1,4 +1,4 @@
-export default `{
+const mapData = `{
     "points":
     {
         "13;0": { "x": 13.5, "y": 0 },
@@ -2393,4 +2393,6 @@ export default `{
     "height": 100,
     "width": 210,
     "ystep": 0.8660254037844386
-}`
+}`;
+
+export default mapData;

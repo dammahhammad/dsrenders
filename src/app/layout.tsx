@@ -1,27 +1,38 @@
 import type { Metadata } from "next";
-import { Cinzel, Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Sora } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/ui/header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-display",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sora = Sora({
+  variable: "--font-body",
   subsets: ["latin"],
-});
-
-const cinzelDisplay = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "DsRenders",
-  description: "A leading architecture studio",
+  title: "DsRenders | Architecture & Design Studio",
+  description:
+    "Award-winning architecture studio crafting timeless spaces through innovative design and interior excellence.",
+  keywords: [
+    "architecture",
+    "interior design",
+    "furniture",
+    "sustainable architecture",
+  ],
+  openGraph: {
+    title: "DsRenders | Architecture & Design Studio",
+    description:
+      "Award-winning architecture studio crafting timeless spaces through innovative design.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -30,18 +41,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${cinzelDisplay.variable} antialiased`}
+        className={`${playfairDisplay.variable} ${sora.variable} font-body antialiased`}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
+          <SmoothScroll>
+            <Header />
+            <main>{children}</main>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
