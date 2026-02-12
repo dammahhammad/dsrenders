@@ -17,8 +17,7 @@ import {
     DialogContent,
 } from "@/components/ui/dialog";
 import { Lens } from "@/components/ui/lens";
-import { IconRuler, IconPencil, IconPalette, IconPhoto, IconChevronLeft, IconChevronRight, IconX } from "@tabler/icons-react";
-import { FollowerPointerCard, FollowPointer } from "@/components/ui/following-pointer";
+import { IconRuler, IconPencil, IconPalette, IconPhoto, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
 interface DesignItem {
     id: string;

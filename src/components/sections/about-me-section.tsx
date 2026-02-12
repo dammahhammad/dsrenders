@@ -8,9 +8,6 @@ import {
     IconPalette,
     IconBuildingSkyscraper,
     IconSofa,
-    IconPlant,
-    IconCamera,
-    IconBox,
     Icon3dCubeSphere,
     IconDeviceDesktop
 } from "@tabler/icons-react";

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useVelocity, useSpring, useMotionValue, useAnimationFrame } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem, Counter } from "@/components/motion/motion-primitives";
 import { Footer } from "@/components/footer";
@@ -54,26 +54,6 @@ export default function ArchitecturePage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
-  // Project selection state
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const openProject = (project: typeof projects[0], index: number) => {
-    setSelectedProject(project);
-    setSelectedIndex(index);
-  };
-
-  const goToPrevProject = () => {
-    const newIndex = selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
-    setSelectedIndex(newIndex);
-    setSelectedProject(projects[newIndex]);
-  };
-
-  const goToNextProject = () => {
-    const newIndex = selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
-    setSelectedIndex(newIndex);
-    setSelectedProject(projects[newIndex]);
-  };
 
   // Scroll scale effect for gallery similar to Interiors
   const scale = useScrollScale();
@@ -233,7 +213,7 @@ export default function ArchitecturePage() {
                   <ProjectRow
                     project={project}
                     index={index}
-                    onClick={() => openProject(project, index)}
+                    onClick={() => { }}
                   />
                 </motion.div>
               ))}

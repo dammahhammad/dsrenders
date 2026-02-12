@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
-import { FadeIn, TextReveal, ScrollIndicator } from "@/components/motion/motion-primitives";
+import { FadeIn, ScrollIndicator } from "@/components/motion/motion-primitives";
 import Link from "next/link";
 
 const categories = [

@@ -422,7 +422,7 @@ interface ProjectRowProps {
   onClick: () => void;
 }
 
-function ProjectRow({ project, index, onClick }: ProjectRowProps) {
+function ProjectRow({ project, onClick }: ProjectRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: rowRef,
