@@ -3,6 +3,7 @@ import { Playfair_Display, Sora } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/ui/header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-display",
@@ -50,8 +51,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main>{children}</main>
+          <SmoothScroll>
+            <Header />
+            <main>{children}</main>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

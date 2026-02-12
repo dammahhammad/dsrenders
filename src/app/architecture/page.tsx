@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useVelocity, useSpring, useMotionValue, useAnimationFrame } from "motion/react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem, Counter } from "@/components/motion/motion-primitives";
 import { Footer } from "@/components/footer";
@@ -54,10 +54,34 @@ export default function ArchitecturePage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
+  // Project selection state
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const openProject = (project: typeof projects[0], index: number) => {
+    setSelectedProject(project);
+    setSelectedIndex(index);
+  };
+
+  const goToPrevProject = () => {
+    const newIndex = selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
+    setSelectedIndex(newIndex);
+    setSelectedProject(projects[newIndex]);
+  };
+
+  const goToNextProject = () => {
+    const newIndex = selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
+    setSelectedIndex(newIndex);
+    setSelectedProject(projects[newIndex]);
+  };
+
+  // Scroll scale effect for gallery similar to Interiors
+  const scale = useScrollScale();
+
   return (
     <>
       <div ref={containerRef} className="relative">
-        {/* Hero Section with Video Background */}
+        {/* Hero Section with Video Background - KEPT AS IS */}
         <section className="relative h-[100svh] min-h-[600px] overflow-hidden">
           <motion.div
             className="absolute inset-0"
@@ -124,139 +148,190 @@ export default function ArchitecturePage() {
           />
         </section>
 
-        {/* Stats Section */}
-        <section className="py-12 sm:py-16 bg-background border-b border-border">
-          <div className="container-custom">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {stats.map((stat, index) => (
-                <FadeIn key={index} delay={index * 0.1}>
-                  <div className="text-center">
-                    <span className="block text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
-                      <Counter to={stat.value} suffix={stat.suffix} duration={2} />
-                    </span>
-                    <span className="mt-1 sm:mt-2 block text-xs sm:text-sm text-muted-foreground font-body">
-                      {stat.label}
-                    </span>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Philosophy Section - Consistent with Interiors */}
+        <section className="py-20 sm:py-32 bg-background relative overflow-hidden">
+          {/* Subtle texture overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.02] pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            }}
+          />
 
-        {/* Mission Statement */}
-        <section className="section-padding bg-background">
-          <div className="container-custom">
+          <div className="container-custom relative">
             <FadeIn>
-              <div className="max-w-4xl">
-                <h2 className="font-display font-bold text-foreground mb-6 sm:mb-8">
-                  Our Approach
-                </h2>
-                <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground font-body leading-relaxed">
-                  Our architectural practice connects communities through design,
-                  committed to the stewardship of people, place, and environment.
-                  We believe that exceptional architecture emerges from a deep
-                  understanding of context, culture, and human experience.
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
+                <div className="max-w-2xl">
+                  <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
+                    Our Approach
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
+                    Building the <br className="hidden sm:block" />
+                    <span className="text-muted-foreground">Future</span>
+                  </h2>
+                </div>
+                <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
+                  Our practice connects communities through design, committed to the stewardship of people, place, and environment.
                 </p>
               </div>
             </FadeIn>
-          </div>
-        </section>
 
-        {/* Projects Grid */}
-        <section className="section-padding bg-secondary/30">
-          <div className="container-custom">
-            <FadeIn>
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-16">
-                <div>
-                  <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-muted-foreground mb-2 sm:mb-3 block">
-                    Featured Projects
-                  </span>
-                  <h2 className="font-display font-bold text-foreground">
-                    Selected Works
-                  </h2>
-                </div>
-                <motion.a
-                  href="/projects"
-                  className="self-start sm:self-end inline-flex items-center gap-2 text-sm sm:text-base font-body font-medium text-foreground"
-                  whileHover={{ x: 5 }}
-                >
-                  <span className="link-underline">View all projects</span>
-                  <span>→</span>
-                </motion.a>
-              </div>
-            </FadeIn>
+            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {stats.map((stat, index) => (
+                <StaggerItem key={index} className="h-full">
+                  <motion.div
+                    className="relative p-6 sm:p-8 lg:p-10 bg-secondary/20 border border-border/50 h-full group hover:bg-secondary/40 hover:border-accent/30 transition-all duration-500 rounded-xl overflow-hidden"
+                    whileHover={{ y: -5 }}
+                  >
+                    <div className="relative z-10 flex flex-col h-full justify-between">
+                      <span className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-500 mb-4 block">
+                        <Counter to={stat.value} suffix={stat.suffix} duration={2} />
+                      </span>
 
-            <StaggerContainer className="grid gap-6 sm:gap-8">
-              {projects.map((project, index) => (
-                <StaggerItem key={index}>
-                  <ProjectCard project={project} index={index} />
+                      <div>
+                        <h4 className="text-sm font-body font-medium text-muted-foreground uppercase tracking-wider group-hover:text-foreground transition-colors duration-300">
+                          {stat.label}
+                        </h4>
+                        <div className="mt-4 h-0.5 w-12 bg-border group-hover:bg-accent transition-colors duration-500" />
+                      </div>
+                    </div>
+                  </motion.div>
                 </StaggerItem>
               ))}
             </StaggerContainer>
           </div>
         </section>
+
+        {/* Selected Projects - Vertical Scroll Gallery style */}
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+            {/* Section Header */}
+            <FadeIn className="mb-16 sm:mb-20">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
+                <div>
+                  <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
+                    Design Excellence
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
+                    Selected Works
+                  </h2>
+                </div>
+                <p className="text-sm text-muted-foreground font-body max-w-sm">
+                  A curated selection of our architectural achievements, defining skylines globally.
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Projects List */}
+            <div className="space-y-0">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={index}
+                  style={{ scale }}
+                  className="origin-center will-change-transform"
+                >
+                  <ProjectRow
+                    project={project}
+                    index={index}
+                    onClick={() => openProject(project, index)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
 
       <Footer />
+
+      {/* Project Sheet would go here, needing similar implementation to interiors but adapted for these projects */}
+      {/* For now we can assume we need to bring in the Sheet component or adapt the ProjectCard to open one */}
     </>
   );
 }
 
-interface ProjectCardProps {
-  project: typeof projects[0];
-  index: number;
+// Helper hook for scroll scale (copied from interiors)
+function useScrollScale() {
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+
+  const scale = useMotionValue(1);
+
+  useAnimationFrame(() => {
+    const velocity = Math.abs(smoothVelocity.get());
+    const targetScale = Math.max(0.94, 1 - velocity / 20000);
+    const currentScale = scale.get();
+    scale.set(currentScale + (targetScale - currentScale) * 0.08);
+  });
+
+  return useSpring(scale, { damping: 40, stiffness: 300 });
 }
 
-function ProjectCard({ project, index }: ProjectCardProps) {
-  const isEven = index % 2 === 0;
+interface ProjectRowProps {
+  project: typeof projects[0];
+  index: number;
+  onClick: () => void;
+}
+
+function ProjectRow({ project, index, onClick }: ProjectRowProps) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: rowRef,
+    offset: ["start end", "end start"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
 
   return (
     <motion.div
-      className={`group grid lg:grid-cols-2 gap-6 lg:gap-12 items-center ${isEven ? "" : "lg:flex-row-reverse"
-        }`}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.4 }}
+      ref={rowRef}
+      className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-16 py-10 sm:py-14 border-b border-border/20 cursor-pointer group"
+      onClick={onClick}
+      style={{ opacity }}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Image */}
-      <div className={`relative overflow-hidden rounded-2xl h-[280px] sm:h-[400px] ${isEven ? "" : "lg:order-2"}`}>
+      <div className="flex flex-col justify-center lg:sticky lg:top-32 lg:self-start">
+        <span className="text-3xl sm:text-4xl mb-4 text-accent/40 group-hover:text-accent transition-colors duration-500">
+          {/* Icon placeholder if needed, or just number */}
+          0{index + 1}
+        </span>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
+          {project.title}
+        </h3>
+        <div className="mt-4 flex items-center gap-4 text-xs sm:text-sm font-body text-muted-foreground">
+          <span className="uppercase tracking-wider">{project.location}</span>
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span>{project.year}</span>
+        </div>
+        <div className="mt-6">
+          <p className="text-sm text-muted-foreground line-clamp-3">{project.description}</p>
+        </div>
         <motion.div
-          className="absolute inset-0"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.6 }}
+          className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-accent transition-colors duration-300"
+          initial={{ x: 0 }}
+          whileHover={{ x: 5 }}
         >
+          <span>View Project</span>
+          <span className="text-lg">→</span>
+        </motion.div>
+      </div>
+
+      <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg sm:rounded-xl">
+        <motion.div className="absolute inset-0" style={{ y: imageY }}>
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            sizes="(max-width: 1024px) 100vw, 60vw"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      </div>
-
-      {/* Content */}
-      <div className={`${isEven ? "" : "lg:order-1"}`}>
-        <div className="flex items-center gap-3 text-xs sm:text-sm text-muted-foreground font-body mb-2 sm:mb-3">
-          <span>{project.location}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-          <span>{project.year}</span>
-        </div>
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-foreground mb-3 sm:mb-4 group-hover:text-accent transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-sm sm:text-base lg:text-lg text-muted-foreground font-body leading-relaxed mb-4 sm:mb-6">
-          {project.description}
-        </p>
-        <motion.a
-          href="#"
-          className="inline-flex items-center gap-2 text-sm sm:text-base font-body font-medium text-foreground"
-          whileHover={{ x: 5 }}
-        >
-          <span className="link-underline">View project</span>
-          <span>→</span>
-        </motion.a>
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
       </div>
     </motion.div>
   );

@@ -210,7 +210,7 @@ export default function FurniturePage() {
 
     return (
         <>
-            {/* Fullscreen Hero Section */}
+            {/* Fullscreen Hero Section - KEPT AS IS */}
             <section ref={heroRef} className="relative h-[100svh] min-h-[600px] overflow-hidden">
                 <motion.div
                     className="absolute inset-0"
@@ -252,40 +252,46 @@ export default function FurniturePage() {
                 </div>
             </section>
 
-            {/* Content Section */}
+            {/* Content Section - Updated Structure */}
             <motion.div
                 ref={contentRef}
                 style={{ y: contentY, opacity: contentOpacity }}
                 className="relative bg-background rounded-t-[2rem] -mt-8 z-20"
             >
-                {/* Design Philosophy */}
-                <section className="section-padding relative">
-                    <div className="container-custom">
+                {/* Philosophy Section - Consistent with Interiors/Architecture */}
+                <section className="py-20 sm:py-32 relative overflow-hidden">
+                    <div className="container-custom relative">
                         <FadeIn>
-                            <div className="text-center mb-12 sm:mb-16">
-                                <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-muted-foreground mb-2 block">
-                                    Philosophy
-                                </span>
-                                <h2 className="font-display font-bold text-foreground">
-                                    Design Principles
-                                </h2>
+                            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
+                                <div className="max-w-2xl">
+                                    <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
+                                        Philosophy
+                                    </span>
+                                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
+                                        Crafted with <br className="hidden sm:block" />
+                                        <span className="text-muted-foreground">Intention</span>
+                                    </h2>
+                                </div>
+                                <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
+                                    We believe that furniture should be more than functional objects—they are the touchpoints of our daily lives.
+                                </p>
                             </div>
                         </FadeIn>
 
-                        <StaggerContainer className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
+                        <StaggerContainer className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
                             {designPhilosophy.map((item, index) => (
-                                <StaggerItem key={index}>
+                                <StaggerItem key={index} className="h-full">
                                     <motion.div
-                                        className="text-center p-6 sm:p-8"
-                                        whileHover={{ y: -5 }}
+                                        className="relative p-8 sm:p-10 bg-card border border-border/50 h-full group hover:border-accent/40 hover:shadow-lg transition-all duration-500 rounded-2xl overflow-hidden flex flex-col items-center text-center"
+                                        whileHover={{ y: -8 }}
                                     >
-                                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 text-accent mb-4">
+                                        <div className="mb-6 p-5 rounded-full bg-accent/80 text-foreground group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-sm">
                                             {item.icon}
                                         </div>
-                                        <h4 className="text-base sm:text-lg font-display font-semibold text-foreground mb-2">
+                                        <h4 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4 group-hover:text-accent transition-colors duration-300">
                                             {item.title}
                                         </h4>
-                                        <p className="text-sm text-muted-foreground font-body">
+                                        <p className="text-sm text-muted-foreground font-body leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
                                             {item.description}
                                         </p>
                                     </motion.div>
@@ -295,71 +301,74 @@ export default function FurniturePage() {
                     </div>
                 </section>
 
-                {/* Design Portfolio Grid */}
-                <section className="section-padding pt-0">
-                    <div className="container-custom">
-                        <FadeIn>
-                            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-16">
+                {/* Design Portfolio - Vertical Scroll Gallery Style */}
+                <section className="py-16 sm:py-24 bg-background border-t border-border/40">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+                        <FadeIn className="mb-16 sm:mb-20">
+                            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
                                 <div>
-                                    <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-muted-foreground mb-2 block">
-                                        Portfolio
+                                    <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-2 block">
+                                        Collection
                                     </span>
-                                    <h2 className="font-display font-bold text-foreground">
-                                        Design Collection
+                                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
+                                        Signature Pieces
                                     </h2>
                                 </div>
                             </div>
                         </FadeIn>
 
-                        {/* Grid Layout */}
-                        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                        <div className="space-y-0">
                             {designItems.map((item, index) => (
-                                <StaggerItem key={item.id}>
-                                    <DesignCard
+                                <motion.div
+                                    key={item.id}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                >
+                                    <FurnitureRow
                                         item={item}
                                         index={index}
                                         onClick={() => setSelectedItem(item)}
                                         onViewImages={() => setGalleryItem(item)}
                                     />
-                                </StaggerItem>
+                                </motion.div>
                             ))}
-                        </StaggerContainer>
+                        </div>
                     </div>
                 </section>
 
                 {/* CTA Section */}
-                <section className="section-padding bg-foreground">
-                    <div className="container-custom">
-                        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                <section className="py-24 sm:py-32 bg-background text-background relative overflow-hidden">
+                    {/* Decorative background elements */}
+                    <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 skew-x-12 pointer-events-none" />
+
+                    <div className="container-custom relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                             <FadeIn>
-                                <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-background/60 mb-2 block">
+                                <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-4 block">
                                     Commission
                                 </span>
-                                <h2 className="font-display font-bold text-background mb-4 sm:mb-6">
-                                    Custom Design Service
+                                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-accent mb-6 leading-tight">
+                                    Bespoke <br />
+                                    <span className="text-accent/80">Creations</span>
                                 </h2>
-                                <p className="text-base sm:text-lg text-background/70 font-body leading-relaxed mb-6 sm:mb-8">
-                                    Have a vision for your space? I work directly with clients
-                                    to create bespoke furniture pieces tailored to your exact specifications.
+                                <p className="text-lg text-white/70 font-body leading-relaxed mb-8 max-w-md">
+                                    Collaborate with us to create furniture that is uniquely yours. From initial sketch to final installation.
                                 </p>
-                                <ul className="space-y-3 sm:space-y-4 mb-8">
-                                    {["Design consultation", "Technical drawings & 3D visualization", "Material selection", "Fabrication oversight"].map((item, index) => (
-                                        <motion.li
-                                            key={index}
-                                            className="flex items-center gap-3 text-sm sm:text-base text-background/80 font-body"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: index * 0.1 }}
-                                        >
+
+                                <ul className="space-y-4 mb-10">
+                                    {["Design consultation", "Technical drawings & 3D", "Material curation", "Artisan fabrication"].map((item, index) => (
+                                        <li key={index} className="flex items-center gap-3 text-white/80">
                                             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                                             {item}
-                                        </motion.li>
+                                        </li>
                                     ))}
                                 </ul>
+
                                 <motion.a
                                     href="/contact"
-                                    className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-accent text-foreground rounded-full font-body font-medium"
+                                    className="inline-flex items-center gap-4 px-8 py-4 bg-background text-foreground rounded-full font-body font-medium"
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
@@ -369,12 +378,12 @@ export default function FurniturePage() {
                             </FadeIn>
 
                             <FadeIn direction="left" delay={0.2}>
-                                <div className="relative h-[350px] sm:h-[450px] rounded-2xl overflow-hidden bg-background/5">
+                                <div className="relative h-[400px] sm:h-[500px] w-full bg-white/10 rounded-2xl overflow-hidden glass border-white/10 border">
                                     <Image
                                         src="/woods/modern-sofa.png"
                                         alt="Custom furniture design"
                                         fill
-                                        className="object-contain p-8"
+                                        className="object-contain p-12"
                                         sizes="(max-width: 1024px) 100vw, 50vw"
                                     />
                                 </div>
@@ -401,122 +410,107 @@ export default function FurniturePage() {
     );
 }
 
-// Design Card Component
-interface DesignCardProps {
+// Furniture Row Component (Vertical Scroll Style)
+interface FurnitureRowProps {
     item: DesignItem;
     index: number;
     onClick: () => void;
     onViewImages: () => void;
 }
 
-function DesignCard({ item, onClick, onViewImages }: DesignCardProps) {
+function FurnitureRow({ item, index, onClick, onViewImages }: FurnitureRowProps) {
+    const rowRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: rowRef,
+        offset: ["start end", "end start"],
+    });
+
+    const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+
     return (
         <motion.div
-            className="group relative cursor-pointer"
+            ref={rowRef}
+            className="grid grid-cols-1 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px] gap-8 lg:gap-16 py-12 border-b border-border/10 cursor-pointer group"
             onClick={onClick}
-            whileHover={{ y: -8 }}
-            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            style={{ opacity }}
         >
-            {/* Card */}
-            <FollowerPointerCard title={item.name}>
-                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-card border border-border/50 hover:border-accent/50 transition-colors">
-                    {/* Image Container */}
-                    <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden bg-secondary/20">
-                        {/* Blueprint Grid Overlay */}
-                        <div
-                            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-                            style={{
-                                backgroundImage: `
-                            linear-gradient(to right, currentColor 1px, transparent 1px),
-                            linear-gradient(to bottom, currentColor 1px, transparent 1px)
-                            `,
-                                backgroundSize: "20px 20px",
-                            }}
-                        />
-
-                        <motion.div
-                            className="relative h-full w-full p-6 sm:p-8"
-                            whileHover={{ scale: 1.03 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <Image
-                                src={item.image}
-                                alt={item.name}
-                                fill
-                                className="object-contain z-10"
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            />
-                        </motion.div>
-
-                        {/* Category Badge */}
-                        <div className="absolute top-4 left-4 z-20">
-                            <span className="px-3 py-1 text-[10px] sm:text-xs font-body tracking-wider uppercase bg-background/90 backdrop-blur-sm rounded-full text-foreground">
-                                {item.category}
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-4 sm:p-5">
-                        <div className="flex items-start justify-between gap-2">
-                            <div>
-                                <h3 className="text-base sm:text-lg font-display font-semibold text-foreground group-hover:text-accent transition-colors">
-                                    {item.name}
-                                </h3>
-                                <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-body line-clamp-2">
-                                    {item.description}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Materials Preview */}
-                        <div className="flex items-center gap-2 mt-3 sm:mt-4">
-                            <span className="text-[10px] sm:text-xs text-muted-foreground font-body uppercase tracking-wider">
-                                Materials:
-                            </span>
-                            <div className="flex gap-1.5">
-                                {item.materials.slice(0, 3).map((material, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-border/50"
-                                        style={{ backgroundColor: material.color }}
-                                        title={material.name}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="mt-4 flex items-center gap-3">
-                            {/* View Details */}
-                            <motion.div
-                                className="flex items-center gap-2 text-xs sm:text-sm font-body text-muted-foreground group-hover:text-accent transition-colors cursor-none"
-                                whileHover={{ x: 5 }}
-                            >
-                                <span>View Details</span>
-                                <span>→</span>
-                            </motion.div>
-
-                            {/* Separator */}
-                            <span className="text-border">|</span>
-
-                            {/* View Images */}
-                            <motion.button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onViewImages();
-                                }}
-                                className="flex items-center gap-1.5 text-xs sm:text-sm font-body text-muted-foreground hover:text-accent transition-colors cursor-none"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <IconPhoto size={14} />
-                                <span>Images</span>
-                            </motion.button>
-                        </div>
-                    </div>
+            {/* Left: Content */}
+            <div className="flex flex-col justify-center order-2 lg:order-1">
+                <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent">
+                        {item.category}
+                    </span>
+                    <span className="text-xs font-mono text-muted-foreground/60">
+                        0{index + 1}
+                    </span>
                 </div>
-            </FollowerPointerCard>
+
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight mb-6">
+                    {item.name}
+                </h3>
+
+                <p className="text-base text-muted-foreground font-body leading-relaxed max-w-xl mb-8">
+                    {item.description}
+                </p>
+
+                {/* Materials Preview */}
+                <div className="flex items-center gap-4 mb-8">
+                    <div className="flex -space-x-3">
+                        {item.materials.slice(0, 3).map((material, idx) => (
+                            <div
+                                key={idx}
+                                className="w-10 h-10 rounded-full border-2 border-background ring-1 ring-border shadow-sm"
+                                style={{ backgroundColor: material.color }}
+                                title={material.name}
+                            />
+                        ))}
+                    </div>
+                    {item.materials.length > 3 && (
+                        <span className="text-xs text-muted-foreground">+{item.materials.length - 3} more</span>
+                    )}
+                </div>
+
+                <div className="flex items-center gap-6 mt-auto">
+                    <motion.div
+                        className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-accent group-hover:text-accent transition-colors"
+                        whileHover={{ x: 5 }}
+                    >
+                        <span>View Details</span>
+                        <span>→</span>
+                    </motion.div>
+
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onViewImages();
+                        }}
+                        className="flex items-center gap-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <IconPhoto size={16} />
+                        <span>Gallery ({item.images.length})</span>
+                    </button>
+                </div>
+            </div>
+
+            {/* Right: Image */}
+            <div className="relative h-[300px] sm:h-[350px] overflow-hidden rounded-2xl bg-secondary/5 order-1 lg:order-2">
+                <motion.div className="absolute inset-0 flex items-center justify-center p-8" style={{ y: imageY }}>
+                    <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 500px"
+                    />
+                </motion.div>
+
+                <div className="absolute top-4 right-4 z-20">
+                    <span className="w-8 h-8 flex items-center justify-center rounded-full bg-background/80 backdrop-blur border border-border text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+                        <IconChevronRight size={16} />
+                    </span>
+                </div>
+            </div>
         </motion.div>
     );
 }
@@ -528,15 +522,28 @@ interface DesignDetailSheetProps {
 }
 
 function DesignDetailSheet({ item, onClose }: DesignDetailSheetProps) {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    // Reset image index when item changes
+    const images = item?.images || [];
+
+    const goToPrevImage = () => {
+        setCurrentImageIndex(prev => prev === 0 ? images.length - 1 : prev - 1);
+    };
+
+    const goToNextImage = () => {
+        setCurrentImageIndex(prev => prev === images.length - 1 ? 0 : prev + 1);
+    };
+
     return (
-        <Sheet open={!!item} onOpenChange={(open) => !open && onClose()}>
+        <Sheet open={!!item} onOpenChange={(open) => { if (!open) { setCurrentImageIndex(0); onClose(); } }}>
             <SheetContent
                 side="right"
                 className="w-full sm:w-[540px] lg:w-[600px] min-w-[40vw] overflow-y-auto p-0"
             >
                 {item && (
                     <div className="flex flex-col h-full">
-                        {/* Image Section */}
+                        {/* Image Carousel Section */}
                         <div className="relative h-[300px] sm:h-[350px] bg-secondary/20 shrink-0">
                             {/* Blueprint Grid */}
                             <div
@@ -550,17 +557,67 @@ function DesignDetailSheet({ item, onClose }: DesignDetailSheetProps) {
                                 }}
                             />
 
-                            <Image
-                                src={item.image}
-                                alt={item.name}
-                                fill
-                                className="object-contain p-8"
-                                sizes="600px"
-                            />
+                            {/* Images with smooth transition */}
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentImageIndex}
+                                    className="absolute inset-0"
+                                    initial={{ opacity: 0, scale: 1.02 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.98 }}
+                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    <Image
+                                        src={images[currentImageIndex] || item.image}
+                                        alt={`${item.name} - Image ${currentImageIndex + 1}`}
+                                        fill
+                                        className="object-contain p-8"
+                                        sizes="(max-width: 640px) 100vw, 600px"
+                                    />
+                                </motion.div>
+                            </AnimatePresence>
+
+                            {/* Navigation Arrows */}
+                            {images.length > 1 && (
+                                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 z-10">
+                                    <motion.button
+                                        onClick={(e) => { e.stopPropagation(); goToPrevImage(); }}
+                                        className="w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-sm"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    >
+                                        <IconChevronLeft size={18} />
+                                    </motion.button>
+                                    <motion.button
+                                        onClick={(e) => { e.stopPropagation(); goToNextImage(); }}
+                                        className="w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-sm"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    >
+                                        <IconChevronRight size={18} />
+                                    </motion.button>
+                                </div>
+                            )}
+
+                            {/* Image Dots */}
+                            {images.length > 1 && (
+                                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
+                                    {images.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setCurrentImageIndex(idx)}
+                                            className={`h-1.5 rounded-full transition-all duration-300 ${currentImageIndex === idx
+                                                ? "bg-foreground w-6"
+                                                : "bg-foreground/30 w-1.5 hover:bg-foreground/50"
+                                                }`}
+                                        />
+                                    ))}
+                                </div>
+                            )}
 
                             {/* Scale indicator */}
                             {item.scale && (
-                                <div className="absolute bottom-4 right-4 z-20">
+                                <div className="absolute top-4 right-4 z-20">
                                     <span className="px-3 py-1.5 text-xs font-mono bg-background/90 backdrop-blur-sm rounded text-foreground border border-border/50">
                                         Scale: {item.scale}
                                     </span>
