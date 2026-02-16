@@ -91,7 +91,7 @@ export function PortfolioGrid() {
             : projects.filter((p) => p.category === activeCategory);
 
     return (
-        <section className="section-padding bg-background relative overflow-hidden">
+        <section className="section-padding bg-background relative overflow-hidden z-15">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
                 <div

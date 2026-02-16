@@ -2,7 +2,7 @@ import { HeroParallax } from "@/components/ui/hero-parallax";
 import { PortfolioGrid } from "@/components/sections/portfolio-grid";
 import { AboutMeSection } from "@/components/sections/about-me-section";
 import { GlobalReachSection } from "@/components/sections/global-reach";
-import { Footer } from "@/components/footer";
+import { IntroAnimation } from "@/components/layout/intro-animation";
 
 const products = [
   { title: "Urban Sanctuary", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
@@ -20,11 +20,11 @@ const products = [
 export default function Home() {
   return (
     <>
+      <IntroAnimation />
       <HeroParallax products={products} />
       <PortfolioGrid />
       <AboutMeSection />
       <GlobalReachSection />
-      <Footer />
     </>
   );
 }

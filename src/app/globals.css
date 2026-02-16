@@ -87,7 +87,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 .dark {
   /* Core Palette */
-  --background: oklch(0.12 0.015 60);
+  --background: oklch(0.1558 0 0);
   --foreground: oklch(0.95 0.01 85);
   --card: oklch(0.16 0.018 60);
   --card-foreground: oklch(0.95 0.01 85);

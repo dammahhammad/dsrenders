@@ -1,15 +1,19 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useVelocity, useAnimationFrame, AnimatePresence } from "motion/react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
-import { Footer } from "@/components/footer";
-import {
-  Sheet,
-  SheetContent,
-} from "@/components/ui/sheet";
+import { Footer } from "@/components/layout/footer";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconChevronLeft, IconChevronRight, IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // Project Data
 interface InteriorProject {
@@ -149,20 +153,8 @@ function useScrollScale() {
 }
 
 export default function InteriorsPage() {
-  const heroRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<InteriorProject | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
-  const scale = useScrollScale();
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   const openProject = (project: InteriorProject, index: number) => {
     setSelectedProject(project);
@@ -183,117 +175,90 @@ export default function InteriorsPage() {
 
   return (
     <>
-      {/* Hero Section - Editorial Style */}
-      <section ref={heroRef} className="relative h-[100svh] min-h-[700px] overflow-hidden">
-        {/* Background with parallax */}
-        <motion.div
-          className="absolute inset-0"
-          style={{ scale: heroScale, y: heroY }}
-        >
-          <Image
-            src="/home_animation/interior.jpg"
-            alt="Luxurious interior space"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          {/* Gradient overlay for editorial feel */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/70" />
-        </motion.div>
+      <main>
+        <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
+          <motion.div className="absolute inset-0">
+            <Image
+              src="/home_animation/interior.jpg"
+              alt="Luxurious interior space"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </motion.div>
 
-        {/* Decorative grid lines */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute left-[10%] top-0 bottom-0 w-px bg-white/10" />
-          <div className="absolute left-[50%] top-0 bottom-0 w-px bg-white/10" />
-          <div className="absolute right-[10%] top-0 bottom-0 w-px bg-white/10" />
-        </div>
-
-        {/* Content */}
-        <motion.div
-          className="relative z-10 h-full flex flex-col justify-end pb-20 sm:pb-28 px-4 sm:px-8 lg:px-16"
-          style={{ opacity: heroOpacity }}
-        >
-          <div className="max-w-7xl mx-auto w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
-              {/* Left: Title */}
-              <div>
-                <FadeIn delay={0.3}>
-                  <span className="text-[10px] sm:text-xs font-body tracking-[0.4em] uppercase text-white/60 mb-4 sm:mb-6 block">
-                    Interior Design Studio
-                  </span>
-                </FadeIn>
-
-                <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
-                  <FadeIn delay={0.5}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">Spaces</span>
+          <motion.div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
+            <div className="max-w-7xl mx-auto w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
+                <div>
+                  <FadeIn delay={0.3}>
+                    <span className="text-[10px] sm:text-xs font-body tracking-[0.4em] uppercase text-white/60 mb-4 sm:mb-6 block">
+                      Interior Design Studio
+                    </span>
                   </FadeIn>
-                  <FadeIn delay={0.7}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">That Tell</span>
-                  </FadeIn>
-                  <FadeIn delay={0.9}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">Stories</span>
-                  </FadeIn>
-                </h1>
-              </div>
 
-              {/* Right: Description */}
-              <FadeIn delay={1.1}>
-                <div className="lg:pl-8 lg:border-l lg:border-white/20">
-                  <p className="text-base sm:text-lg lg:text-xl text-white/70 font-body leading-relaxed max-w-lg">
-                    We craft interiors that reflect individuality and comfort,
-                    blending aesthetics, material, and light into environments
-                    that feel both elegant and livable.
-                  </p>
-                  <motion.div
-                    className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.5 }}
-                  >
-                    <span className="w-8 h-px bg-white/30" />
-                    <span className="text-xs font-body tracking-widest uppercase">Scroll to explore</span>
-                  </motion.div>
+                  <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
+                    <FadeIn delay={0.5}>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">Spaces</span>
+                    </FadeIn>
+                    <FadeIn delay={0.7}>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">That Tell</span>
+                    </FadeIn>
+                    <FadeIn delay={0.9}>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">Stories</span>
+                    </FadeIn>
+                  </h1>
                 </div>
-              </FadeIn>
-            </div>
-          </div>
-        </motion.div>
-      </section>
 
-      {/* Philosophy Section - Refined Grid */}
-      <section className="py-20 sm:py-32 bg-background relative overflow-hidden">
-        {/* Subtle texture overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        />
-
-        <div className="container-custom relative">
-          <FadeIn>
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
-              <div className="max-w-2xl">
-                <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
-                  Our Philosophy
-                </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
-                  Design Principles <br className="hidden sm:block" />
-                  <span className="text-muted-foreground">That Guide Us</span>
-                </h2>
+                {/* Right: Description */}
+                <FadeIn delay={1.1}>
+                  <div className="lg:pl-8 lg:border-l lg:border-white/20">
+                    <p className="text-base sm:text-lg lg:text-xl text-white/70 font-body leading-relaxed max-w-lg">
+                      We craft interiors that reflect individuality and comfort,
+                      blending aesthetics, material, and light into environments
+                      that feel both elegant and livable.
+                    </p>
+                    <motion.div
+                      className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.5 }}
+                    >
+                      <span className="w-8 h-px bg-white/30" />
+                      <span className="text-xs font-body tracking-widest uppercase">Scroll to explore</span>
+                    </motion.div>
+                  </div>
+                </FadeIn>
               </div>
-              <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
-                Every space we create is rooted in these fundamental beliefs about what makes design truly resonate.
-              </p>
             </div>
-          </FadeIn>
+          </motion.div>
+        </section>
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {philosophy.map((item, index) => (
-              <StaggerItem key={index} className="h-full">
+        <section className="philosophy relative lg:sticky lg:top-0 z-20 bg-background">
+          <div className="container-custom py-20 sm:py-32">
+            <FadeIn>
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
+                <div className="max-w-2xl">
+                  <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
+                    Our Philosophy
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
+                    Design Principles <br className="hidden sm:block" />
+                    <span className="text-accent">That Guide Us</span>
+                  </h2>
+                </div>
+                <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
+                  Every space we create is rooted in these fundamental beliefs about what makes design truly resonate.
+                </p>
+              </div>
+            </FadeIn>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {philosophy.map((item, index) => (
                 <motion.div
-                  className="relative p-6 sm:p-8 lg:p-10 bg-secondary/20 border border-border/50 h-full group hover:bg-secondary/40 hover:border-accent/30 transition-all duration-500 rounded-xl overflow-hidden"
+                  key={index}
+                  className="relative p-6 sm:p-8 lg:p-10 bg-secondary/20 border border-border/50 h-full group hover:bg-secondary/40 hover:border-accent/30 transition-all duration-500 rounded-xl"
                   whileHover={{ y: -5 }}
                 >
                   <div className="relative z-10 flex flex-col h-full justify-between">
@@ -311,96 +276,49 @@ export default function InteriorsPage() {
                     </p>
                   </div>
                 </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Vertical Scroll Gallery - BIG Architects Style */}
-      <section className="py-16 sm:py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          {/* Section Header */}
-          <FadeIn className="mb-16 sm:mb-20">
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
-              <div>
-                <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
-                  Selected Work
-                </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
-                  Interior Projects
-                </h2>
-              </div>
-              <p className="text-sm text-muted-foreground font-body max-w-sm">
-                A curated selection of our interior design projects, each crafted with intention and care.
-              </p>
+              ))}
             </div>
-          </FadeIn>
-
-          {/* Projects List */}
-          <div className="space-y-0">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                style={{ scale }}
-                className="origin-center will-change-transform"
-              >
-                <ProjectRow
-                  project={project}
-                  index={index}
-                  onClick={() => openProject(project, index)}
-                />
-              </motion.div>
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section - Dramatic */}
-      <section className="relative py-24 sm:py-32 lg:py-40 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-background" />
 
-        {/* Decorative elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute left-[20%] top-0 bottom-0 w-px bg-background/5" />
-          <div className="absolute right-[20%] top-0 bottom-0 w-px bg-background/5" />
-          <div className="absolute top-[50%] left-0 right-0 h-px bg-background/5" />
-        </div>
+        <section className="main bg-background relative z-30">
+          <div className="container-custom">
+            {/* Section Header */}
+            <FadeIn className="mb-16 sm:mb-20">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
+                <div>
+                  <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
+                    Selected Work
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
+                    Interior Projects
+                  </h2>
+                </div>
+                <p className="text-sm text-muted-foreground font-body max-w-sm">
+                  A curated selection of our interior design projects, each crafted with intention and care.
+                </p>
+              </div>
+            </FadeIn>
 
-        <div className="container-custom relative text-center">
-          <FadeIn>
-            <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent/60 mb-6 block">
-              Start Your Project
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-accent mb-6 sm:mb-8 leading-tight">
-              Transform <br className="sm:hidden" />
-              Your Space
-            </h2>
-            <p className="max-w-xl mx-auto text-base sm:text-lg text-accent/60 font-body mb-10 sm:mb-12">
-              Ready to create an interior that reflects your vision?
-              Let&apos;s start the conversation.
-            </p>
-            <motion.a
-              href="/contact"
-              className="inline-flex items-center gap-4 px-8 sm:px-10 py-4 sm:py-5 bg-accent text-foreground rounded-full font-body font-medium text-sm sm:text-base group"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span>Book a Consultation</span>
-              <motion.span
-                className="text-lg"
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
-              >
-                →
-              </motion.span>
-            </motion.a>
-          </FadeIn>
-        </div>
-      </section>
-
-      <Footer />
+            {/* Projects List */}
+            <div className="space-y-0">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  className="origin-center"
+                >
+                  <ProjectRow
+                    project={project}
+                    index={index}
+                    onClick={() => openProject(project, index)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
 
       {/* Fullscreen Project Sheet */}
       <ProjectDetailSheet
@@ -554,7 +472,7 @@ function ProjectDetailSheet({ project, projectIndex, totalProjects, onClose, onP
     <Sheet open={!!project} onOpenChange={(open) => !open && onClose()}>
       <SheetContent
         side="bottom"
-        className="h-[95vh] sm:h-[92vh] w-full p-0 border-t border-border rounded-t-3xl"
+        className="h-[100vh] w-full p-0 border-t border-border rounded-t-3xl"
       >
         {project && (
           <div className="flex flex-col h-full">

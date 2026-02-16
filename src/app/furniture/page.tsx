@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "mot
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/layout/footer";
 import {
     Sheet,
     SheetContent,
@@ -172,49 +172,14 @@ const designPhilosophy = [
 ];
 
 export default function FurniturePage() {
-    const heroRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
     const [selectedItem, setSelectedItem] = useState<DesignItem | null>(null);
     const [galleryItem, setGalleryItem] = useState<DesignItem | null>(null);
 
-    const { scrollYProgress: heroProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end start"],
-    });
-
-    const { scrollYProgress: contentProgress } = useScroll({
-        target: contentRef,
-        offset: ["start end", "start start"],
-    });
-
-    const springConfig = { stiffness: 100, damping: 30 };
-
-    const heroScale = useSpring(
-        useTransform(heroProgress, [0, 1], [1, 1.2]),
-        springConfig
-    );
-    const heroOpacity = useSpring(
-        useTransform(heroProgress, [0, 0.6], [1, 0]),
-        springConfig
-    );
-
-    const contentY = useSpring(
-        useTransform(contentProgress, [0, 1], [100, 0]),
-        springConfig
-    );
-    const contentOpacity = useSpring(
-        useTransform(contentProgress, [0, 0.5], [0, 1]),
-        springConfig
-    );
-
     return (
-        <>
+        <main>
             {/* Fullscreen Hero Section - KEPT AS IS */}
-            <section ref={heroRef} className="relative h-[100svh] min-h-[600px] overflow-hidden">
-                <motion.div
-                    className="absolute inset-0"
-                    style={{ scale: heroScale, opacity: heroOpacity }}
-                >
+            <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
+                <motion.div className="absolute inset-0">
                     <Image
                         src="/woods/hero-woods.png"
                         alt="Bespoke furniture craftsmanship"
@@ -223,7 +188,6 @@ export default function FurniturePage() {
                         priority
                         sizes="100vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
                 </motion.div>
 
                 <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
@@ -251,148 +215,139 @@ export default function FurniturePage() {
                 </div>
             </section>
 
-            {/* Content Section - Updated Structure */}
-            <motion.div
-                ref={contentRef}
-                style={{ y: contentY, opacity: contentOpacity }}
-                className="relative bg-background rounded-t-[2rem] -mt-8 z-20"
-            >
-                {/* Philosophy Section - Consistent with Interiors/Architecture */}
-                <section className="py-20 sm:py-32 relative overflow-hidden">
-                    <div className="container-custom relative">
-                        <FadeIn>
-                            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
-                                <div className="max-w-2xl">
-                                    <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
-                                        Philosophy
-                                    </span>
-                                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
-                                        Crafted with <br className="hidden sm:block" />
-                                        <span className="text-muted-foreground">Intention</span>
-                                    </h2>
-                                </div>
-                                <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
-                                    We believe that furniture should be more than functional objects—they are the touchpoints of our daily lives.
-                                </p>
-                            </div>
-                        </FadeIn>
-
-                        <StaggerContainer className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-                            {designPhilosophy.map((item, index) => (
-                                <StaggerItem key={index} className="h-full">
-                                    <motion.div
-                                        className="relative p-8 sm:p-10 bg-card border border-border/50 h-full group hover:border-accent/40 hover:shadow-lg transition-all duration-500 rounded-2xl overflow-hidden flex flex-col items-center text-center"
-                                        whileHover={{ y: -8 }}
-                                    >
-                                        <div className="mb-6 p-5 rounded-full bg-accent/80 text-foreground group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-sm">
-                                            {item.icon}
-                                        </div>
-                                        <h4 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4 group-hover:text-accent transition-colors duration-300">
-                                            {item.title}
-                                        </h4>
-                                        <p className="text-sm text-muted-foreground font-body leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
-                                            {item.description}
-                                        </p>
-                                    </motion.div>
-                                </StaggerItem>
-                            ))}
-                        </StaggerContainer>
-                    </div>
-                </section>
-
-                {/* Design Portfolio - Vertical Scroll Gallery Style */}
-                <section className="py-16 sm:py-24 bg-background border-t border-border/40">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-                        <FadeIn className="mb-16 sm:mb-20">
-                            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
-                                <div>
-                                    <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-2 block">
-                                        Collection
-                                    </span>
-                                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
-                                        Signature Pieces
-                                    </h2>
-                                </div>
-                            </div>
-                        </FadeIn>
-
-                        <div className="space-y-0">
-                            {designItems.map((item, index) => (
-                                <motion.div
-                                    key={item.id}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                >
-                                    <FurnitureRow
-                                        item={item}
-                                        index={index}
-                                        onClick={() => setSelectedItem(item)}
-                                        onViewImages={() => setGalleryItem(item)}
-                                    />
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* CTA Section */}
-                <section className="py-24 sm:py-32 bg-background text-background relative overflow-hidden">
-                    {/* Decorative background elements */}
-                    <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 skew-x-12 pointer-events-none" />
-
-                    <div className="container-custom relative z-10">
-                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                            <FadeIn>
-                                <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-4 block">
-                                    Commission
+            {/* Philosophy Section - Consistent with Interiors/Architecture */}
+            <section className="philosophy relative lg:sticky lg:top-0 z-20 bg-background">
+                <div className="container-custom py-20 sm:py-32">
+                    <FadeIn>
+                        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
+                            <div className="max-w-2xl">
+                                <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
+                                    Philosophy
                                 </span>
-                                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-accent mb-6 leading-tight">
-                                    Bespoke <br />
-                                    <span className="text-accent/80">Creations</span>
+                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
+                                    Crafted with <br className="hidden sm:block" />
+                                    <span className="text-muted-foreground">Intention</span>
                                 </h2>
-                                <p className="text-lg text-white/70 font-body leading-relaxed mb-8 max-w-md">
-                                    Collaborate with us to create furniture that is uniquely yours. From initial sketch to final installation.
-                                </p>
-
-                                <ul className="space-y-4 mb-10">
-                                    {["Design consultation", "Technical drawings & 3D", "Material curation", "Artisan fabrication"].map((item, index) => (
-                                        <li key={index} className="flex items-center gap-3 text-white/80">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <motion.a
-                                    href="/contact"
-                                    className="inline-flex items-center gap-4 px-8 py-4 bg-background text-foreground rounded-full font-body font-medium"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <span>Start Your Project</span>
-                                    <span>→</span>
-                                </motion.a>
-                            </FadeIn>
-
-                            <FadeIn direction="left" delay={0.2}>
-                                <div className="relative h-[400px] sm:h-[500px] w-full bg-white/10 rounded-2xl overflow-hidden glass border-white/10 border">
-                                    <Image
-                                        src="/woods/modern-sofa.png"
-                                        alt="Custom furniture design"
-                                        fill
-                                        className="object-contain p-12"
-                                        sizes="(max-width: 1024px) 100vw, 50vw"
-                                    />
-                                </div>
-                            </FadeIn>
+                            </div>
+                            <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
+                                We believe that furniture should be more than functional objects—they are the touchpoints of our daily lives.
+                            </p>
                         </div>
-                    </div>
-                </section>
+                    </FadeIn>
 
-                <Footer />
-            </motion.div>
+                    <StaggerContainer className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+                        {designPhilosophy.map((item, index) => (
+                            <StaggerItem key={index} className="h-full">
+                                <motion.div
+                                    className="relative p-8 sm:p-10 bg-card border border-border/50 h-full group hover:border-accent/40 hover:shadow-lg transition-all duration-500 rounded-2xl overflow-hidden flex flex-col items-center text-center"
+                                    whileHover={{ y: -8 }}
+                                >
+                                    <div className="mb-6 p-5 rounded-full bg-accent/80 text-foreground group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-sm">
+                                        {item.icon}
+                                    </div>
+                                    <h4 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4 group-hover:text-accent transition-colors duration-300">
+                                        {item.title}
+                                    </h4>
+                                    <p className="text-sm text-muted-foreground font-body leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
+                                        {item.description}
+                                    </p>
+                                </motion.div>
+                            </StaggerItem>
+                        ))}
+                    </StaggerContainer>
+                </div>
+            </section>
+
+            {/* Design Portfolio - Vertical Scroll Gallery Style */}
+            <section className="py-16 sm:py-24 bg-background border-t border-border/40 relative z-30">
+                <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+                    <FadeIn className="mb-16 sm:mb-20">
+                        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
+                            <div>
+                                <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-2 block">
+                                    Collection
+                                </span>
+                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
+                                    Signature Pieces
+                                </h2>
+                            </div>
+                        </div>
+                    </FadeIn>
+
+                    <div className="space-y-0">
+                        {designItems.map((item, index) => (
+                            <motion.div
+                                key={item.id}
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                            >
+                                <FurnitureRow
+                                    item={item}
+                                    index={index}
+                                    onClick={() => setSelectedItem(item)}
+                                    onViewImages={() => setGalleryItem(item)}
+                                />
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-24 sm:py-32 bg-background text-background relative z-40 overflow-hidden">
+                {/* Decorative background elements */}
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 skew-x-12 pointer-events-none" />
+
+                <div className="container-custom relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <FadeIn>
+                            <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-4 block">
+                                Commission
+                            </span>
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-accent mb-6 leading-tight">
+                                Bespoke <br />
+                                <span className="text-accent/80">Creations</span>
+                            </h2>
+                            <p className="text-lg text-white/70 font-body leading-relaxed mb-8 max-w-md">
+                                Collaborate with us to create furniture that is uniquely yours. From initial sketch to final installation.
+                            </p>
+
+                            <ul className="space-y-4 mb-10">
+                                {["Design consultation", "Technical drawings & 3D", "Material curation", "Artisan fabrication"].map((item, index) => (
+                                    <li key={index} className="flex items-center gap-3 text-white/80">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <motion.a
+                                href="/contact"
+                                className="inline-flex items-center gap-4 px-8 py-4 bg-background text-foreground rounded-full font-body font-medium"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <span>Start Your Project</span>
+                                <span>→</span>
+                            </motion.a>
+                        </FadeIn>
+
+                        <FadeIn direction="left" delay={0.2}>
+                            <div className="relative h-[400px] sm:h-[500px] w-full bg-white/10 rounded-2xl overflow-hidden glass border-white/10 border">
+                                <Image
+                                    src="/woods/modern-sofa.png"
+                                    alt="Custom furniture design"
+                                    fill
+                                    className="object-contain p-12"
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                />
+                            </div>
+                        </FadeIn>
+                    </div>
+                </div>
+            </section>
 
             {/* Design Detail Sheet */}
             <DesignDetailSheet
@@ -405,7 +360,7 @@ export default function FurniturePage() {
                 item={galleryItem}
                 onClose={() => setGalleryItem(null)}
             />
-        </>
+        </main>
     );
 }
 

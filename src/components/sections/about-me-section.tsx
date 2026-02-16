@@ -68,7 +68,7 @@ const profileInfo = {
 
 export function AboutMeSection() {
     return (
-        <section className="section-padding bg-background relative overflow-hidden">
+        <section className="section-padding bg-background relative overflow-hidden z-20">
             {/* Background Elements */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-accent/5 to-transparent" />

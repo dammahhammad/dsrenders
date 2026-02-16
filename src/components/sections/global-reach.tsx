@@ -19,17 +19,8 @@ export function GlobalReachSection() {
     const isInView = useInView(ref, { once: true, amount: 0.2 });
 
     return (
-        <section ref={ref} className="section-padding relative overflow-hidden">
+        <section ref={ref} className="section-padding relative overflow-hidden z-25 bg-background">
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 1px)`,
-                        backgroundSize: "32px 32px",
-                    }}
-                />
-            </div>
 
             <div className="container-custom relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">

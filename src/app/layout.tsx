@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Sora } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/ui/header";
+import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { IntroProvider } from "@/context/intro-context";
+import Footer from "@/components/layout/footer";
+import Reserved from "@/components/layout/reserved";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-display",
@@ -51,10 +54,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SmoothScroll>
-            <Header />
-            <main>{children}</main>
-          </SmoothScroll>
+          <IntroProvider>
+            <SmoothScroll>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+              <Reserved />
+            </SmoothScroll>
+          </IntroProvider>
         </ThemeProvider>
       </body>
     </html>

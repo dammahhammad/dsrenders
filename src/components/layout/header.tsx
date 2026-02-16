@@ -4,8 +4,10 @@ import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
 import ContactDialog from "@/components/forms/contact-dialog";
-import { AnimatedThemeToggler } from "./animated-theme-toggler";
+import ModeSwitch from "@/components/mode-switch";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
+import { useIntro } from "@/context/intro-context";
 
 const navItems = [
   { name: "Architecture", href: "/architecture" },
@@ -17,6 +19,9 @@ export function Header() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const { isIntroComplete } = useIntro();
+  const isHome = pathname === "/";
 
   const { scrollY } = useScroll();
 
@@ -40,8 +45,12 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="relative z-50">
               <motion.span
-                className="text-xl sm:text-2xl font-display font-bold text-foreground"
+                id="header-logo"
+                className="text-xl sm:text-2xl font-display font-bold text-foreground inline-block"
                 whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: !isHome || isIntroComplete ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
               >
                 Ds<span className="text-accent">Renders</span>
               </motion.span>
@@ -56,7 +65,7 @@ export function Header() {
 
             {/* Desktop Actions */}
             <div className="hidden lg:flex items-center gap-4">
-              <AnimatedThemeToggler />
+              <ModeSwitch />
               <motion.button
                 onClick={() => setIsContactOpen(true)}
                 className="group relative px-5 py-2.5 overflow-hidden rounded-full font-body text-sm font-medium"
@@ -76,7 +85,7 @@ export function Header() {
 
             {/* Mobile Menu Toggle */}
             <div className="flex lg:hidden items-center gap-3">
-              <AnimatedThemeToggler />
+              <ModeSwitch />
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="relative z-50 w-10 h-10 flex items-center justify-center text-foreground"
