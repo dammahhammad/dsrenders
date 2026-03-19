@@ -3,11 +3,14 @@
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
-import ContactDialog from "@/components/forms/contact-dialog";
+import dynamic from "next/dynamic";
 import ModeSwitch from "@/components/mode-switch";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-import { usePathname } from "next/navigation";
-import { useIntro } from "@/context/intro-context";
+import { AnimatedLogo } from "@/components/layout/animated-logo";
+
+const ContactDialog = dynamic(() => import("@/components/forms/contact-dialog"), {
+  ssr: false,
+});
 
 const navItems = [
   { name: "Architecture", href: "/architecture" },
@@ -19,9 +22,6 @@ export function Header() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
-  const { isIntroComplete } = useIntro();
-  const isHome = pathname === "/";
 
   const { scrollY } = useScroll();
 
@@ -44,16 +44,9 @@ export function Header() {
           <nav className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="relative z-50">
-              <motion.span
-                id="header-logo"
-                className="text-xl sm:text-2xl font-display font-bold text-foreground inline-block"
-                whileHover={{ scale: 1.02 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: !isHome || isIntroComplete ? 1 : 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                Ds<span className="text-accent">Renders</span>
-              </motion.span>
+              <div id="header-logo" className="inline-block origin-left scale-[1.28] sm:scale-[1.36]">
+                <AnimatedLogo idPrefix="header" />
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -109,7 +102,7 @@ export function Header() {
       />
 
       {/* Contact Dialog */}
-      <ContactDialog isOpen={isContactOpen} onOpenChange={setIsContactOpen} />
+      {isContactOpen ? <ContactDialog isOpen={isContactOpen} onOpenChange={setIsContactOpen} /> : null}
     </>
   );
 }
@@ -122,7 +115,7 @@ interface NavLinkProps {
 function NavLink({ href, name }: NavLinkProps) {
   return (
     <Link href={href} className="group relative py-2">
-      <span className="text-sm font-body text-muted-foreground group-hover:text-foreground transition-colors">
+      <span className="text-sm font-body text-muted-foreground hover:bg-primary/10 hover:p-2 hover:rounded-xl hover:shadow-md group-hover:text-foreground transition-colors text-primary dark:text-white/80">
         {name}
       </span>
       <motion.span

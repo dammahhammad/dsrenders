@@ -6,7 +6,7 @@ import { flushSync } from "react-dom";
 import { cn } from "@/lib/utils";
 
 export default function ModeSwitch({ className }: { className?: string }) {
-    const { theme, setTheme, resolvedTheme } = useTheme();
+    const { setTheme, resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const switchRef = useRef<HTMLButtonElement>(null);
 
@@ -59,7 +59,7 @@ export default function ModeSwitch({ className }: { className?: string }) {
         return (
             <div
                 className={cn(
-                    "h-8 w-16 rounded-full bg-muted animate-pulse",
+                    "h-6 w-14 rounded-full bg-muted animate-pulse",
                     className
                 )}
             />
@@ -75,7 +75,7 @@ export default function ModeSwitch({ className }: { className?: string }) {
             aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
             onClick={toggleTheme}
             className={cn(
-                "relative inline-flex h-7 w-16 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-500 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden",
+                "relative inline-flex h-6 w-14 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-500 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 overflow-hidden",
                 isDark
                     ? "bg-gradient-to-r from-[#041326] to-[#0E314C]"
                     : "bg-gradient-to-r from-[#77C2D0] to-[#3D91A7]",
@@ -104,7 +104,7 @@ export default function ModeSwitch({ className }: { className?: string }) {
                     alt=""
                     aria-hidden="true"
                     className={cn(
-                        "absolute right-[2%] top-[10%] h-3 w-auto transition-all duration-500 ease-out delay-[150ms]",
+                        "absolute right-[2%] top-[10%] h-2.5 w-auto transition-all duration-500 ease-out delay-[150ms]",
                         isDark
                             ? "opacity-0 translate-y-3"
                             : "opacity-90 translate-y-0"
@@ -115,7 +115,7 @@ export default function ModeSwitch({ className }: { className?: string }) {
                     alt=""
                     aria-hidden="true"
                     className={cn(
-                        "absolute right-[28%] bottom-[8%] h-2.5 w-auto transition-all duration-500 ease-out delay-[250ms]",
+                        "absolute right-[28%] bottom-[8%] h-2 w-auto transition-all duration-500 ease-out delay-[250ms]",
                         isDark
                             ? "opacity-0 translate-y-3"
                             : "opacity-80 translate-y-0"
@@ -126,7 +126,7 @@ export default function ModeSwitch({ className }: { className?: string }) {
                     alt=""
                     aria-hidden="true"
                     className={cn(
-                        "absolute right-[52%] top-[18%] h-2 w-auto transition-all duration-500 ease-out delay-[350ms]",
+                        "absolute right-[52%] top-[18%] h-1.5 w-auto transition-all duration-500 ease-out delay-[350ms]",
                         isDark
                             ? "opacity-0 translate-y-3"
                             : "opacity-60 translate-y-0"
@@ -137,8 +137,8 @@ export default function ModeSwitch({ className }: { className?: string }) {
             {/* Thumb (Sun / Moon) */}
             <span
                 className={cn(
-                    "pointer-events-none relative z-10 inline-block h-7 w-7 rounded-full transition-transform duration-500 ease-in-out",
-                    isDark ? "translate-x-[34px]" : "translate-x-[2px]"
+                    "pointer-events-none relative z-10 inline-block h-6 w-6 rounded-full transition-transform duration-500 ease-in-out",
+                    isDark ? "translate-x-[30px]" : "translate-x-[2px]"
                 )}
             >
                 {/* Sun */}

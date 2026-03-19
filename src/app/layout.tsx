@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Sora } from "next/font/google";
+import { Bruno_Ace_SC, Playfair_Display, Sora } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -16,6 +16,13 @@ const playfairDisplay = Playfair_Display({
 
 const sora = Sora({
   variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const brunoAceSC = Bruno_Ace_SC({
+  variable: "--font-logo",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -46,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${playfairDisplay.variable} ${sora.variable} font-body antialiased`}
+        className={`${playfairDisplay.variable} ${sora.variable} ${brunoAceSC.variable} font-body antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -57,7 +64,7 @@ export default function RootLayout({
           <IntroProvider>
             <SmoothScroll>
               <Header />
-              <main>{children}</main>
+              <main className="relative">{children}</main>
               <Footer />
               <Reserved />
             </SmoothScroll>

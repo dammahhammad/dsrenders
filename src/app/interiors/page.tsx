@@ -1,19 +1,11 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useVelocity, useAnimationFrame, AnimatePresence } from "motion/react";
-import { useRef, useState, useEffect, useLayoutEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
-import { Footer } from "@/components/layout/footer";
+import { FadeIn } from "@/components/motion/motion-primitives";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconChevronLeft, IconChevronRight, IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// Register ScrollTrigger
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 // Project Data
 interface InteriorProject {
@@ -130,27 +122,6 @@ const philosophy = [
     description: "Designs that transcend fleeting trends for enduring elegance.",
   },
 ];
-
-// Custom hook for detecting scroll velocity and applying scale
-function useScrollScale() {
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-
-  const scale = useMotionValue(1);
-
-  useAnimationFrame(() => {
-    const velocity = Math.abs(smoothVelocity.get());
-    // Map velocity to scale: faster scroll = smaller scale
-    // Velocity range: 0-2000, Scale range: 1-0.94
-    const targetScale = Math.max(0.94, 1 - velocity / 20000);
-    const currentScale = scale.get();
-    // Smooth interpolation
-    scale.set(currentScale + (targetScale - currentScale) * 0.08);
-  });
-
-  return useSpring(scale, { damping: 40, stiffness: 300 });
-}
 
 export default function InteriorsPage() {
   const [selectedProject, setSelectedProject] = useState<InteriorProject | null>(null);

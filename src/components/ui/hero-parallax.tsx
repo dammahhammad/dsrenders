@@ -72,10 +72,11 @@ export const HeroParallax = ({
       >
         {/* First Row - Hidden on small mobile, visible on larger screens */}
         <motion.div className="hidden sm:flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
-          {firstRow.map((product) => (
+          {firstRow.map((product, index) => (
             <ProductCard
               product={product}
               translate={translateX}
+              priority={index === 0}
               key={product.title}
             />
           ))}
@@ -94,8 +95,8 @@ export const HeroParallax = ({
 
         {/* Mobile: Show stacked cards instead of parallax rows */}
         <div className="sm:hidden px-4 space-y-4">
-          {products.slice(0, 4).map((product) => (
-            <MobileProductCard product={product} key={product.title} />
+          {products.slice(0, 4).map((product, index) => (
+            <MobileProductCard product={product} priority={index === 0} key={product.title} />
           ))}
         </div>
       </motion.div>
@@ -105,7 +106,7 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-12 sm:py-20 md:py-40 px-4 sm:px-6 w-full left-0 top-0">
+    <div className="max-w-7xl relative mx-auto min-h-[72svh] sm:min-h-[78svh] md:min-h-[82svh] flex flex-col justify-center px-4 sm:px-6 w-full left-0 top-0">
       <motion.h1
         className="text-3xl sm:text-5xl md:text-7xl font-display font-bold text-foreground leading-tight"
         initial={{ opacity: 0, y: 30 }}
@@ -149,6 +150,7 @@ export const Header = () => {
 export const ProductCard = ({
   product,
   translate,
+  priority = false,
 }: {
   product: {
     title: string;
@@ -156,6 +158,7 @@ export const ProductCard = ({
     thumbnail: string;
   };
   translate: MotionValue<number>;
+  priority?: boolean;
 }) => {
   return (
     <motion.div
@@ -170,12 +173,13 @@ export const ProductCard = ({
     >
       <Link
         href={product.link}
-        className="block group-hover/product:shadow-2xl h-full w-full"
+        className="relative block group-hover/product:shadow-2xl h-full w-full"
       >
         <Image
           src={product.thumbnail}
           alt={product.title}
           fill
+          priority={priority}
           sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 480px"
           className="object-cover object-center"
         />
@@ -193,12 +197,14 @@ export const ProductCard = ({
 // Mobile-optimized product card
 const MobileProductCard = ({
   product,
+  priority = false,
 }: {
   product: {
     title: string;
     link: string;
     thumbnail: string;
   };
+  priority?: boolean;
 }) => {
   return (
     <motion.div
@@ -207,11 +213,12 @@ const MobileProductCard = ({
       viewport={{ once: true }}
       className="relative h-48 rounded-xl overflow-hidden"
     >
-      <Link href={product.link} className="block h-full w-full">
+      <Link href={product.link} className="relative block h-full w-full">
         <Image
           src={product.thumbnail}
           alt={product.title}
           fill
+          priority={priority}
           sizes="100vw"
           className="object-cover"
         />

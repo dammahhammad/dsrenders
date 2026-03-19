@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 253 145">
+
+  <defs>
+    <style>
+      .cls-1,.cls-3,.cls-6{fill:#231f20;}
+      .cls-1,.cls-5,.cls-6{stroke:#000;}
+      .cls-1,.cls-11,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7{stroke-miterlimit:10;}
+      .cls-2,.cls-4,.cls-7,.cls-8{fill:#fff;}
+      .cls-2,.cls-4{stroke:#fff;}
+      .cls-11,.cls-2,.cls-3,.cls-5,.cls-6{stroke-width:0.25px;}
+      .cls-3,.cls-7{stroke:#231f20;}
+      .cls-8{font-size:12px;}
+      .cls-8,.cls-9{font-family:BrunoAceSC-Regular, Bruno Ace SC;}
+      .cls-9{font-size:4px;fill:#f1f2f2;}
+      .cls-10{letter-spacing:-0.01em;}
+      .cls-11{fill:#5c5c5c;stroke:#5c5c5c;}
+    </style>
+  </defs>
+
+  <!-- SHIFT GROUP TO CENTER -->
+  <g transform="translate(50, 0)">
+    
+    <polygon class="cls-2" points="88.67 23.68 88.67 121.32 45.94 92.53 77.09 72.56 77.09 35.18 88.67 23.68"/>
+    <polygon class="cls-3" points="55.74 92.2 74.9 79.2 68.78 97.02 55.74 92.2"/>
+    <path class="cls-4" d="M68.65,97.32" transform="translate(0.5 0.5)"/>
+    <polygon class="cls-5" points="68.78 97.02 88.67 121.32 88.67 120.04 68.78 97.02"/>
+    <polygon class="cls-5" points="74.9 79.2 76.71 72.65 76.47 72.71 74.9 79.2"/>
+    <polygon class="cls-6" points="55.74 92.14 45.99 92.5 46.63 92.09 55.74 92.14"/>
+    <path class="cls-7" d="M88.17,103.59" transform="translate(0.5 0.5)"/>
+  </g>
+</svg>

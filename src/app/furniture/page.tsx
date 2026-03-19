@@ -1,10 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
-import { Footer } from "@/components/layout/footer";
 import {
     Sheet,
     SheetContent,
@@ -12,12 +11,7 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/components/ui/sheet";
-import {
-    Dialog,
-    DialogContent,
-} from "@/components/ui/dialog";
-import { Lens } from "@/components/ui/lens";
-import { IconRuler, IconPencil, IconPalette, IconPhoto, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { IconRuler, IconPencil, IconPalette, IconChevronLeft, IconChevronRight, IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
 interface DesignItem {
     id: string;
@@ -173,7 +167,25 @@ const designPhilosophy = [
 
 export default function FurniturePage() {
     const [selectedItem, setSelectedItem] = useState<DesignItem | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const [galleryItem, setGalleryItem] = useState<DesignItem | null>(null);
+
+    const openItem = (item: DesignItem, index: number) => {
+        setSelectedItem(item);
+        setSelectedIndex(index);
+    };
+
+    const goToPrevItem = () => {
+        const newIndex = selectedIndex === 0 ? designItems.length - 1 : selectedIndex - 1;
+        setSelectedIndex(newIndex);
+        setSelectedItem(designItems[newIndex]);
+    };
+
+    const goToNextItem = () => {
+        const newIndex = selectedIndex === designItems.length - 1 ? 0 : selectedIndex + 1;
+        setSelectedIndex(newIndex);
+        setSelectedItem(designItems[newIndex]);
+    };
 
     return (
         <main>
@@ -286,7 +298,7 @@ export default function FurniturePage() {
                                 <FurnitureRow
                                     item={item}
                                     index={index}
-                                    onClick={() => setSelectedItem(item)}
+                                    onClick={() => openItem(item, index)}
                                     onViewImages={() => setGalleryItem(item)}
                                 />
                             </motion.div>
@@ -352,13 +364,11 @@ export default function FurniturePage() {
             {/* Design Detail Sheet */}
             <DesignDetailSheet
                 item={selectedItem}
+                itemIndex={selectedIndex}
+                totalItems={designItems.length}
                 onClose={() => setSelectedItem(null)}
-            />
-
-            {/* Image Gallery Modal */}
-            <ImageGalleryModal
-                item={galleryItem}
-                onClose={() => setGalleryItem(null)}
+                onPrev={goToPrevItem}
+                onNext={goToNextItem}
             />
         </main>
     );
@@ -433,17 +443,6 @@ function FurnitureRow({ item, index, onClick, onViewImages }: FurnitureRowProps)
                         <span>View Details</span>
                         <span>→</span>
                     </motion.div>
-
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onViewImages();
-                        }}
-                        className="flex items-center gap-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                        <IconPhoto size={16} />
-                        <span>Gallery ({item.images.length})</span>
-                    </button>
                 </div>
             </div>
 
@@ -472,13 +471,20 @@ function FurnitureRow({ item, index, onClick, onViewImages }: FurnitureRowProps)
 // Design Detail Sheet Component
 interface DesignDetailSheetProps {
     item: DesignItem | null;
+    itemIndex: number;
+    totalItems: number;
     onClose: () => void;
+    onPrev: () => void;
+    onNext: () => void;
 }
 
-function DesignDetailSheet({ item, onClose }: DesignDetailSheetProps) {
+function DesignDetailSheet({ item, itemIndex, totalItems, onClose, onPrev, onNext }: DesignDetailSheetProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Reset image index when item changes
+    useEffect(() => {
+        setCurrentImageIndex(0);
+    }, [item?.id]);
+
     const images = item?.images || [];
 
     const goToPrevImage = () => {
@@ -490,325 +496,188 @@ function DesignDetailSheet({ item, onClose }: DesignDetailSheetProps) {
     };
 
     return (
-        <Sheet open={!!item} onOpenChange={(open) => { if (!open) { setCurrentImageIndex(0); onClose(); } }}>
+        <Sheet open={!!item} onOpenChange={(open) => { if (!open) onClose(); }}>
             <SheetContent
-                side="right"
-                className="w-full sm:w-[540px] lg:w-[600px] min-w-[40vw] overflow-y-auto p-0"
+                side="bottom"
+                className="h-[100vh] w-full p-0 border-t border-border rounded-t-3xl"
             >
                 {item && (
                     <div className="flex flex-col h-full">
-                        {/* Image Carousel Section */}
-                        <div className="relative h-[300px] sm:h-[350px] bg-secondary/20 shrink-0">
-                            {/* Blueprint Grid */}
-                            <div
-                                className="absolute inset-0 opacity-[0.05] pointer-events-none"
-                                style={{
-                                    backgroundImage: `
-                                        linear-gradient(to right, currentColor 1px, transparent 1px),
-                                        linear-gradient(to bottom, currentColor 1px, transparent 1px)
-                                    `,
-                                    backgroundSize: "30px 30px",
-                                }}
-                            />
-
-                            {/* Images with smooth transition */}
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={currentImageIndex}
-                                    className="absolute inset-0"
-                                    initial={{ opacity: 0, scale: 1.02 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.98 }}
-                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                >
-                                    <Image
-                                        src={images[currentImageIndex] || item.image}
-                                        alt={`${item.name} - Image ${currentImageIndex + 1}`}
-                                        fill
-                                        className="object-contain p-8"
-                                        sizes="(max-width: 640px) 100vw, 600px"
-                                    />
-                                </motion.div>
-                            </AnimatePresence>
-
-                            {/* Navigation Arrows */}
-                            {images.length > 1 && (
-                                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 z-10">
-                                    <motion.button
-                                        onClick={(e) => { e.stopPropagation(); goToPrevImage(); }}
-                                        className="w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-sm"
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                    >
-                                        <IconChevronLeft size={18} />
-                                    </motion.button>
-                                    <motion.button
-                                        onClick={(e) => { e.stopPropagation(); goToNextImage(); }}
-                                        className="w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-sm"
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                    >
-                                        <IconChevronRight size={18} />
-                                    </motion.button>
-                                </div>
-                            )}
-
-                            {/* Image Dots */}
-                            {images.length > 1 && (
-                                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
-                                    {images.map((_, idx) => (
-                                        <button
-                                            key={idx}
-                                            onClick={() => setCurrentImageIndex(idx)}
-                                            className={`h-1.5 rounded-full transition-all duration-300 ${currentImageIndex === idx
-                                                ? "bg-foreground w-6"
-                                                : "bg-foreground/30 w-1.5 hover:bg-foreground/50"
-                                                }`}
-                                        />
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Scale indicator */}
-                            {item.scale && (
-                                <div className="absolute top-4 right-4 z-20">
-                                    <span className="px-3 py-1.5 text-xs font-mono bg-background/90 backdrop-blur-sm rounded text-foreground border border-border/50">
-                                        Scale: {item.scale}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Content Section */}
-                        <div className="p-6 sm:p-8 flex-1 overflow-y-auto">
-                            <SheetHeader className="text-left mb-6">
-                                <span className="text-xs font-body tracking-[0.2em] uppercase text-muted-foreground mb-1 block">
-                                    {item.category}
-                                </span>
-                                <SheetTitle className="text-2xl sm:text-3xl font-display font-bold text-foreground">
-                                    {item.name}
-                                </SheetTitle>
-                                <SheetDescription className="mt-3 text-base text-muted-foreground font-body leading-relaxed">
-                                    {item.description}
-                                </SheetDescription>
-                            </SheetHeader>
-
-                            {/* Materials Section */}
-                            <div className="mb-6 sm:mb-8">
-                                <h4 className="text-sm font-display font-semibold text-foreground mb-4 uppercase tracking-wider">
-                                    Materials
-                                </h4>
-                                <div className="flex flex-wrap gap-3">
-                                    {item.materials.map((material, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-secondary/50 border border-border/50"
-                                        >
-                                            <div
-                                                className="w-5 h-5 rounded-full border border-border"
-                                                style={{ backgroundColor: material.color }}
-                                            />
-                                            <span className="text-sm font-body text-foreground">
-                                                {material.name}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Dimensions */}
-                            <div className="mb-6 sm:mb-8">
-                                <h4 className="text-sm font-display font-semibold text-foreground mb-3 uppercase tracking-wider">
-                                    Dimensions
-                                </h4>
-                                <p className="text-sm text-muted-foreground font-mono bg-secondary/30 px-4 py-3 rounded-lg border border-border/50">
-                                    {item.dimensions}
-                                </p>
-                            </div>
-
-                            {/* Design Notes */}
-                            <div className="mb-8">
-                                <h4 className="text-sm font-display font-semibold text-foreground mb-4 uppercase tracking-wider">
-                                    Design Notes
-                                </h4>
-                                <ul className="space-y-3">
-                                    {item.designNotes.map((note, idx) => (
-                                        <li
-                                            key={idx}
-                                            className="flex items-start gap-3 text-sm text-muted-foreground font-body"
-                                        >
-                                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                                            <span>{note}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* CTA */}
-                            <motion.a
-                                href="/contact"
-                                className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-foreground text-background rounded-full font-body font-medium text-center"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                            >
-                                <span>Request This Design</span>
-                                <span>→</span>
-                            </motion.a>
-                        </div>
-                    </div>
-                )}
-            </SheetContent>
-        </Sheet>
-    );
-}
-
-// Image Gallery Modal Component with Lens Zoom
-interface ImageGalleryModalProps {
-    item: DesignItem | null;
-    onClose: () => void;
-}
-
-function ImageGalleryModal({ item, onClose }: ImageGalleryModalProps) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    // Reset index when modal opens
-    const handleOpenChange = (open: boolean) => {
-        if (!open) {
-            onClose();
-            setCurrentIndex(0);
-        }
-    };
-
-    const images = item?.images || [];
-    const hasMultipleImages = images.length > 1;
-
-    const goToPrevious = () => {
-        setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    };
-
-    const goToNext = () => {
-        setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    };
-
-    return (
-        <Dialog open={!!item} onOpenChange={handleOpenChange}>
-            <DialogContent className="max-w-4xl w-[95vw] h-[85vh] p-0 overflow-hidden bg-background border-border">
-                <AnimatePresence mode="wait">
-                    {item && (
-                        <motion.div
-                            key="gallery-content"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="flex flex-col h-full"
-                        >
-                            {/* Header */}
-                            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border shrink-0">
-                                <div>
-                                    <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground">
-                                        {item.name}
-                                    </h3>
-                                    <p className="text-sm text-muted-foreground font-body">
-                                        {images.length} images • Hover to zoom
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Image Container with Lens */}
-                            <div className="flex-1 relative bg-secondary/10 min-h-0">
-                                {/* Blueprint Grid */}
-                                <div
-                                    className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                                    style={{
-                                        backgroundImage: `
-                                            linear-gradient(to right, currentColor 1px, transparent 1px),
-                                            linear-gradient(to bottom, currentColor 1px, transparent 1px)
-                                        `,
-                                        backgroundSize: "40px 40px",
-                                    }}
-                                />
-
-                                {/* Main Image with Lens */}
+                        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 min-h-0">
+                            <div className="relative bg-secondary/20 h-[280px] sm:h-[350px] lg:h-full overflow-hidden">
                                 <AnimatePresence mode="wait">
                                     <motion.div
-                                        key={currentIndex}
-                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        key={currentImageIndex}
+                                        className="absolute inset-0"
+                                        initial={{ opacity: 0, scale: 1.02 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="absolute inset-0 flex items-center justify-center p-6 sm:p-10"
+                                        exit={{ opacity: 0, scale: 0.98 }}
+                                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                     >
-                                        <Lens zoomFactor={2} lensSize={200}>
-                                            <Image
-                                                src={images[currentIndex]}
-                                                alt={`${item.name} - Image ${currentIndex + 1}`}
-                                                width={600}
-                                                height={450}
-                                                className="object-contain max-w-full max-h-[450px] w-auto h-auto"
-                                                priority
-                                            />
-                                        </Lens>
+                                        <Image
+                                            src={images[currentImageIndex] || item.image}
+                                            alt={`${item.name} - Image ${currentImageIndex + 1}`}
+                                            fill
+                                            className="object-cover"
+                                            sizes="50vw"
+                                            priority
+                                        />
                                     </motion.div>
                                 </AnimatePresence>
 
-                                {/* Navigation Arrows */}
-                                {hasMultipleImages && (
-                                    <>
+                                {images.length > 1 && (
+                                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 z-10">
                                         <motion.button
-                                            onClick={goToPrevious}
-                                            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/90 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                                            onClick={goToPrevImage}
+                                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.9 }}
                                         >
                                             <IconChevronLeft size={20} />
                                         </motion.button>
                                         <motion.button
-                                            onClick={goToNext}
-                                            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/90 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                                            onClick={goToNextImage}
+                                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.9 }}
                                         >
                                             <IconChevronRight size={20} />
                                         </motion.button>
-                                    </>
+                                    </div>
+                                )}
+
+                                {images.length > 1 && (
+                                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
+                                        {images.map((_, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setCurrentImageIndex(idx)}
+                                                className={`h-1.5 rounded-full transition-all duration-300 ${currentImageIndex === idx
+                                                    ? "bg-white w-6"
+                                                    : "bg-white/40 w-1.5 hover:bg-white/60"
+                                                    }`}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+
+                                {item.scale && (
+                                    <div className="absolute top-4 right-4 z-20">
+                                        <span className="px-3 py-1.5 text-xs font-mono bg-background/90 backdrop-blur-sm rounded text-foreground border border-border/50">
+                                            Scale: {item.scale}
+                                        </span>
+                                    </div>
                                 )}
                             </div>
 
-                            {/* Thumbnail Strip */}
-                            {hasMultipleImages && (
-                                <div className="p-4 sm:p-6 border-t border-border bg-background shrink-0">
-                                    <div className="flex items-center justify-center gap-2 sm:gap-3">
-                                        {images.map((img, idx) => (
-                                            <motion.button
+                            <div className="p-6 sm:p-8 lg:p-10 flex-1 overflow-y-auto">
+                                <SheetHeader className="text-left mb-6">
+                                    <span className="text-xs font-body tracking-[0.2em] uppercase text-muted-foreground mb-1 block">
+                                        {item.category}
+                                    </span>
+                                    <SheetTitle className="text-2xl sm:text-3xl font-display font-bold text-foreground">
+                                        {item.name}
+                                    </SheetTitle>
+                                    <SheetDescription className="mt-3 text-base text-muted-foreground font-body leading-relaxed">
+                                        {item.description}
+                                    </SheetDescription>
+                                </SheetHeader>
+
+                                <div className="mb-6 sm:mb-8">
+                                    <h4 className="text-sm font-display font-semibold text-foreground mb-4 uppercase tracking-wider">
+                                        Materials
+                                    </h4>
+                                    <div className="flex flex-wrap gap-3">
+                                        {item.materials.map((material, idx) => (
+                                            <div
                                                 key={idx}
-                                                onClick={() => setCurrentIndex(idx)}
-                                                className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border-2 transition-all ${currentIndex === idx
-                                                    ? "border-accent shadow-lg"
-                                                    : "border-border/50 hover:border-border opacity-60 hover:opacity-100"
-                                                    }`}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
+                                                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-secondary/50 border border-border/50"
                                             >
-                                                <Image
-                                                    src={img}
-                                                    alt={`Thumbnail ${idx + 1}`}
-                                                    fill
-                                                    className="object-cover"
-                                                    sizes="64px"
+                                                <div
+                                                    className="w-5 h-5 rounded-full border border-border"
+                                                    style={{ backgroundColor: material.color }}
                                                 />
-                                            </motion.button>
+                                                <span className="text-sm font-body text-foreground">
+                                                    {material.name}
+                                                </span>
+                                            </div>
                                         ))}
                                     </div>
-                                    {/* Image Counter */}
-                                    <p className="text-center mt-3 text-xs sm:text-sm text-muted-foreground font-body">
-                                        {currentIndex + 1} of {images.length}
+                                </div>
+
+                                <div className="mb-6 sm:mb-8">
+                                    <h4 className="text-sm font-display font-semibold text-foreground mb-3 uppercase tracking-wider">
+                                        Dimensions
+                                    </h4>
+                                    <p className="text-sm text-muted-foreground font-mono bg-secondary/30 px-4 py-3 rounded-lg border border-border/50">
+                                        {item.dimensions}
                                     </p>
                                 </div>
-                            )}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </DialogContent>
-        </Dialog>
+
+                                <div className="mb-8">
+                                    <h4 className="text-sm font-display font-semibold text-foreground mb-4 uppercase tracking-wider">
+                                        Design Notes
+                                    </h4>
+                                    <ul className="space-y-3">
+                                        {item.designNotes.map((note, idx) => (
+                                            <li
+                                                key={idx}
+                                                className="flex items-start gap-3 text-sm text-muted-foreground font-body"
+                                            >
+                                                <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                                                <span>{note}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <motion.a
+                                    href="/contact"
+                                    className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-foreground text-background rounded-full font-body font-medium"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <span>Request This Design</span>
+                                    <span>→</span>
+                                </motion.a>
+                            </div>
+                        </div>
+
+                        <div className="shrink-0 border-t border-border bg-background px-4 sm:px-8 py-4 sm:py-5">
+                            <div className="flex items-center justify-between max-w-7xl mx-auto">
+                                <motion.button
+                                    onClick={onPrev}
+                                    className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+                                    whileHover={{ x: -3 }}
+                                >
+                                    <IconArrowLeft size={18} />
+                                    <span className="hidden sm:inline uppercase tracking-wider text-xs">Prev</span>
+                                </motion.button>
+
+                                <div className="text-center">
+                                    <p className="text-xs sm:text-sm font-body text-foreground">
+                                        <span className="hidden md:inline">{item.name}</span>
+                                        <span className="hidden md:inline text-muted-foreground"> — </span>
+                                        <span className="text-muted-foreground">{item.category}</span>
+                                    </p>
+                                    <p className="text-[10px] sm:text-xs text-muted-foreground/60 mt-1 tracking-wider">
+                                        {itemIndex + 1} / {totalItems}
+                                    </p>
+                                </div>
+
+                                <motion.button
+                                    onClick={onNext}
+                                    className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+                                    whileHover={{ x: 3 }}
+                                >
+                                    <span className="hidden sm:inline uppercase tracking-wider text-xs">Next</span>
+                                    <IconArrowRight size={18} />
+                                </motion.button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </SheetContent>
+        </Sheet>
     );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import DottedMap from "dotted-map/without-countries";
 import myMap from "@/app/data/myMap";
@@ -22,8 +22,19 @@ export default function WorldMap({
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const map = new DottedMap({ map: JSON.parse(myMap) });
+  const [mounted, setMounted] = useState(false);
 
   const { theme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="dark:bg-black bg-[#F7F8FA] rounded-lg relative font-sans w-full h-full" />
+    );
+  }
 
   const svgMap = map.getSVG({
     radius: 0.22,
