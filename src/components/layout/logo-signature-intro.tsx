@@ -18,7 +18,7 @@ export function LogoSignatureIntro({ onComplete, className }: LogoSignatureIntro
       gsap.set("#logo-signature-scene", { autoAlpha: 1 });
       gsap.set("#intro-signature-wrap", { autoAlpha: 0, scale: 0.92, y: 10 });
       gsap.set("#intro-signature-fill", { autoAlpha: 0 });
-      gsap.set(["#intro-signature-shard", "#intro-signature-spine", "#intro-signature-base"], {
+      gsap.set(["#intro-signature-shard", "#intro-signature-edge", "#intro-signature-spine", "#intro-signature-base"], {
         autoAlpha: 0,
       });
       gsap.set("#intro-signature-rule-svg", { autoAlpha: 0 });
@@ -52,6 +52,8 @@ export function LogoSignatureIntro({ onComplete, className }: LogoSignatureIntro
         },
       });
 
+      tl.timeScale(0.68);
+
       tl.fromTo(
         "#intro-signature-wrap",
         {
@@ -77,7 +79,13 @@ export function LogoSignatureIntro({ onComplete, className }: LogoSignatureIntro
           ">-0.06",
         )
         .to(
-          ["#intro-signature-fill", "#intro-signature-shard", "#intro-signature-spine", "#intro-signature-base"],
+          [
+            "#intro-signature-fill",
+            "#intro-signature-shard",
+            "#intro-signature-edge",
+            "#intro-signature-spine",
+            "#intro-signature-base",
+          ],
           {
             autoAlpha: 1,
             duration: 0.32,
@@ -168,7 +176,7 @@ export function LogoSignatureIntro({ onComplete, className }: LogoSignatureIntro
       id="logo-signature-scene"
       className={`fixed inset-0 z-[100] flex items-center justify-center bg-background ${className ?? ""}`}
     >
-      <LogoSignatureReveal className="scale-[0.86] sm:scale-100" />
+      <LogoSignatureReveal className="scale-100 sm:scale-[1.18]" />
     </div>
   );
 }

@@ -319,8 +319,8 @@ export default function FurniturePage() {
                                 Commission
                             </span>
                             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-accent mb-6 leading-tight">
-                                Bespoke <br />
-                                <span className="text-accent/80">Creations</span>
+                                DS <br />
+                                <span className="text-accent/80">Renders</span>
                             </h2>
                             <p className="text-lg text-white/70 font-body leading-relaxed mb-8 max-w-md">
                                 Collaborate with us to create furniture that is uniquely yours. From initial sketch to final installation.
@@ -382,7 +382,7 @@ interface FurnitureRowProps {
     onViewImages: () => void;
 }
 
-function FurnitureRow({ item, index, onClick, onViewImages }: FurnitureRowProps) {
+function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
     const rowRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: rowRef,

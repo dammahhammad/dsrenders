@@ -32,7 +32,7 @@ export default function WorldMap({
 
   if (!mounted) {
     return (
-      <div className="dark:bg-black bg-[#F7F8FA] rounded-lg relative font-sans w-full h-full" />
+      <div className="relative font-sans w-full h-full" />
     );
   }
 
@@ -40,7 +40,7 @@ export default function WorldMap({
     radius: 0.22,
     color: theme === "dark" ? "#FFFFFF40" : "#00000040",
     shape: "circle",
-    backgroundColor: theme === "dark" ? "oklch(0.12 0.015 60)" : "oklch(0.97 0.01 85)",
+    backgroundColor: "transparent",
   });
 
   const projectPoint = (lat: number, lng: number) => {
@@ -59,10 +59,10 @@ export default function WorldMap({
   };
 
   return (
-    <div className="dark:bg-black bg-[#F7F8FA] rounded-lg relative font-sans w-full h-full">
+    <div className="relative font-sans w-full h-full">
       <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
-        className="h-full w-full"
+        className="h-full w-full object-cover"
         alt="world map"
         height="495"
         width="1056"

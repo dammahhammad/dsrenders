@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
-import { IconBrandLinkedin, IconBrandTwitter, IconBrandGithub, IconMail, IconBrandBehance } from "@tabler/icons-react";
+import { IconBrandLinkedin, IconMail, IconBrandBehance, IconBrandInstagram } from "@tabler/icons-react";
 import {
     IconPalette,
     IconBuildingSkyscraper,
@@ -47,7 +47,7 @@ const skills: Skill[] = [
 ];
 
 const profileInfo = {
-    name: "Dani Smithson",
+    name: "Daniyal Siddiqui",
     role: "Architect & 3D Visualization Artist",
     tagline: "Transforming visions into breathtaking reality",
     bio: "With over a decade of experience in architecture and 3D visualization, I bring creative visions to life through stunning renders and innovative designs. My work spans residential, commercial, and conceptual projects across the globe.",
@@ -59,7 +59,7 @@ const profileInfo = {
     ],
     socials: {
         linkedin: "#",
-        twitter: "#",
+        instagram: "#",
         github: "#",
         behance: "#",
         email: "dani@dsrenders.com",
@@ -122,7 +122,7 @@ export function AboutMeSection() {
                                             {profileInfo.name}
                                         </motion.h3>
                                         <motion.p
-                                            className="text-sm sm:text-base text-accent font-body"
+                                            className="text-sm sm:text-base text-secondary-foreground font-body"
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.3 }}
@@ -133,21 +133,18 @@ export function AboutMeSection() {
                                 </div>
 
                                 {/* Social Links */}
-                                <div className="p-4 sm:p-6 bg-card/80 backdrop-blur-sm flex items-center justify-center gap-3 sm:gap-4">
-                                    {profileInfo.socials.linkedin && (
-                                        <SocialButton href={profileInfo.socials.linkedin} icon={<IconBrandLinkedin size={20} />} />
+                                <div className="p-4 sm:p-6 flex items-center justify-center gap-3 sm:gap-4">
+                                    {profileInfo.socials.instagram && (
+                                        <SocialButton href={profileInfo.socials.instagram} hoverColor="#C13584" icon={<IconBrandInstagram size={20} />} />
                                     )}
                                     {profileInfo.socials.behance && (
-                                        <SocialButton href={profileInfo.socials.behance} icon={<IconBrandBehance size={20} />} />
-                                    )}
-                                    {profileInfo.socials.twitter && (
-                                        <SocialButton href={profileInfo.socials.twitter} icon={<IconBrandTwitter size={20} />} />
-                                    )}
-                                    {profileInfo.socials.github && (
-                                        <SocialButton href={profileInfo.socials.github} icon={<IconBrandGithub size={20} />} />
+                                        <SocialButton href={profileInfo.socials.behance} hoverColor="#1769FF" icon={<IconBrandBehance size={20} />} />
                                     )}
                                     {profileInfo.socials.email && (
-                                        <SocialButton href={`mailto:${profileInfo.socials.email}`} icon={<IconMail size={20} />} />
+                                        <SocialButton href={`mailto:${profileInfo.socials.email}`} hoverColor="#EA4335" icon={<IconMail size={20} />} />
+                                    )}
+                                    {profileInfo.socials.linkedin && (
+                                        <SocialButton href={profileInfo.socials.linkedin} hoverColor="#0077B5" icon={<IconBrandLinkedin size={20} />} />
                                     )}
                                 </div>
                             </motion.div>
@@ -182,7 +179,7 @@ export function AboutMeSection() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.2 + index * 0.1 }}
                                     >
-                                        <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-accent">
+                                        <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold">
                                             {stat.value}
                                         </div>
                                         <div className="text-xs sm:text-sm text-muted-foreground font-body mt-1">
@@ -256,13 +253,15 @@ function SkillCard({ skill }: SkillCardProps) {
 interface SocialButtonProps {
     href: string;
     icon: React.ReactNode;
+    hoverColor?: string;
 }
 
-function SocialButton({ href, icon }: SocialButtonProps) {
+function SocialButton({ href, icon, hoverColor = "var(--accent)" }: SocialButtonProps) {
     return (
         <motion.a
             href={href}
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-accent/10 flex items-center justify-center text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+            style={{ "--social-color": hoverColor } as React.CSSProperties}
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-accent/40 flex items-center justify-center text-[var(--social-color)] hover:bg-accent/20 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             target="_blank"

@@ -21,8 +21,8 @@ export default function Reserved() {
 
     return (
         <div className="bg-card border-t border-border/10 relative z-0 sticky">
-            <div className="container-custom flex flex-col md:flex-row justify-between items-center gap-6 py-4">
-                <div className="flex gap-4">
+            <div className="container-custom flex flex-col md:flex-row justify-between items-center gap-4 py-3">
+                <div className="flex gap-3">
                     {socialLinks.map((social) => (
                         <motion.div
                             key={social.label}
@@ -34,12 +34,12 @@ export default function Reserved() {
                                 aria-label={social.label}
                                 className={`text-muted-foreground transition-colors duration-300 ${social.color}`}
                             >
-                                <social.icon size={24} stroke={1.5} />
+                                <social.icon size={20} stroke={1.5} />
                             </Link>
                         </motion.div>
                     ))}
                 </div>
-                <p className="text-sm text-muted-foreground font-body text-center md:text-right">
+                <p className="text-xs sm:text-sm text-muted-foreground font-body text-center md:text-right">
                     © {new Date().getFullYear()} DsRenders. All rights reserved.
                 </p>
             </div>

@@ -16,8 +16,10 @@ export function AnimatedLogo({
   wordmarkClassName,
 }: AnimatedLogoProps) {
   const colors = {
-    primary: "var(--primary)",
-    accent: "var(--primary-foreground)",
+    blockFill: "var(--logo-block-fill)",
+    blockStroke: "var(--logo-block-stroke)",
+    centerFill: "var(--logo-center-fill)",
+    outerStroke: "var(--logo-outer-stroke)",
     subtle: "var(--primary)",
     rule: "#5c5c5c",
   };
@@ -37,7 +39,7 @@ export function AnimatedLogo({
           id={`${idPrefix}-d-seed`}
           d="M52 24 V121 M52 24 C84 24 92 42 92 72 C92 102 84 121 52 121"
           fill="none"
-          stroke={colors.primary}
+          stroke={colors.blockStroke}
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -54,53 +56,51 @@ export function AnimatedLogo({
         <polygon
           id={`${idPrefix}-mark-outline`}
           points="88.67 23.68 88.67 121.32 45.94 92.53 77.09 72.56 77.09 35.18 88.67 23.68"
-          fill={colors.primary}
-          stroke={colors.primary}
-          strokeWidth="1"
+          fill={colors.blockFill}
+          stroke={colors.outerStroke}
+          strokeWidth="0.8"
           strokeLinejoin="round"
         />
 
         <path
           id={`${idPrefix}-mark-shard`}
           d="M55.74 92.2 L74.9 79.2 L68.78 97.02 Z"
-          fill={colors.accent}
-          stroke={colors.accent}
-          strokeWidth="0.4"
+          fill={colors.centerFill}
+          stroke={colors.blockStroke}
+          strokeWidth="0.6"
           strokeLinejoin="round"
         />
 
         <path
           id={`${idPrefix}-mark-shard-target`}
           d="M55.74 92.2 C63 79, 73.5 82.5, 68.78 97.02 C62 95.2, 58 94, 55.74 92.2 Z"
-          fill={colors.accent}
+          fill={colors.centerFill}
           opacity="0"
         />
 
         <polygon
           points="68.78 97.02 88.67 121.32 88.67 120.04 68.78 97.02"
-          fill={colors.accent}
-          stroke={colors.accent}
-          strokeWidth="0.4"
+          fill={colors.blockFill}
+          stroke={colors.blockStroke}
+          strokeWidth="0.55"
           strokeLinejoin="round"
         />
 
         <polygon
           id={`${idPrefix}-mark-spine`}
           points="74.9 79.2 76.71 72.65 76.47 72.71 74.9 79.2"
-          fill="none"
-          stroke={colors.primary}
-          strokeWidth="0.8"
-          strokeLinecap="round"
+          fill={colors.blockFill}
+          stroke={colors.blockStroke}
+          strokeWidth="0.55"
           strokeLinejoin="round"
         />
 
         <polygon
           id={`${idPrefix}-mark-base`}
           points="55.74 92.14 45.99 92.5 46.63 92.09 55.74 92.14"
-          fill="none"
-          stroke={colors.primary}
-          strokeWidth="0.8"
-          strokeLinecap="round"
+          fill={colors.blockFill}
+          stroke={colors.blockStroke}
+          strokeWidth="0.55"
           strokeLinejoin="round"
         />
 
@@ -108,11 +108,11 @@ export function AnimatedLogo({
           id={`${idPrefix}-wordmark`}
           x="97.94"
           y="97.94"
-          fill={colors.primary}
+          fill={colors.subtle}
           fontSize="18"
           fontFamily="var(--font-logo), Bruno Ace SC, sans-serif"
           className={cn("tracking-tight", wordmarkClassName)}
-        >
+          >
           DS RENDERS
         </text>
 
@@ -123,6 +123,7 @@ export function AnimatedLogo({
           fill={colors.subtle}
           fontSize="8.5"
           fontFamily="var(--font-logo), Bruno Ace SC, sans-serif"
+          className={cn("tracking-tight", wordmarkClassName)}
         >
           PRECISION IN EVERY LINE
         </text>
