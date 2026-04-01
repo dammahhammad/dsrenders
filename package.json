@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "analyze": "npx -y cross-env ANALYZE=true next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "npx -y wrangler deploy"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
