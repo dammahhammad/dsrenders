@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "analyze": "npx -y cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "eslint"
   },
