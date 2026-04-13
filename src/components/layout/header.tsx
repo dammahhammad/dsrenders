@@ -45,7 +45,7 @@ export function Header() {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
       >
         <div className="container-custom">
-          <nav className="flex items-center justify-between">
+          <nav className="flex items-center justify-between" aria-label="Primary navigation">
             {/* Logo */}
             <Link href="/" className="relative z-50">
               <div
@@ -63,9 +63,9 @@ export function Header() {
               ))}
             </div>
 
-            {/* Desktop Actions */}
+            {/* Desktop Actions — hidden on mobile, shown on lg+ */}
             <Button
-              className="px-4 py-2 bg-transparent hover:bg-transparent text-primary-foreground font-mono text-sm transition-all duration-300 hover:cursor-pointer"
+              className="hidden lg:inline-flex px-4 py-2 bg-transparent hover:bg-transparent text-primary-foreground font-mono text-sm transition-all duration-300 hover:cursor-pointer"
               onClick={() => setIsContactOpen(true)}
             >
               <div className="relative inline-block px-4 py-2 font-medium group">
@@ -82,6 +82,9 @@ export function Header() {
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="relative z-50 w-10 h-10 flex items-center justify-center text-foreground"
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-navigation"
                 whileTap={{ scale: 0.95 }}
               >
                 {isMobileMenuOpen ? (
@@ -164,7 +167,9 @@ function MobileMenu({ isOpen, onClose, onContactClick }: MobileMenuProps) {
 
       {/* Menu Content */}
       <motion.nav
+        id="mobile-navigation"
         className="relative h-full flex flex-col justify-center px-8"
+        aria-label="Mobile navigation"
         variants={{
           open: { opacity: 1 },
           closed: { opacity: 0 },

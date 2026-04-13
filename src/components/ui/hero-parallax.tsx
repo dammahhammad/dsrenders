@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useSpring,
   MotionValue,
+  AnimatePresence
 } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +30,6 @@ export const HeroParallax = ({
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
-  // Responsive translation values - smaller on mobile
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 500]),
     springConfig
@@ -60,7 +60,7 @@ export const HeroParallax = ({
       ref={ref}
       className="z-10 pb-20 sm:pb-40 overflow-hidden antialiased bg-background relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
-      <Header />
+      <Header products={products} />
       <motion.div
         style={{
           rotateX,
@@ -68,10 +68,10 @@ export const HeroParallax = ({
           translateY,
           opacity,
         }}
-        className=""
+        className="hidden sm:block"
       >
-        {/* First Row - Hidden on small mobile, visible on larger screens */}
-        <motion.div className="hidden sm:flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
+        {/* First Row */}
+        <motion.div className="flex flex-row-reverse space-x-reverse sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
           {firstRow.map((product, index) => (
             <ProductCard
               product={product}
@@ -83,7 +83,7 @@ export const HeroParallax = ({
         </motion.div>
 
         {/* Second Row */}
-        <motion.div className="hidden sm:flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -92,21 +92,18 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-
-        {/* Mobile: Show stacked cards instead of parallax rows */}
-        <div className="sm:hidden px-4 space-y-4">
-          {products.slice(0, 4).map((product, index) => (
-            <MobileProductCard product={product} priority={index === 0} key={product.title} />
-          ))}
-        </div>
       </motion.div>
     </div>
   );
 };
 
-export const Header = () => {
+export const Header = ({
+  products,
+}: {
+  products?: { title: string; link: string; thumbnail: string }[];
+}) => {
   return (
-    <div className="max-w-7xl relative mx-auto min-h-[72svh] sm:min-h-[78svh] md:min-h-[82svh] flex flex-col justify-center px-4 sm:px-6 w-full left-0 top-0">
+    <div className="max-w-7xl relative mx-auto min-h-[72svh] sm:min-h-[78svh] md:min-h-[82svh] flex flex-col justify-center pt-24 sm:pt-0 px-4 sm:px-6 w-full left-0 top-0">
       <motion.h1
         className="text-3xl sm:text-5xl md:text-7xl font-display font-bold text-foreground leading-tight"
         initial={{ opacity: 0, y: 30 }}
@@ -122,8 +119,9 @@ export const Header = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        Award-winning architecture studio blending innovation with timeless design.
-        From concept to creation, we shape environments that define the future.
+        Award-winning architecture studio blending innovation with timeless
+        design. From concept to creation, we shape environments that define the
+        future.
       </motion.p>
 
       {/* Category Pills */}
@@ -143,9 +141,288 @@ export const Header = () => {
           </Link>
         ))}
       </motion.div>
+
+      {/* Mobile Showcase — appears below hero text on small screens */}
+      {products && products.length > 0 && (
+        <div className="block sm:hidden mt-10">
+          <MobileHeroShowcase products={products} />
+        </div>
+      )}
     </div>
   );
 };
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MOBILE HERO SHOWCASE
+// A cinematic, auto-playing horizontal card carousel with snap-scroll,
+// architectural index indicator, and smooth parallax-inspired animations.
+// ═══════════════════════════════════════════════════════════════════════════
+
+function MobileHeroShowcase({
+  products,
+}: {
+  products: { title: string; link: string; thumbnail: string }[];
+}) {
+  const showcaseItems = products.slice(0, 6);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const isUserScrolling = useRef(false);
+
+  // Auto-play logic
+  const startAutoPlay = useCallback(() => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      if (isUserScrolling.current) return;
+      setActiveIndex((prev) => {
+        const next = (prev + 1) % showcaseItems.length;
+        scrollToIndex(next);
+        return next;
+      });
+    }, 3500);
+  }, [showcaseItems.length]);
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollRef.current) return;
+    const cardWidth = scrollRef.current.scrollWidth / showcaseItems.length;
+    scrollRef.current.scrollTo({
+      left: cardWidth * index,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    startAutoPlay();
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [startAutoPlay]);
+
+  // Handle manual scroll / snap detection
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const scrollLeft = scrollRef.current.scrollLeft;
+    const cardWidth = scrollRef.current.scrollWidth / showcaseItems.length;
+    const newIndex = Math.round(scrollLeft / cardWidth);
+    if (newIndex !== activeIndex) {
+      setActiveIndex(newIndex);
+    }
+  };
+
+  const handleTouchStart = () => {
+    isUserScrolling.current = true;
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+  };
+
+  const handleTouchEnd = () => {
+    isUserScrolling.current = false;
+    // Restart autoplay after user stops interacting
+    setTimeout(() => startAutoPlay(), 4000);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      {/* Architectural line accent */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="h-px flex-1 bg-gradient-to-r from-border/60 to-transparent" />
+        <span className="text-[10px] font-body tracking-[0.3em] uppercase text-muted-foreground/60">
+          Featured Projects
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-l from-border/60 to-transparent" />
+      </div>
+
+      {/* Horizontal snap-scroll carousel */}
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {showcaseItems.map((product, index) => (
+          <MobileShowcaseCard
+            key={product.title}
+            product={product}
+            index={index}
+            isActive={index === activeIndex}
+          />
+        ))}
+      </div>
+
+      {/* Index indicator bar */}
+      <div className="flex items-center gap-2 mt-4">
+        {/* Progress dots */}
+        <div className="flex gap-1.5 flex-1">
+          {showcaseItems.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setActiveIndex(index);
+                scrollToIndex(index);
+                isUserScrolling.current = true;
+                if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+                setTimeout(() => {
+                  isUserScrolling.current = false;
+                  startAutoPlay();
+                }, 4000);
+              }}
+              className="relative h-[3px] flex-1 rounded-full overflow-hidden bg-border/30"
+            >
+              <motion.div
+                className="absolute inset-y-0 left-0 rounded-full bg-foreground"
+                initial={{ width: "0%" }}
+                animate={{
+                  width: index === activeIndex ? "100%" : index < activeIndex ? "100%" : "0%",
+                }}
+                transition={{
+                  duration: index === activeIndex ? 3.5 : 0.3,
+                  ease: index === activeIndex ? "linear" : "easeOut",
+                }}
+              />
+            </button>
+          ))}
+        </div>
+
+        {/* Counter badge */}
+        <div className="flex items-baseline gap-0.5 font-body tabular-nums">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={activeIndex}
+              className="text-sm font-medium text-foreground"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              {String(activeIndex + 1).padStart(2, "0")}
+            </motion.span>
+          </AnimatePresence>
+          <span className="text-[10px] text-muted-foreground/50">/</span>
+          <span className="text-[10px] text-muted-foreground/50">
+            {String(showcaseItems.length).padStart(2, "0")}
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MOBILE SHOWCASE CARD
+// Individual card with parallax-inspired layered reveal and gradient overlay
+// ═══════════════════════════════════════════════════════════════════════════
+
+function MobileShowcaseCard({
+  product,
+  index,
+  isActive,
+}: {
+  product: { title: string; link: string; thumbnail: string };
+  index: number;
+  isActive: boolean;
+}) {
+  return (
+    <Link
+      href={product.link}
+      className="relative snap-center shrink-0 group"
+      style={{ width: "78vw" }}
+    >
+      <motion.div
+        className="relative h-[220px] rounded-2xl overflow-hidden"
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{
+          opacity: 1,
+          scale: isActive ? 1 : 0.95,
+        }}
+        transition={{
+          delay: 0.1 * index,
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+      >
+        {/* Image with subtle zoom on active */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{ scale: isActive ? 1.05 : 1 }}
+          transition={{ duration: 4, ease: "easeOut" }}
+        >
+          <Image
+            src={product.thumbnail}
+            alt={product.title}
+            fill
+            className="object-cover"
+            sizes="80vw"
+            priority={index === 0}
+          />
+        </motion.div>
+
+        {/* Multi-layer gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+
+        {/* Top-left architectural accent lines */}
+        <div className="absolute top-3 left-3 pointer-events-none">
+          <motion.div
+            className="w-5 h-px bg-white/40"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isActive ? 1 : 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+            style={{ transformOrigin: "left" }}
+          />
+          <motion.div
+            className="w-px h-5 bg-white/40 mt-0"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: isActive ? 1 : 0 }}
+            transition={{ delay: 0.4, duration: 0.4 }}
+            style={{ transformOrigin: "top" }}
+          />
+        </div>
+
+        {/* Bottom content */}
+        <div className="absolute inset-x-0 bottom-0 p-4">
+          <motion.h3
+            className="text-lg font-display font-bold text-white leading-tight"
+            animate={{ y: isActive ? 0 : 4, opacity: isActive ? 1 : 0.7 }}
+            transition={{ duration: 0.3 }}
+          >
+            {product.title}
+          </motion.h3>
+
+          {/* Animated underline accent */}
+          <motion.div
+            className="h-px bg-white/50 mt-2"
+            initial={{ width: 0 }}
+            animate={{ width: isActive ? 40 : 0 }}
+            transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+          />
+        </div>
+
+        {/* Subtle border on active */}
+        <motion.div
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          style={{
+            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.1)",
+          }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </motion.div>
+    </Link>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DESKTOP PRODUCT CARD (unchanged)
+// ═══════════════════════════════════════════════════════════════════════════
 
 export const ProductCard = ({
   product,
@@ -190,45 +467,6 @@ export const ProductCard = ({
           {product.title}
         </h2>
       </div>
-    </motion.div>
-  );
-};
-
-// Mobile-optimized product card
-const MobileProductCard = ({
-  product,
-  priority = false,
-}: {
-  product: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  };
-  priority?: boolean;
-}) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="relative h-48 rounded-xl overflow-hidden"
-    >
-      <Link href={product.link} className="relative block h-full w-full">
-        <Image
-          src={product.thumbnail}
-          alt={product.title}
-          fill
-          priority={priority}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-4 left-4">
-          <h3 className="text-white font-display font-semibold text-lg">
-            {product.title}
-          </h3>
-        </div>
-      </Link>
     </motion.div>
   );
 };

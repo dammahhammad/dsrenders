@@ -3,9 +3,15 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FadeIn } from "@/components/motion/motion-primitives";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { IconChevronLeft, IconChevronRight, IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconArrowLeft,
+  IconArrowRight,
+} from "@tabler/icons-react";
 
 // Project Data
 interface InteriorProject {
@@ -28,8 +34,10 @@ const projects: InteriorProject[] = [
     category: "Living Room",
     location: "Mumbai, India",
     year: "2024",
-    description: "A contemporary living room that balances warmth with minimalist design principles.",
-    longDescription: "This living space explores the dialogue between natural materials and contemporary form. The softly contoured furniture carries an organic presence, allowing light to move gently across surfaces and revealing the natural grain and tactile depth of the wood. Neither rigid nor overtly expressive, the form finds its strength in restraint – sculptural without becoming dominant.",
+    description:
+      "A contemporary living room that balances warmth with minimalist design principles.",
+    longDescription:
+      "This living space explores the dialogue between natural materials and contemporary form. The softly contoured furniture carries an organic presence, allowing light to move gently across surfaces and revealing the natural grain and tactile depth of the wood. Neither rigid nor overtly expressive, the form finds its strength in restraint – sculptural without becoming dominant.",
     images: [
       "/home_animation/building-2.png",
       "/home_animation/building-3.png",
@@ -44,8 +52,10 @@ const projects: InteriorProject[] = [
     category: "Kitchen",
     location: "Delhi, India",
     year: "2024",
-    description: "Functional culinary space designed for the modern lifestyle with clean lines.",
-    longDescription: "Sharing the DNA of minimalist Scandinavian design, this kitchen explores balance through subtle variation. Angled surfaces are joined by a low apron that runs close to the floor, creating a composed yet dynamic foundation that anchors the piece in the space. The softly contoured countertops carry an organic presence, revealing the natural grain and tactile depth of the stone.",
+    description:
+      "Functional culinary space designed for the modern lifestyle with clean lines.",
+    longDescription:
+      "Sharing the DNA of minimalist Scandinavian design, this kitchen explores balance through subtle variation. Angled surfaces are joined by a low apron that runs close to the floor, creating a composed yet dynamic foundation that anchors the piece in the space. The softly contoured countertops carry an organic presence, revealing the natural grain and tactile depth of the stone.",
     images: [
       "/home_animation/building-5.png",
       "/home_animation/building-6.png",
@@ -60,8 +70,10 @@ const projects: InteriorProject[] = [
     category: "Bedroom",
     location: "Bangalore, India",
     year: "2023",
-    description: "A serene retreat crafted for rest and rejuvenation with soft textures.",
-    longDescription: "This bedroom embodies the principles of calm and restoration. Every element serves the purpose of creating an environment conducive to rest. The material palette focuses on natural textiles and muted tones, while carefully positioned lighting creates intimate pockets of warmth throughout the space.",
+    description:
+      "A serene retreat crafted for rest and rejuvenation with soft textures.",
+    longDescription:
+      "This bedroom embodies the principles of calm and restoration. Every element serves the purpose of creating an environment conducive to rest. The material palette focuses on natural textiles and muted tones, while carefully positioned lighting creates intimate pockets of warmth throughout the space.",
     images: [
       "/home_animation/building-8.png",
       "/home_animation/building-1.png",
@@ -76,14 +88,20 @@ const projects: InteriorProject[] = [
     category: "Living Room",
     location: "Pune, India",
     year: "2023",
-    description: "Industrial meets contemporary in this open-concept urban dwelling.",
-    longDescription: "An exploration of contrasts – raw industrial elements meet refined contemporary design. Exposed brick and steel are softened by warm wood tones and plush textiles. The open floor plan encourages fluid movement while designated zones provide intimate spaces for work and relaxation.",
+    description:
+      "Industrial meets contemporary in this open-concept urban dwelling.",
+    longDescription:
+      "An exploration of contrasts – raw industrial elements meet refined contemporary design. Exposed brick and steel are softened by warm wood tones and plush textiles. The open floor plan encourages fluid movement while designated zones provide intimate spaces for work and relaxation.",
     images: [
       "/home_animation/building-3.png",
       "/home_animation/building-4.png",
       "/home_animation/building-5.png",
     ],
-    features: ["Open floor plan", "Industrial accents", "Smart home integration"],
+    features: [
+      "Open floor plan",
+      "Industrial accents",
+      "Smart home integration",
+    ],
     icon: "⬡",
   },
   {
@@ -92,8 +110,10 @@ const projects: InteriorProject[] = [
     category: "Dining",
     location: "Goa, India",
     year: "2024",
-    description: "Elegant dining space inspired by coastal serenity and natural light.",
-    longDescription: "Drawing inspiration from the nearby coastline, this dining space captures the essence of seaside living. Light floods through expansive windows, playing across textured surfaces that evoke sand and sea. The dining table becomes a gathering point where memories are made and stories are shared.",
+    description:
+      "Elegant dining space inspired by coastal serenity and natural light.",
+    longDescription:
+      "Drawing inspiration from the nearby coastline, this dining space captures the essence of seaside living. Light floods through expansive windows, playing across textured surfaces that evoke sand and sea. The dining table becomes a gathering point where memories are made and stories are shared.",
     images: [
       "/home_animation/building-6.png",
       "/home_animation/building-7.png",
@@ -107,25 +127,68 @@ const projects: InteriorProject[] = [
 const philosophy = [
   {
     title: "Form Follows Function",
-    description: "Every element serves a purpose while contributing to aesthetic harmony.",
+    description:
+      "Every element serves a purpose while contributing to aesthetic harmony.",
   },
   {
     title: "Material Authenticity",
-    description: "We celebrate natural materials, allowing their inherent beauty to shine.",
+    description:
+      "We celebrate natural materials, allowing their inherent beauty to shine.",
   },
   {
     title: "Light as Design Element",
-    description: "Natural and artificial lighting work together to create atmosphere.",
+    description:
+      "Natural and artificial lighting work together to create atmosphere.",
   },
   {
     title: "Timeless Over Trendy",
-    description: "Designs that transcend fleeting trends for enduring elegance.",
+    description:
+      "Designs that transcend fleeting trends for enduring elegance.",
   },
 ];
 
+const toSlug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 export default function InteriorsPage() {
-  const [selectedProject, setSelectedProject] = useState<InteriorProject | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<InteriorProject | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://dsrenders.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Interiors",
+        item: "https://dsrenders.com/interiors",
+      },
+    ],
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Interior Design",
+    provider: {
+      "@type": "Organization",
+      name: "DS Renders",
+      url: "https://dsrenders.com",
+    },
+    areaServed: "Worldwide",
+    url: "https://dsrenders.com/interiors",
+  };
 
   const openProject = (project: InteriorProject, index: number) => {
     setSelectedProject(project);
@@ -133,19 +196,30 @@ export default function InteriorsPage() {
   };
 
   const goToPrevProject = () => {
-    const newIndex = selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
+    const newIndex =
+      selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
     setSelectedIndex(newIndex);
     setSelectedProject(projects[newIndex]);
   };
 
   const goToNextProject = () => {
-    const newIndex = selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
+    const newIndex =
+      selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
     setSelectedIndex(newIndex);
     setSelectedProject(projects[newIndex]);
   };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+
       <main>
         <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
           <motion.div className="absolute inset-0">
@@ -171,13 +245,19 @@ export default function InteriorsPage() {
 
                   <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
                     <FadeIn delay={0.5}>
-                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">Spaces</span>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
+                        Spaces
+                      </span>
                     </FadeIn>
                     <FadeIn delay={0.7}>
-                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">That Tell</span>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">
+                        That Tell
+                      </span>
                     </FadeIn>
                     <FadeIn delay={0.9}>
-                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">Stories</span>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">
+                        Stories
+                      </span>
                     </FadeIn>
                   </h1>
                 </div>
@@ -197,7 +277,9 @@ export default function InteriorsPage() {
                       transition={{ delay: 1.5 }}
                     >
                       <span className="w-8 h-px bg-white/30" />
-                      <span className="text-xs font-body tracking-widest uppercase">Scroll to explore</span>
+                      <span className="text-xs font-body tracking-widest uppercase">
+                        Scroll to explore
+                      </span>
                     </motion.div>
                   </div>
                 </FadeIn>
@@ -220,7 +302,8 @@ export default function InteriorsPage() {
                   </h2>
                 </div>
                 <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
-                  Every space we create is rooted in these fundamental beliefs about what makes design truly resonate.
+                  Every space we create is rooted in these fundamental beliefs
+                  about what makes design truly resonate.
                 </p>
               </div>
             </FadeIn>
@@ -252,7 +335,6 @@ export default function InteriorsPage() {
           </div>
         </section>
 
-
         <section className="main bg-background relative z-30">
           <div className="container-custom">
             {/* Section Header */}
@@ -267,7 +349,8 @@ export default function InteriorsPage() {
                   </h2>
                 </div>
                 <p className="text-sm text-muted-foreground font-body max-w-sm">
-                  A curated selection of our interior design projects, each crafted with intention and care.
+                  A curated selection of our interior design projects, each
+                  crafted with intention and care.
                 </p>
               </div>
             </FadeIn>
@@ -275,10 +358,7 @@ export default function InteriorsPage() {
             {/* Projects List */}
             <div className="space-y-0">
               {projects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  className="origin-center"
-                >
+                <motion.div key={project.id} className="origin-center">
                   <ProjectRow
                     project={project}
                     index={index}
@@ -317,9 +397,14 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
     target: rowRef,
     offset: ["start end", "end start"],
   });
+  const projectHref = `/interiors/${toSlug(project.title)}`;
 
   const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0.4, 1, 1, 0.4],
+  );
 
   return (
     <motion.div
@@ -369,17 +454,20 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
           initial={{ x: 0 }}
           whileHover={{ x: 5 }}
         >
-          <span>View Project</span>
+          <Link
+            href={projectHref}
+            onClick={(event) => event.stopPropagation()}
+            className="inline-flex items-center gap-2"
+          >
+            <span>View Project</span>
+          </Link>
           <span className="text-lg">→</span>
         </motion.div>
       </div>
 
       {/* Right: Image */}
       <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg sm:rounded-xl">
-        <motion.div
-          className="absolute inset-0"
-          style={{ y: imageY }}
-        >
+        <motion.div className="absolute inset-0" style={{ y: imageY }}>
           <Image
             src={project.images[0]}
             alt={project.title}
@@ -399,9 +487,7 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
         </div>
 
         {/* View indicator - Mobile */}
-        <motion.div
-          className="lg:hidden absolute bottom-4 right-4 px-4 py-2 bg-background/90 backdrop-blur-sm rounded-full"
-        >
+        <motion.div className="lg:hidden absolute bottom-4 right-4 px-4 py-2 bg-background/90 backdrop-blur-sm rounded-full">
           <span className="text-xs sm:text-sm font-body text-foreground">
             View →
           </span>
@@ -421,7 +507,14 @@ interface ProjectDetailSheetProps {
   onNext: () => void;
 }
 
-function ProjectDetailSheet({ project, projectIndex, totalProjects, onClose, onPrev, onNext }: ProjectDetailSheetProps) {
+function ProjectDetailSheet({
+  project,
+  projectIndex,
+  totalProjects,
+  onClose,
+  onPrev,
+  onNext,
+}: ProjectDetailSheetProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Reset image index when project changes
@@ -432,11 +525,11 @@ function ProjectDetailSheet({ project, projectIndex, totalProjects, onClose, onP
   const images = project?.images || [];
 
   const goToPrevImage = () => {
-    setCurrentImageIndex(prev => prev === 0 ? images.length - 1 : prev - 1);
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const goToNextImage = () => {
-    setCurrentImageIndex(prev => prev === images.length - 1 ? 0 : prev + 1);
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -501,10 +594,11 @@ function ProjectDetailSheet({ project, projectIndex, totalProjects, onClose, onP
                       <button
                         key={idx}
                         onClick={() => setCurrentImageIndex(idx)}
-                        className={`h-2 rounded-full transition-all duration-300 ${currentImageIndex === idx
-                          ? "bg-white w-8"
-                          : "bg-white/40 w-2 hover:bg-white/60"
-                          }`}
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          currentImageIndex === idx
+                            ? "bg-white w-8"
+                            : "bg-white/40 w-2 hover:bg-white/60"
+                        }`}
                       />
                     ))}
                   </div>
@@ -589,15 +683,22 @@ function ProjectDetailSheet({ project, projectIndex, totalProjects, onClose, onP
                   whileHover={{ x: -3 }}
                 >
                   <IconArrowLeft size={18} />
-                  <span className="hidden sm:inline uppercase tracking-wider text-xs">Prev</span>
+                  <span className="hidden sm:inline uppercase tracking-wider text-xs">
+                    Prev
+                  </span>
                 </motion.button>
 
                 {/* Center Info */}
                 <div className="text-center">
                   <p className="text-xs sm:text-sm font-body text-foreground">
                     <span className="hidden md:inline">{project.title}</span>
-                    <span className="hidden md:inline text-muted-foreground"> — </span>
-                    <span className="text-muted-foreground">{project.location}</span>
+                    <span className="hidden md:inline text-muted-foreground">
+                      {" "}
+                      —{" "}
+                    </span>
+                    <span className="text-muted-foreground">
+                      {project.location}
+                    </span>
                   </p>
                   <p className="text-[10px] sm:text-xs text-muted-foreground/60 mt-1 tracking-wider">
                     {projectIndex + 1} / {totalProjects}
@@ -610,7 +711,9 @@ function ProjectDetailSheet({ project, projectIndex, totalProjects, onClose, onP
                   className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
                   whileHover={{ x: 3 }}
                 >
-                  <span className="hidden sm:inline uppercase tracking-wider text-xs">Next</span>
+                  <span className="hidden sm:inline uppercase tracking-wider text-xs">
+                    Next
+                  </span>
                   <IconArrowRight size={18} />
                 </motion.button>
               </div>

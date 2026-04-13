@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem, Counter } from "@/components/motion/motion-primitives";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconArrowLeft, IconArrowRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
@@ -67,9 +68,47 @@ const stats = [
   { value: 12, suffix: "", label: "Global Offices" },
 ];
 
+const toSlug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 export default function ArchitecturePage() {
   const [selectedProject, setSelectedProject] = useState<ArchitectureProject | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://dsrenders.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Architecture",
+        item: "https://dsrenders.com/architecture",
+      },
+    ],
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Architecture Design",
+    provider: {
+      "@type": "Organization",
+      name: "DS Renders",
+      url: "https://dsrenders.com",
+    },
+    areaServed: "Worldwide",
+    url: "https://dsrenders.com/architecture",
+  };
 
   const openProject = (project: ArchitectureProject, index: number) => {
     setSelectedProject(project);
@@ -90,6 +129,15 @@ export default function ArchitecturePage() {
 
   return (
     <div className="relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+
       {/* Hero Section with Video Background - KEPT AS IS */}
       <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
         <motion.div
@@ -101,17 +149,11 @@ export default function ArchitecturePage() {
             muted
             loop
             playsInline
+            preload="metadata"
+            poster="/home_animation/building-1.png"
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src="/architecture-hero.mp4" type="video/mp4" />
-            {/* Fallback image if video doesn't load */}
-            <Image
-              src="/home_animation/building-1.png"
-              alt="Architectural masterpiece"
-              fill
-              className="object-cover"
-              priority
-            />
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
@@ -279,6 +321,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
     target: rowRef,
     offset: ["start end", "end start"],
   });
+  const projectHref = `/architecture/${toSlug(project.title)}`;
 
   const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
@@ -300,7 +343,13 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
           0{index + 1}
         </span>
         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
-          {project.title}
+          <Link
+            href={projectHref}
+            onClick={(event) => event.stopPropagation()}
+            className="hover:underline underline-offset-4"
+          >
+            {project.title}
+          </Link>
         </h3>
         <div className="mt-4 flex items-center gap-4 text-xs sm:text-sm font-body text-muted-foreground">
           <span className="uppercase tracking-wider">{project.location}</span>
@@ -315,7 +364,9 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
           initial={{ x: 0 }}
           whileHover={{ x: 5 }}
         >
-          <span>View Project</span>
+          <Link href={projectHref} onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-2">
+            <span>View Project</span>
+          </Link>
           <span className="text-lg">→</span>
         </motion.div>
       </div>

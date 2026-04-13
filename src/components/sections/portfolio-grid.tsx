@@ -13,9 +13,14 @@ interface Project {
     location: string;
     year: string;
     image: string;
-    href: string;
     size?: "large" | "medium" | "small";
 }
+
+const toSlug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 const projects: Project[] = [
     {
@@ -25,17 +30,15 @@ const projects: Project[] = [
         location: "Dubai, UAE",
         year: "2024",
         image: "/home_animation/building-1.png",
-        href: "/architecture",
         size: "large",
     },
     {
         id: "2",
-        title: "Minimalist Haven",
+        title: "Serene Living Space",
         category: "Interiors",
         location: "Singapore",
         year: "2024",
         image: "/home_animation/building-2.png",
-        href: "/interiors",
         size: "medium",
     },
     {
@@ -45,17 +48,15 @@ const projects: Project[] = [
         location: "Copenhagen",
         year: "2023",
         image: "/home_animation/building-3.png",
-        href: "/architecture",
         size: "medium",
     },
     {
         id: "4",
-        title: "Nordic Comfort",
+        title: "Meridian Chair",
         category: "Furniture",
         location: "Stockholm",
         year: "2024",
         image: "/home_animation/building-4.png",
-        href: "/furniture",
         size: "small",
     },
     {
@@ -65,7 +66,6 @@ const projects: Project[] = [
         location: "Kyoto, Japan",
         year: "2023",
         image: "/home_animation/building-5.png",
-        href: "/architecture",
         size: "small",
     },
     {
@@ -75,7 +75,6 @@ const projects: Project[] = [
         location: "California",
         year: "2024",
         image: "/home_animation/building-6.png",
-        href: "/architecture",
         size: "medium",
     },
 ];
@@ -135,7 +134,7 @@ export function PortfolioGrid() {
                 </FadeIn>
 
                 {/* Projects Grid - Bento Layout */}
-                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <StaggerContainer key={activeCategory} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {filteredProjects.map((project, index) => (
                         <StaggerItem
                             key={project.id}
@@ -184,7 +183,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
     return (
         <Link
-            href={project.href}
+            href={`/${project.category.toLowerCase()}/${toSlug(project.title)}`}
             className="group block relative overflow-hidden rounded-xl sm:rounded-2xl bg-card h-[280px] sm:h-[320px] lg:h-full lg:min-h-[320px]"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

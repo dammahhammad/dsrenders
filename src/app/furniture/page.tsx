@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
 import {
     Sheet,
@@ -165,10 +166,47 @@ const designPhilosophy = [
     },
 ];
 
+const toSlug = (value: string) =>
+    value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+
 export default function FurniturePage() {
     const [selectedItem, setSelectedItem] = useState<DesignItem | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [galleryItem, setGalleryItem] = useState<DesignItem | null>(null);
+
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://dsrenders.com",
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Furniture",
+                item: "https://dsrenders.com/furniture",
+            },
+        ],
+    };
+
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "Furniture Design",
+        provider: {
+            "@type": "Organization",
+            name: "DS Renders",
+            url: "https://dsrenders.com",
+        },
+        areaServed: "Worldwide",
+        url: "https://dsrenders.com/furniture",
+    };
 
     const openItem = (item: DesignItem, index: number) => {
         setSelectedItem(item);
@@ -188,7 +226,16 @@ export default function FurniturePage() {
     };
 
     return (
-        <main>
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
+            <main>
             {/* Fullscreen Hero Section - KEPT AS IS */}
             <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
                 <motion.div className="absolute inset-0">
@@ -299,7 +346,6 @@ export default function FurniturePage() {
                                     item={item}
                                     index={index}
                                     onClick={() => openItem(item, index)}
-                                    onViewImages={() => setGalleryItem(item)}
                                 />
                             </motion.div>
                         ))}
@@ -370,7 +416,8 @@ export default function FurniturePage() {
                 onPrev={goToPrevItem}
                 onNext={goToNextItem}
             />
-        </main>
+            </main>
+        </>
     );
 }
 
@@ -379,7 +426,6 @@ interface FurnitureRowProps {
     item: DesignItem;
     index: number;
     onClick: () => void;
-    onViewImages: () => void;
 }
 
 function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
@@ -388,6 +434,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
         target: rowRef,
         offset: ["start end", "end start"],
     });
+    const productHref = `/furniture/${toSlug(item.name)}`;
 
     const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
@@ -411,7 +458,13 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                 </div>
 
                 <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight mb-6">
-                    {item.name}
+                    <Link
+                        href={productHref}
+                        onClick={(event) => event.stopPropagation()}
+                        className="hover:underline underline-offset-4"
+                    >
+                        {item.name}
+                    </Link>
                 </h3>
 
                 <p className="text-base text-muted-foreground font-body leading-relaxed max-w-xl mb-8">
@@ -440,7 +493,9 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                         className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-accent group-hover:text-accent transition-colors"
                         whileHover={{ x: 5 }}
                     >
-                        <span>View Details</span>
+                        <Link href={productHref} onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-2">
+                            <span>View Details</span>
+                        </Link>
                         <span>→</span>
                     </motion.div>
                 </div>

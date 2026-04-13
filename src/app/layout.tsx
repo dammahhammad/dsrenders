@@ -28,20 +28,58 @@ const brunoAceSC = Bruno_Ace_SC({
 });
 
 export const metadata: Metadata = {
-  title: "DsRenders | Architecture & Design Studio",
+  metadataBase: new URL("https://dsrenders.com"),
+  title: {
+    default: "DS Renders | Architecture, Interiors & Furniture Design",
+    template: "%s | DS Renders",
+  },
   description:
-    "Award-winning architecture studio crafting timeless spaces through innovative design and interior excellence.",
+    "DS Renders creates architecture, interiors, and bespoke furniture with high-end 3D visualization and detail-first design execution.",
   keywords: [
     "architecture",
     "interior design",
     "furniture",
-    "sustainable architecture",
+    "3d visualization",
+    "architectural rendering",
+    "luxury interiors",
   ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "DsRenders | Architecture & Design Studio",
+    title: "DS Renders | Architecture, Interiors & Furniture Design",
     description:
-      "Award-winning architecture studio crafting timeless spaces through innovative design.",
+      "Architecture, interiors, and furniture design powered by precision visualization and timeless execution.",
+    url: "https://dsrenders.com",
+    siteName: "DS Renders",
     type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/home_animation/test.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "DS Renders architecture and design showcase",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DS Renders | Architecture, Interiors & Furniture Design",
+    description:
+      "Architecture, interiors, and furniture design powered by precision visualization.",
+    images: ["/home_animation/test.jpeg"],
   },
 };
 

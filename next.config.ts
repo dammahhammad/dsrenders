@@ -7,6 +7,19 @@ const nextConfig: NextConfig = {
     // or use Cloudflare Images / Polish for on-the-fly optimization.
     unoptimized: true,
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*\\.(svg|jpg|jpeg|png|webp|avif|gif|mp4|webm|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
