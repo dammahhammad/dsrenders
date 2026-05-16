@@ -22,16 +22,16 @@ export const metadata: Metadata = {
 };
 
 const products = [
-  { title: "The Sagewood Kitchen", link: "/interiors/the-sagewood-kitchen", thumbnail: "https://images.dsrenders.com/all_images/01_kitchen_1_Page_1.jpg" },
-  { title: "The Olive Grove Bedroom", link: "/furniture/olive-grove-bedroom", thumbnail: "https://images.dsrenders.com/ai_renders/B1.png" },
+  { title: "The Sagewood Kitchen", link: "/interiors/the-sagewood-kitchen", thumbnail: "https://images.dsrenders.com/drawings_color/01_kitchen_1_Page_1.webp" },
+  { title: "The Olive Grove Bedroom", link: "/furniture/olive-grove-bedroom", thumbnail: "https://images.dsrenders.com/ai_renders/B1.webp" },
   { title: "Eco Residence", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Terracotta Breeze", link: "/furniture/terracotta-breeze", thumbnail: "https://images.dsrenders.com/ai_renders/BNB_1.png" },
-  { title: "The Bordeaux Coffee Bar", link: "/interiors/the-bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/all_images/03_COFFEE%20BAR%20LAYOUT.jpg" },
+  { title: "Terracotta Breeze", link: "/furniture/terracotta-breeze", thumbnail: "https://images.dsrenders.com/ai_renders/BNB_1.webp" },
+  { title: "The Bordeaux Coffee Bar", link: "/interiors/the-bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/drawings_color/03_COFFEE%20BAR%20LAYOUT.webp" },
   { title: "Glass Pavilion", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
   { title: "Coastal Retreat", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Midnight Cove Mudroom", link: "/interiors/midnight-cove-mudroom", thumbnail: "https://images.dsrenders.com/all_images/02_MODERN%20MUDROOM_1_Page_1.jpg" },
+  { title: "Midnight Cove Mudroom", link: "/interiors/midnight-cove-mudroom", thumbnail: "https://images.dsrenders.com/drawings_color/02_MODERN%20MUDROOM_1_Page_1.webp" },
   { title: "Modern Living", link: "/interiors", thumbnail: "/home_animation/test.jpeg" },
-  { title: "The Bordeaux Coffee Bar", link: "/furniture/bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.png" },
+  { title: "The Bordeaux Coffee Bar", link: "/furniture/bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.webp" },
 ];
 
 export default function Home() {

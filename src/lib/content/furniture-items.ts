@@ -14,8 +14,8 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "olive-grove-bedroom",
     name: "The Olive Grove Bedroom",
     images: [
-      "https://images.dsrenders.com/ai_renders/B1.png",
-      "https://images.dsrenders.com/ai_renders/B2.png",
+      "https://images.dsrenders.com/ai_renders/B1.webp",
+      "https://images.dsrenders.com/ai_renders/B2.webp",
     ],
     category: "Seating",
     description:
@@ -31,9 +31,9 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "terracotta-breeze",
     name: "Terracotta Breeze",
     images: [
-      "https://images.dsrenders.com/ai_renders/BNB_1.png",
-      "https://images.dsrenders.com/ai_renders/BNB_2.png",
-      "https://images.dsrenders.com/ai_renders/BNB_3.png",
+      "https://images.dsrenders.com/ai_renders/BNB_1.webp",
+      "https://images.dsrenders.com/ai_renders/BNB_2.webp",
+      "https://images.dsrenders.com/ai_renders/BNB_3.webp",
     ],
     category: "Tables",
     description:
@@ -49,8 +49,8 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "bordeaux-coffee-bar",
     name: "The Bordeaux Coffee Bar",
     images: [
-      "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.png",
-      "https://images.dsrenders.com/ai_renders/COFFEE_BAR_2.png",
+      "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.webp",
+      "https://images.dsrenders.com/ai_renders/COFFEE_BAR_2.webp",
     ],
     category: "Lighting",
     description:
@@ -65,7 +65,7 @@ export const furnitureItems: FurnitureItem[] = [
     id: "4",
     slug: "hearthwood-lounge",
     name: "The Hearthwood Lounge",
-    images: ["https://images.dsrenders.com/ai_renders/FIREPLACE.png"],
+    images: ["https://images.dsrenders.com/ai_renders/FIREPLACE.webp"],
     category: "Seating",
     description:
       "The Hearthwood Lounge blends modern minimalism with warm natural textures to create a refined and inviting living environment. A sculptural fireplace wall anchors the composition, framed by rich walnut shelving that introduces depth, balance, and curated display opportunities. Soft neutral furnishings and layered textures enhance the calming atmosphere, while the linear fireplace adds warmth and subtle ambient movement to the space. Clean architectural lines, integrated lighting, and organic material tones come together to create a living area that feels both sophisticated and effortlessly comfortable.",
@@ -80,7 +80,7 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "evergreen-living-kitchen",
     name: "The Evergreen Living Kitchen",
     images: [
-      "https://images.dsrenders.com/ai_renders/kitchen.png",
+      "https://images.dsrenders.com/ai_renders/kitchen.webp",
     ],
     category: "Seating",
     description:"The Evergreen Living Kitchen blends modern simplicity with nature-inspired warmth to create a calm and inviting open-concept interior. Soft green cabinetry, light oak flooring, and textured neutral finishes establish a balanced material palette that feels both fresh and timeless. The kitchen, dining, and lounge areas flow seamlessly together, encouraging connection and everyday comfort while maintaining a refined architectural composition. Sculptural lighting, curated wall niches, and layered organic textures add depth and personality, while expansive natural light enhances the airy and serene atmosphere throughout the space.",
@@ -94,7 +94,7 @@ export const furnitureItems: FurnitureItem[] = [
     id: "6",
     slug: "sagewood-kitchen",
     name: "The Sagewood Kitchen",
-    images: ["https://images.dsrenders.com/ai_renders/kitchen_1.png"],
+    images: ["https://images.dsrenders.com/ai_renders/kitchen_1.webp"],
     category: "Seating",
     description: "The Sagewood Kitchen blends timeless craftsmanship with a refined modern aesthetic, creating a warm and inviting culinary space. Soft sage cabinetry is paired with rich oak wood accents and elegant reeded glass details, bringing depth and texture to the composition. The marble waterfall island serves as the focal point of the design, offering both functional workspace and casual seating while enhancing the kitchen’s sculptural presence. Balanced by classic tilework, layered materials, and clean architectural lines, the space feels sophisticated, calm, and effortlessly livable.",
     designNotes: [
@@ -108,7 +108,7 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "midnight-cove-mudroom",
     name: "Midnight Cove Mudroom",
     images: [
-      "https://images.dsrenders.com/ai_renders/MUDROOM_VIEW.png",
+      "https://images.dsrenders.com/ai_renders/MUDROOM_VIEW.webp",
     ],
     category: "Seating",
     description: "The Midnight Cove Mudroom transforms a functional entryway into a refined architectural moment through rich color, texture, and thoughtful detailing. Deep navy cabinetry is paired with vertically fluted wall panels to create depth and visual rhythm, while warm brass accents and a sculptural pendant light introduce softness and contrast. Integrated seating, concealed storage, and open shelving provide practical everyday organization without compromising the elevated aesthetic. Anchored by bold geometric floor tile, the space feels sophisticated, welcoming, and quietly luxurious.",
@@ -123,8 +123,8 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "the-noirwood-office",
     name: "The Noirwood Office",
     images: [
-      "https://images.dsrenders.com/ai_renders/OFFICE_1.png",
-      "https://images.dsrenders.com/ai_renders/OFFICE_2.png",
+      "https://images.dsrenders.com/ai_renders/OFFICE_1.webp",
+      "https://images.dsrenders.com/ai_renders/OFFICE_2.webp",
     ],
     category: "Seating",
     description: "The Noirwood Office combines contemporary minimalism with rich materiality to create a workspace that feels both sophisticated and inviting. Warm oak millwork and deep wood flooring establish a grounded architectural presence, while the dramatic marble desk surface introduces contrast and refinement. Integrated shelving with ambient lighting provides curated display and functional storage, adding depth and visual rhythm to the composition. Soft neutral wall finishes and controlled lighting complete the atmosphere, resulting in a calm and focused environment designed for productivity and quiet elegance.",
@@ -138,7 +138,7 @@ export const furnitureItems: FurnitureItem[] = [
     id: "9",
     slug: "the-blooming-arcade",
     name: "The Blooming Arcade",
-    images: ["https://images.dsrenders.com/ai_renders/PATIO.png"],
+    images: ["https://images.dsrenders.com/ai_renders/PATIO.webp"],
     category: "Lighting",
     description: "The Blooming Arcade is a Mediterranean-inspired courtyard designed to celebrate light, texture, and lush greenery through a refined architectural composition. Patterned Moroccan tiles establish a vibrant visual rhythm across the patio floor, while cascading bougainvillea softens the structured geometry with natural movement and color. Arched decorative niches, textured plaster walls, woven rattan furnishings, and warm oak accents create a serene outdoor retreat that feels both timeless and inviting. The open arcade and expansive glazing allow natural light to filter through the space, enhancing its airy, tranquil atmosphere.",
     designNotes: [
@@ -152,7 +152,7 @@ export const furnitureItems: FurnitureItem[] = [
     slug: "the-alabaster-living-room",
     name: "The Alabaster Living Room",
     images: [
-      "https://images.dsrenders.com/ai_renders/WALL_DESIGN.png",
+      "https://images.dsrenders.com/ai_renders/WALL_DESIGN.webp",
     ],
     category: "Lighting",
     description: "The Alabaster Living Room embraces soft minimalism through a carefully balanced composition of warm wood tones, textured finishes, and sculptural forms. A custom open shelving feature wall introduces rhythm and visual depth while serving as both functional storage and curated display. The curved lounge chairs soften the architectural geometry of the space, creating an inviting conversational setting layered with warmth and comfort. Natural light, muted textures, and restrained material contrasts come together to establish a serene environment that feels timeless, airy, and refined.",

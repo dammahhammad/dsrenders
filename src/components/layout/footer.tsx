@@ -31,7 +31,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-background border-t border-border relative z-5 sticky bottom-0">
+    <footer className="bg-background border-t border-border relative z-5">
       <div className="container-custom py-7 sm:py-8">
         <div className="flex flex-col gap-12">
           {/* Top Section: Brand & Massive CTA */}

@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
+import { FadeIn } from "@/components/motion/motion-primitives";
 import {
     Sheet,
     SheetContent,
@@ -104,8 +104,8 @@ export default function FurniturePage() {
             />
             <main>
             {/* Fullscreen Hero Section - KEPT AS IS */}
-            <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
-                <motion.div className="absolute inset-0">
+            <section className="relative h-[100svh] min-h-[700px] z-10">
+                <div className="absolute inset-0">
                     <Image
                         src="/woods/hero-woods.png"
                         alt="Bespoke furniture craftsmanship"
@@ -114,7 +114,7 @@ export default function FurniturePage() {
                         priority
                         sizes="100vw"
                     />
-                </motion.div>
+                </div>
 
                 <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
                     <FadeIn delay={0.3}>
@@ -142,7 +142,7 @@ export default function FurniturePage() {
             </section>
 
             {/* Philosophy Section - Consistent with Interiors/Architecture */}
-            <section className="philosophy relative lg:sticky lg:top-0 z-20 bg-background">
+            <section className="philosophy relative z-20 bg-background">
                 <div className="container-custom py-20 sm:py-32">
                     <FadeIn>
                         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
@@ -161,12 +161,11 @@ export default function FurniturePage() {
                         </div>
                     </FadeIn>
 
-                    <StaggerContainer className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+                    <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
                         {designPhilosophy.map((item, index) => (
-                            <StaggerItem key={index} className="h-full">
-                                <motion.div
-                                    className="relative p-8 sm:p-10 bg-card border border-border/50 h-full group hover:border-accent/40 hover:shadow-lg transition-all duration-500 rounded-2xl overflow-hidden flex flex-col items-center text-center"
-                                    whileHover={{ y: -8 }}
+                            <div key={index} className="h-full">
+                                <div
+                                    className="relative p-8 sm:p-10 bg-card border border-border/50 h-full group hover:border-accent/40 hover:shadow-lg hover:-translate-y-2 transition-all duration-500 rounded-2xl overflow-hidden flex flex-col items-center text-center"
                                 >
                                     <div className="mb-6 p-5 rounded-full bg-accent/80 text-foreground group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-sm">
                                         {item.icon}
@@ -177,10 +176,10 @@ export default function FurniturePage() {
                                     <p className="text-sm text-muted-foreground font-body leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
                                         {item.description}
                                     </p>
-                                </motion.div>
-                            </StaggerItem>
+                                </div>
+                            </div>
                         ))}
-                    </StaggerContainer>
+                    </div>
                 </div>
             </section>
 
@@ -202,19 +201,13 @@ export default function FurniturePage() {
 
                     <div className="space-y-0">
                         {furnitureItems.map((item, index) => (
-                            <motion.div
-                                key={item.id}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                            >
+                            <div key={item.id}>
                                 <FurnitureRow
                                     item={item}
                                     index={index}
                                     onClick={() => openItem(item, index)}
                                 />
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -296,22 +289,13 @@ interface FurnitureRowProps {
 }
 
 function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
-    const rowRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: rowRef,
-        offset: ["start end", "end start"],
-    });
     const productHref = `/furniture/${toSlug(item.name)}`;
 
-    const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
-
     return (
-        <motion.div
-            ref={rowRef}
+        <div
             className="grid grid-cols-1 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px] gap-8 lg:gap-16 py-12 border-b border-border/10 cursor-pointer group"
             onClick={onClick}
-            style={{ opacity }}
+            style={{ contentVisibility: "auto", containIntrinsicSize: "0 450px" }}
         >
             {/* Left: Content */}
             <div className="flex flex-col justify-center order-2 lg:order-1">
@@ -339,37 +323,36 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                 </p>
 
                 <div className="flex items-center gap-6 mt-auto">
-                    <motion.div
-                        className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-accent group-hover:text-accent transition-colors"
-                        whileHover={{ x: 5 }}
-                    >
+                    <div className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-accent group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
                         <Link href={productHref} onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-2">
                             <span>View Details</span>
                         </Link>
                         <span>→</span>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
 
             {/* Right: Image */}
             <div className="relative h-[300px] sm:h-[350px] overflow-hidden rounded-2xl bg-secondary/5 order-1 lg:order-2">
-                <motion.div className="absolute inset-0 flex items-center justify-center p-8" style={{ y: imageY }}>
+                <div className="absolute inset-0 flex items-center justify-center p-8">
                     <Image
                         src={item.images[0]}
                         alt={item.name}
                         fill
-                        className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 1024px) 100vw, 500px"
+                        loading={index < 2 ? "eager" : "lazy"}
+                        decoding="async"
                     />
-                </motion.div>
+                </div>
 
                 <div className="absolute top-4 right-4 z-20">
-                    <span className="w-8 h-8 flex items-center justify-center rounded-full bg-background/80 backdrop-blur border border-border text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="w-8 h-8 flex items-center justify-center rounded-full bg-background/90 border border-border text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
                         <IconChevronRight size={16} />
                     </span>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }
 

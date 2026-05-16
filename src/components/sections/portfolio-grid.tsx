@@ -20,7 +20,7 @@ const projects: Project[] = [
     {
         id: "1",
         title: "Urban Sanctuary",
-        category: "Architecture",
+        category: "Drawings (B&W)",
         image: "/home_animation/building-1.png",
         size: "large",
         link: "/architecture/urban-sanctuary",
@@ -28,7 +28,7 @@ const projects: Project[] = [
     {
         id: "2",
         title: "Urban Sanctuary",
-        category: "Architecture",
+        category: "Drawings (B&W)",
         image: "/home_animation/building-1.png",
         size: "small",
         link: "/architecture/urban-sanctuary",
@@ -36,7 +36,7 @@ const projects: Project[] = [
     {
         id: "3",
         title: "Urban Sanctuary",
-        category: "Architecture",
+        category: "Drawings (B&W)",
         image: "/home_animation/building-1.png",
         size: "medium",
         link: "/architecture/urban-sanctuary",
@@ -44,7 +44,7 @@ const projects: Project[] = [
     {
         id: "4",
         title: "The Sagewood Kitchen",
-        category: "Interiors",
+        category: "Drawings (Color)",
         image: "https://images.dsrenders.com/all_images/01_kitchen_1_Page_1.jpg",
         size: "large",
         link: "/interiors/the-sagewood-kitchen",
@@ -52,7 +52,7 @@ const projects: Project[] = [
     {
         id: "5",
         title: "Midnight Cove Mudroom",
-        category: "Interiors",
+        category: "Drawings (Color)",
         image: "https://images.dsrenders.com/all_images/02_MODERN%20MUDROOM_1_Page_1.jpg",
         size: "small",
         link: "/interiors/midnight-cove-mudroom",
@@ -60,7 +60,7 @@ const projects: Project[] = [
     {
         id: "6",
         title: "The Bordeaux Coffee Bar",
-        category: "Interiors",
+        category: "Drawings (Color)",
         image: "https://images.dsrenders.com/all_images/03_COFFEE%20BAR%20LAYOUT.jpg",
         size: "medium",
         link: "/interiors/the-bordeaux-coffee-bar",
@@ -68,7 +68,7 @@ const projects: Project[] = [
     {
         id: "7",
         title: "The Olive Grove Bedroom",
-        category: "Furniture",
+        category: "AI Renders",
         image: "https://images.dsrenders.com/ai_renders/B1.png",
         size: "large",
         link: "/furniture/olive-grove-bedroom",
@@ -76,7 +76,7 @@ const projects: Project[] = [
     {
         id: "8",
         title: "Terracotta Breeze",
-        category: "Furniture",
+        category: "AI Renders",
         image: "https://images.dsrenders.com/ai_renders/BNB_1.png",
         size: "small",
         link: "/furniture/terracotta-breeze",
@@ -84,14 +84,14 @@ const projects: Project[] = [
     {
         id: "9",
         title: "The Hearthwood Lounge",
-        category: "Furniture",
+        category: "AI Renders",
         image: "https://images.dsrenders.com/ai_renders/FIREPLACE.png",
         size: "medium",
         link: "/furniture/hearthwood-lounge",
     },
 ];
 
-const categories = ["All", "Architecture", "Interiors", "Furniture"];
+const categories = ["All", "Drawings (B&W)", "Drawings (Color)", "AI Renders"];
 
 export function PortfolioGrid() {
     const [activeCategory, setActiveCategory] = useState("All");

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/motion/motion-primitives";
@@ -79,24 +79,24 @@ export default function InteriorsPage() {
     url: "https://dsrenders.com/interiors",
   };
 
-  const openProject = (project: InteriorProject, index: number) => {
+  const openProject = useCallback((project: InteriorProject, index: number) => {
     setSelectedProject(project);
     setSelectedIndex(index);
-  };
+  }, []);
 
-  const goToPrevProject = () => {
+  const goToPrevProject = useCallback(() => {
     const newIndex =
       selectedIndex === 0 ? interiorProjects.length - 1 : selectedIndex - 1;
     setSelectedIndex(newIndex);
     setSelectedProject(interiorProjects[newIndex]);
-  };
+  }, [selectedIndex]);
 
-  const goToNextProject = () => {
+  const goToNextProject = useCallback(() => {
     const newIndex =
       selectedIndex === interiorProjects.length - 1 ? 0 : selectedIndex + 1;
     setSelectedIndex(newIndex);
     setSelectedProject(interiorProjects[newIndex]);
-  };
+  }, [selectedIndex]);
 
   return (
     <>
@@ -110,8 +110,8 @@ export default function InteriorsPage() {
       />
 
       <main>
-        <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
-          <motion.div className="absolute inset-0">
+        <section className="relative h-[100svh] min-h-[700px] z-10">
+          <div className="absolute inset-0">
             <Image
               src="/home_animation/interior.jpg"
               alt="Luxurious interior space"
@@ -120,9 +120,9 @@ export default function InteriorsPage() {
               priority
               sizes="100vw"
             />
-          </motion.div>
+          </div>
 
-          <motion.div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
+          <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
             <div className="max-w-7xl mx-auto w-full">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
                 <div>
@@ -174,10 +174,10 @@ export default function InteriorsPage() {
                 </FadeIn>
               </div>
             </div>
-          </motion.div>
+          </div>
         </section>
 
-        <section className="philosophy relative lg:sticky lg:top-0 z-20 bg-background">
+        <section className="philosophy relative z-20 bg-background">
           <div className="container-custom py-20 sm:py-32">
             <FadeIn>
               <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
@@ -199,10 +199,9 @@ export default function InteriorsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {philosophy.map((item, index) => (
-                <motion.div
+                <div
                   key={index}
-                  className="relative p-6 sm:p-8 lg:p-10 bg-secondary/20 border border-border/50 h-full group hover:bg-secondary/40 hover:border-accent/30 transition-all duration-500 rounded-xl"
-                  whileHover={{ y: -5 }}
+                  className="relative p-6 sm:p-8 lg:p-10 bg-secondary/20 border border-border/50 h-full group hover:bg-secondary/40 hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 rounded-xl"
                 >
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     <div>
@@ -218,7 +217,7 @@ export default function InteriorsPage() {
                       {item.description}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -247,13 +246,13 @@ export default function InteriorsPage() {
             {/* Projects List */}
             <div className="space-y-0">
               {interiorProjects.map((project, index) => (
-                <motion.div key={project.id} className="origin-center">
+                <div key={project.id}>
                   <ProjectRow
                     project={project}
                     index={index}
                     onClick={() => openProject(project, index)}
                   />
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -280,43 +279,21 @@ interface ProjectRowProps {
   onClick: () => void;
 }
 
-function ProjectRow({ project, onClick }: ProjectRowProps) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: rowRef,
-    offset: ["start end", "end start"],
-  });
+function ProjectRow({ project, index, onClick }: ProjectRowProps) {
   const projectHref = `/interiors/${toSlug(project.title)}`;
 
-  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0.4, 1, 1, 0.4],
-  );
-
   return (
-    <motion.div
-      ref={rowRef}
+    <div
       className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-16 py-10 sm:py-14 border-b border-border/20 cursor-pointer group"
       onClick={onClick}
-      style={{ opacity }}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      style={{ contentVisibility: "auto", containIntrinsicSize: "0 550px" }}
     >
       {/* Left: Project Info */}
-      <div className="flex flex-col justify-center lg:sticky lg:top-32 lg:self-start">
+      <div className="flex flex-col justify-center">
         {/* Icon */}
-        <motion.span
-          className="text-3xl sm:text-4xl mb-4 text-accent/40 group-hover:text-accent transition-colors duration-500"
-          initial={{ rotate: 0 }}
-          whileHover={{ rotate: 90 }}
-          transition={{ duration: 0.5 }}
-        >
+        <span className="text-3xl sm:text-4xl mb-4 text-accent/40 group-hover:text-accent group-hover:rotate-90 transition-all duration-500">
           {project.icon}
-        </motion.span>
+        </span>
 
         {/* Title */}
         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
@@ -338,11 +315,7 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
         </div>
 
         {/* View indicator - Desktop */}
-        <motion.div
-          className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-accent transition-colors duration-300"
-          initial={{ x: 0 }}
-          whileHover={{ x: 5 }}
-        >
+        <div className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
           <Link
             href={projectHref}
             onClick={(event) => event.stopPropagation()}
@@ -351,20 +324,22 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
             <span>View Project</span>
           </Link>
           <span className="text-lg">→</span>
-        </motion.div>
+        </div>
       </div>
 
       {/* Right: Image */}
       <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg sm:rounded-xl">
-        <motion.div className="absolute inset-0" style={{ y: imageY }}>
+        <div className="absolute inset-0">
           <Image
             src={project.images[0]}
             alt={project.title}
             fill
-            className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+            className="object-contain"
             sizes="(max-width: 1024px) 100vw, 60vw"
+            loading={index < 2 ? "eager" : "lazy"}
+            decoding="async"
           />
-        </motion.div>
+        </div>
 
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
@@ -376,13 +351,13 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
         </div>
 
         {/* View indicator - Mobile */}
-        <motion.div className="lg:hidden absolute bottom-4 right-4 px-4 py-2 bg-background/90 backdrop-blur-sm rounded-full">
+        <div className="lg:hidden absolute bottom-4 right-4 px-4 py-2 bg-background/95 rounded-full">
           <span className="text-xs sm:text-sm font-body text-foreground">
             View →
           </span>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -449,7 +424,6 @@ function ProjectDetailSheet({
                       fill
                       className="object-contain"
                       sizes="50vw"
-                      priority
                     />
                   </motion.div>
                 </AnimatePresence>
@@ -457,22 +431,18 @@ function ProjectDetailSheet({
                 {/* Image Navigation Arrows */}
                 {images.length > 1 && (
                   <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 z-10">
-                    <motion.button
+                    <button
                       onClick={goToPrevImage}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background hover:scale-110 active:scale-90 transition-all duration-200"
                     >
                       <IconChevronLeft size={20} />
-                    </motion.button>
-                    <motion.button
+                    </button>
+                    <button
                       onClick={goToNextImage}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background hover:scale-110 active:scale-90 transition-all duration-200"
                     >
                       <IconChevronRight size={20} />
-                    </motion.button>
+                    </button>
                   </div>
                 )}
 
@@ -549,15 +519,13 @@ function ProjectDetailSheet({
 
                 {/* CTA Button */}
                 <div className="mt-8 sm:mt-10">
-                  <motion.a
+                  <a
                     href="/contact"
-                    className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-foreground text-background rounded-full font-body font-medium text-sm sm:text-base"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-foreground text-background rounded-full font-body font-medium text-sm sm:text-base hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
                   >
                     <span>Discuss This Project</span>
                     <span>→</span>
-                  </motion.a>
+                  </a>
                 </div>
               </div>
             </div>
@@ -566,16 +534,15 @@ function ProjectDetailSheet({
             <div className="shrink-0 border-t border-border bg-background px-4 sm:px-8 py-4 sm:py-5">
               <div className="flex items-center justify-between max-w-7xl mx-auto">
                 {/* Prev Button */}
-                <motion.button
+                <button
                   onClick={onPrev}
-                  className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
-                  whileHover={{ x: -3 }}
+                  className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground hover:-translate-x-0.5 transition-all duration-200"
                 >
                   <IconArrowLeft size={18} />
                   <span className="hidden sm:inline uppercase tracking-wider text-xs">
                     Prev
                   </span>
-                </motion.button>
+                </button>
 
                 {/* Center Info */}
                 <div className="text-center">
@@ -595,16 +562,15 @@ function ProjectDetailSheet({
                 </div>
 
                 {/* Next Button */}
-                <motion.button
+                <button
                   onClick={onNext}
-                  className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
-                  whileHover={{ x: 3 }}
+                  className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground hover:translate-x-0.5 transition-all duration-200"
                 >
                   <span className="hidden sm:inline uppercase tracking-wider text-xs">
                     Next
                   </span>
                   <IconArrowRight size={18} />
-                </motion.button>
+                </button>
               </div>
             </div>
           </div>
