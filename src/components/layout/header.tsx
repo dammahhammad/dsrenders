@@ -16,9 +16,9 @@ const ContactDialog = dynamic(
 );
 
 const navItems = [
-  { name: "Architecture", href: "/architecture" },
-  { name: "Interiors", href: "/interiors" },
-  { name: "Furniture", href: "/furniture" },
+  { name: "Drawings (B&W)", href: "/architecture" },
+  { name: "Drawings (Color)", href: "/interiors" },
+  { name: "AI Renders", href: "/furniture" },
 ];
 
 export function Header() {
@@ -72,7 +72,7 @@ export function Header() {
                 <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black dark:bg-white group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
                 <span className="absolute inset-0 w-full h-full bg-white dark:bg-black border-2 border-black dark:border-white group-hover:bg-black dark:group-hover:bg-white"></span>
                 <span className="relative text-black dark:text-white group-hover:text-white dark:group-hover:text-black">
-                  Contact Me
+                  Contact us
                 </span>
               </div>
             </Button>

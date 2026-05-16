@@ -9,7 +9,7 @@ type PageProps = {
 };
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamicParams = true;
 export const revalidate = 86400;
 
 export function generateStaticParams() {

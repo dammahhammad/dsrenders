@@ -458,7 +458,7 @@ export const ProductCard = ({
           fill
           priority={priority}
           sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 480px"
-          className="object-cover object-center"
+          className="object-center"
         />
       </Link>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-60 bg-black pointer-events-none transition-opacity duration-300" />

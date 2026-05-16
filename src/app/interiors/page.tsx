@@ -12,117 +12,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
 } from "@tabler/icons-react";
-
-// Project Data
-interface InteriorProject {
-  id: string;
-  title: string;
-  category: string;
-  location: string;
-  year: string;
-  description: string;
-  longDescription?: string;
-  images: string[];
-  features?: string[];
-  icon?: string;
-}
-
-const projects: InteriorProject[] = [
-  {
-    id: "1",
-    title: "Serene Living Space",
-    category: "Living Room",
-    location: "Mumbai, India",
-    year: "2024",
-    description:
-      "A contemporary living room that balances warmth with minimalist design principles.",
-    longDescription:
-      "This living space explores the dialogue between natural materials and contemporary form. The softly contoured furniture carries an organic presence, allowing light to move gently across surfaces and revealing the natural grain and tactile depth of the wood. Neither rigid nor overtly expressive, the form finds its strength in restraint – sculptural without becoming dominant.",
-    images: [
-      "/home_animation/building-2.png",
-      "/home_animation/building-3.png",
-      "/home_animation/building-4.png",
-    ],
-    features: ["Custom millwork", "Natural materials", "Ambient lighting"],
-    icon: "◉",
-  },
-  {
-    id: "2",
-    title: "Modern Kitchen Studio",
-    category: "Kitchen",
-    location: "Delhi, India",
-    year: "2024",
-    description:
-      "Functional culinary space designed for the modern lifestyle with clean lines.",
-    longDescription:
-      "Sharing the DNA of minimalist Scandinavian design, this kitchen explores balance through subtle variation. Angled surfaces are joined by a low apron that runs close to the floor, creating a composed yet dynamic foundation that anchors the piece in the space. The softly contoured countertops carry an organic presence, revealing the natural grain and tactile depth of the stone.",
-    images: [
-      "/home_animation/building-5.png",
-      "/home_animation/building-6.png",
-      "/home_animation/building-7.png",
-    ],
-    features: ["Integrated appliances", "Marble countertops", "Hidden storage"],
-    icon: "◈",
-  },
-  {
-    id: "3",
-    title: "Tranquil Bedroom Retreat",
-    category: "Bedroom",
-    location: "Bangalore, India",
-    year: "2023",
-    description:
-      "A serene retreat crafted for rest and rejuvenation with soft textures.",
-    longDescription:
-      "This bedroom embodies the principles of calm and restoration. Every element serves the purpose of creating an environment conducive to rest. The material palette focuses on natural textiles and muted tones, while carefully positioned lighting creates intimate pockets of warmth throughout the space.",
-    images: [
-      "/home_animation/building-8.png",
-      "/home_animation/building-1.png",
-      "/home_animation/building-2.png",
-    ],
-    features: ["Automated blinds", "Natural fabrics", "Mood lighting"],
-    icon: "◇",
-  },
-  {
-    id: "4",
-    title: "Urban Loft Design",
-    category: "Living Room",
-    location: "Pune, India",
-    year: "2023",
-    description:
-      "Industrial meets contemporary in this open-concept urban dwelling.",
-    longDescription:
-      "An exploration of contrasts – raw industrial elements meet refined contemporary design. Exposed brick and steel are softened by warm wood tones and plush textiles. The open floor plan encourages fluid movement while designated zones provide intimate spaces for work and relaxation.",
-    images: [
-      "/home_animation/building-3.png",
-      "/home_animation/building-4.png",
-      "/home_animation/building-5.png",
-    ],
-    features: [
-      "Open floor plan",
-      "Industrial accents",
-      "Smart home integration",
-    ],
-    icon: "⬡",
-  },
-  {
-    id: "5",
-    title: "Coastal Dining Room",
-    category: "Dining",
-    location: "Goa, India",
-    year: "2024",
-    description:
-      "Elegant dining space inspired by coastal serenity and natural light.",
-    longDescription:
-      "Drawing inspiration from the nearby coastline, this dining space captures the essence of seaside living. Light floods through expansive windows, playing across textured surfaces that evoke sand and sea. The dining table becomes a gathering point where memories are made and stories are shared.",
-    images: [
-      "/home_animation/building-6.png",
-      "/home_animation/building-7.png",
-      "/home_animation/building-8.png",
-    ],
-    features: ["Bay windows", "Custom dining table", "Coastal palette"],
-    icon: "◎",
-  },
-];
+import { InteriorProject, interiorProjects } from "@/lib/content/interior-projects";
 
 const philosophy = [
   {
@@ -154,8 +44,7 @@ const toSlug = (value: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function InteriorsPage() {
-  const [selectedProject, setSelectedProject] =
-    useState<InteriorProject | null>(null);
+  const [selectedProject, setSelectedProject] = useState<InteriorProject | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   const breadcrumbSchema = {
@@ -197,16 +86,16 @@ export default function InteriorsPage() {
 
   const goToPrevProject = () => {
     const newIndex =
-      selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
+      selectedIndex === 0 ? interiorProjects.length - 1 : selectedIndex - 1;
     setSelectedIndex(newIndex);
-    setSelectedProject(projects[newIndex]);
+    setSelectedProject(interiorProjects[newIndex]);
   };
 
   const goToNextProject = () => {
     const newIndex =
-      selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
+      selectedIndex === interiorProjects.length - 1 ? 0 : selectedIndex + 1;
     setSelectedIndex(newIndex);
-    setSelectedProject(projects[newIndex]);
+    setSelectedProject(interiorProjects[newIndex]);
   };
 
   return (
@@ -357,7 +246,7 @@ export default function InteriorsPage() {
 
             {/* Projects List */}
             <div className="space-y-0">
-              {projects.map((project, index) => (
+              {interiorProjects.map((project, index) => (
                 <motion.div key={project.id} className="origin-center">
                   <ProjectRow
                     project={project}
@@ -375,7 +264,7 @@ export default function InteriorsPage() {
       <ProjectDetailSheet
         project={selectedProject}
         projectIndex={selectedIndex}
-        totalProjects={projects.length}
+        totalProjects={interiorProjects.length}
         onClose={() => setSelectedProject(null)}
         onPrev={goToPrevProject}
         onNext={goToNextProject}
@@ -472,7 +361,7 @@ function ProjectRow({ project, onClick }: ProjectRowProps) {
             src={project.images[0]}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
         </motion.div>
@@ -558,7 +447,7 @@ function ProjectDetailSheet({
                       src={images[currentImageIndex]}
                       alt={`${project.title} - Image ${currentImageIndex + 1}`}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       sizes="50vw"
                       priority
                     />

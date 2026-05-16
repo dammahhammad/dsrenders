@@ -4,10 +4,16 @@ import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import Link from "next/link";
 import { IconArrowUp } from "@tabler/icons-react";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { PrimaryFlowButton } from "../ui/flow-button";
+
+const ContactDialog = dynamic(
+  () => import("@/components/forms/contact-dialog"),
+);
 
 export function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -37,7 +43,7 @@ export function Footer() {
               </h2>
             </div>
 
-            <PrimaryFlowButton>Flow Button</PrimaryFlowButton>
+            <PrimaryFlowButton onClick={() => setIsContactOpen(true)}>Contact us</PrimaryFlowButton>
           </div>
 
           {/* Middle Section: Navigation */}
@@ -77,6 +83,11 @@ export function Footer() {
           <IconArrowUp size={20} />
         </button>
       </motion.div>
+
+      {/* Contact Dialog */}
+      {isContactOpen && (
+        <ContactDialog isOpen={isContactOpen} onOpenChange={setIsContactOpen} />
+      )}
     </footer>
   );
 }

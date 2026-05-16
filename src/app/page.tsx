@@ -22,16 +22,16 @@ export const metadata: Metadata = {
 };
 
 const products = [
-  { title: "Urban Sanctuary", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Minimalist Haven", link: "/interiors", thumbnail: "/home_animation/test.jpeg" },
+  { title: "The Sagewood Kitchen", link: "/interiors/the-sagewood-kitchen", thumbnail: "https://images.dsrenders.com/all_images/01_kitchen_1_Page_1.jpg" },
+  { title: "The Olive Grove Bedroom", link: "/furniture/olive-grove-bedroom", thumbnail: "https://images.dsrenders.com/ai_renders/B1.png" },
   { title: "Eco Residence", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Nordic Comfort", link: "/furniture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Zen Gardens", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
+  { title: "Terracotta Breeze", link: "/furniture/terracotta-breeze", thumbnail: "https://images.dsrenders.com/ai_renders/BNB_1.png" },
+  { title: "The Bordeaux Coffee Bar", link: "/interiors/the-bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/all_images/03_COFFEE%20BAR%20LAYOUT.jpg" },
   { title: "Glass Pavilion", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
   { title: "Coastal Retreat", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Sky Tower", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
+  { title: "Midnight Cove Mudroom", link: "/interiors/midnight-cove-mudroom", thumbnail: "https://images.dsrenders.com/all_images/02_MODERN%20MUDROOM_1_Page_1.jpg" },
   { title: "Modern Living", link: "/interiors", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Luxury Estate", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
+  { title: "The Bordeaux Coffee Bar", link: "/furniture/bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.png" },
 ];
 
 export default function Home() {

@@ -9,7 +9,7 @@ type PageProps = {
 };
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamicParams = true;
 export const revalidate = 86400;
 
 export function generateStaticParams() {
@@ -137,7 +137,7 @@ export default async function InteriorProjectDetailPage({ params }: PageProps) {
         <p className="max-w-3xl text-base text-foreground/75 sm:text-lg">{project.description}</p>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-${project.images.length}`}>
         {project.images.map((imagePath, index) => (
           <div
             key={imagePath}
@@ -147,7 +147,7 @@ export default async function InteriorProjectDetailPage({ params }: PageProps) {
               src={imagePath}
               alt={`${project.title} gallery image ${index + 1}`}
               fill
-              className="object-cover"
+              className="object-contain"
               priority={index === 0}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />

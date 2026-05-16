@@ -1,99 +1,233 @@
-export interface InteriorProjectContent {
-  slug: string;
+export interface InteriorProject {
+  id?: string;
   title: string;
   category: string;
-  location: string;
-  year: string;
+  location?: string;
+  year?: string;
   description: string;
-  longDescription: string;
+  longDescription?: string;
   images: string[];
   features: string[];
+  icon?: string;
+  slug: string;
 }
 
-export const interiorProjects: InteriorProjectContent[] = [
+export const interiorProjects: InteriorProject[] = [
   {
-    slug: "serene-living-space",
-    title: "Serene Living Space",
-    category: "Living Room",
-    location: "Mumbai, India",
-    year: "2024",
-    description:
-      "A contemporary living room that balances warmth with minimalist design principles.",
-    longDescription:
-      "This living space explores the dialogue between natural materials and contemporary form. The softly contoured furniture carries an organic presence, allowing light to move gently across surfaces and revealing the natural grain and tactile depth of the wood. Neither rigid nor overtly expressive, the form finds its strength in restraint – sculptural without becoming dominant.",
+    id: "1",
+    slug: "the-sagewood-kitchen",
+    title: "The Sagewood Kitchen",
+    category: "Kitchen",
+    description: "Sage cabinetry meets marble elegance in a warm, sculptural culinary space.",
+    longDescription: "The Sagewood Kitchen blends timeless craftsmanship with a refined modern aesthetic, creating a warm and inviting culinary space. Soft sage cabinetry is paired with rich oak wood accents and elegant reeded glass details, bringing depth and texture to the composition. The marble waterfall island serves as the focal point of the design, offering both functional workspace and casual seating while enhancing the kitchen's sculptural presence. Balanced by classic tilework, layered materials, and clean architectural lines, the space feels sophisticated, calm, and effortlessly livable.",
     images: [
-      "/home_animation/building-2.png",
-      "/home_animation/building-3.png",
-      "/home_animation/building-4.png",
+      "https://images.dsrenders.com/all_images/01_kitchen_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/01_KITCHEN_2_Page%202.jpg",
     ],
     features: ["Custom millwork", "Natural materials", "Ambient lighting"],
+    icon: "◉",
   },
   {
-    slug: "modern-kitchen-studio",
-    title: "Modern Kitchen Studio",
-    category: "Kitchen",
-    location: "Delhi, India",
-    year: "2024",
-    description:
-      "Functional culinary space designed for the modern lifestyle with clean lines.",
-    longDescription:
-      "Sharing the DNA of minimalist Scandinavian design, this kitchen explores balance through subtle variation. Angled surfaces are joined by a low apron that runs close to the floor, creating a composed yet dynamic foundation that anchors the piece in the space. The softly contoured countertops carry an organic presence, revealing the natural grain and tactile depth of the stone.",
+    id: "2",
+    slug: "midnight-cove-mudroom",
+    title: "Midnight Cove Mudroom",
+    category: "Mudroom",
+    description: "Deep navy tones and fluted panels transform an entryway into quiet luxury.",
+    longDescription: "The Midnight Cove Mudroom transforms a functional entryway into a refined architectural moment through rich color, texture, and thoughtful detailing. Deep navy cabinetry is paired with vertically fluted wall panels to create depth and visual rhythm, while warm brass accents and a sculptural pendant light introduce softness and contrast. Integrated seating, concealed storage, and open shelving provide practical everyday organization without compromising the elevated aesthetic. Anchored by bold geometric floor tile, the space feels sophisticated, welcoming, and quietly luxurious.",
     images: [
-      "/home_animation/building-5.png",
-      "/home_animation/building-6.png",
-      "/home_animation/building-7.png",
+      "https://images.dsrenders.com/all_images/02_MODERN%20MUDROOM_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/02_MODERN%20MUDROOM_2_Page_2.jpg",
     ],
-    features: ["Integrated appliances", "Marble countertops", "Hidden storage"],
+    features: ["Integrated seating", "Fluted panels", "Hidden storage"],
+    icon: "◈",
   },
   {
-    slug: "tranquil-bedroom-retreat",
-    title: "Tranquil Bedroom Retreat",
-    category: "Bedroom",
-    location: "Bangalore, India",
-    year: "2023",
-    description:
-      "A serene retreat crafted for rest and rejuvenation with soft textures.",
-    longDescription:
-      "This bedroom embodies the principles of calm and restoration. Every element serves the purpose of creating an environment conducive to rest. The material palette focuses on natural textiles and muted tones, while carefully positioned lighting creates intimate pockets of warmth throughout the space.",
+    id: "3",
+    slug: "the-bordeaux-coffee-bar",
+    title: "The Bordeaux Coffee Bar",
+    category: "Coffee Bar",
+    description: "Burgundy millwork and Calacatta marble elevate the daily coffee ritual.",
+    longDescription: "The Bordeaux Coffee Bar combines rich materiality with timeless detailing to create a warm and sophisticated beverage station. Deep burgundy millwork is paired with softly illuminated oak shelving, fluted glass cabinetry, and elegant Calacatta marble surfaces, establishing a refined balance between contrast and warmth. The arched composition introduces a sense of architectural softness, while integrated lighting enhances depth and ambiance throughout the space. Designed for both functionality and display, the coffee bar transforms a simple daily ritual into an elevated experience.",
     images: [
-      "/home_animation/building-8.png",
-      "/home_animation/building-1.png",
-      "/home_animation/building-2.png",
+      "https://images.dsrenders.com/all_images/03_COFFEE%20BAR%20LAYOUT.jpg",
     ],
-    features: ["Automated blinds", "Natural fabrics", "Mood lighting"],
+    features: ["Fluted glass", "Oak shelving", "Mood lighting"],
+    icon: "◇",
   },
   {
-    slug: "urban-loft-design",
-    title: "Urban Loft Design",
+    id: "4",
+    slug: "the-solara-fauteuil",
+    title: "The Solara Fauteuil",
+    category: "Furniture",
+    description: "A sculptural lounge chair blending tropical modernism with organic comfort.",
+    longDescription: "The Solara Fauteuil blends natural craftsmanship with contemporary minimalism to create a lounge chair that feels both sculptural and inviting. Defined by its gently curved backrest and open slatted framework, the design introduces a sense of lightness while maintaining structural strength and ergonomic comfort. Crafted in warm timber tones and paired with soft linen upholstery, the chair embraces a calm organic aesthetic inspired by tropical modernism and nature-driven design. The result is a timeless statement piece that balances elegance, comfort, and everyday functionality.",
+    images: [
+      "https://images.dsrenders.com/all_images/04_CAROLINE%20FAUTEUIL.jpg",
+    ],
+    features: ["Curved backrest", "Slatted framework", "Linen upholstery"],
+    icon: "⬡",
+  },
+  {
+    id: "5",
+    slug: "the-atelier-chaise",
+    title: "The Atelier Chaise",
+    category: "Furniture",
+    description: "Mid-century teak and woven wicker unite in an artisan dining chair.",
+    longDescription: "The Atelier Chaise combines timeless craftsmanship with a refined mid-century silhouette, creating a dining chair that feels both elegant and approachable. Warm teak wood framing is paired with woven wicker detailing on the seat and backrest, introducing natural texture and artisanal character to the composition. The gently curved rear legs and clean linear structure create a balanced visual softness while maintaining durability and ergonomic comfort. Lightweight in appearance yet structurally grounded, the chair embodies a calm, organic aesthetic suited for both contemporary and classic interiors.",
+    images: [
+      "https://images.dsrenders.com/all_images/05_CECILE%20chaise.jpg",
+    ],
+    features: ["Teak framing", "Woven wicker", "Ergonomic design"],
+    icon: "◎",
+  },
+  {
+    id: "6",
+    slug: "maison-rouge-powder-room",
+    title: "Maison Rouge Powder Room",
+    category: "Powder Room",
+    description: "Bold Parisian red and black marble create an intimate, moody statement.",
+    longDescription: "The Maison Rouge Powder Room embraces bold sophistication through a carefully balanced palette of deep Parisian red, terrazzo textures, and dramatic black marble surfaces. The rich monochromatic walls create an intimate and moody atmosphere, while warm brass fixtures and sculptural lighting introduce elegance and visual contrast. A floating fluted vanity paired with a softly arched mirror adds architectural refinement, enhancing both the functionality and sculptural presence of the space. Layered with texture, warmth, and ambient lighting, the design transforms a compact powder room into a luxurious statement interior.",
+    images: [
+      "https://images.dsrenders.com/all_images/06_POWDER%20ROOM_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/06_POWDER%20ROOM_2_Page_2.jpg",
+    ],
+    features: ["Fluted vanity", "Brass fixtures", "Arched mirror"],
+    icon: "◎",
+  },
+  {
+    id: "7",
+    slug: "the-hearthwood-lounge",
+    title: "The Hearthwood Lounge",
     category: "Living Room",
-    location: "Pune, India",
-    year: "2023",
-    description:
-      "Industrial meets contemporary in this open-concept urban dwelling.",
-    longDescription:
-      "An exploration of contrasts – raw industrial elements meet refined contemporary design. Exposed brick and steel are softened by warm wood tones and plush textiles. The open floor plan encourages fluid movement while designated zones provide intimate spaces for work and relaxation.",
+    description: "A sculptural fireplace wall anchors this warm, walnut-framed living space.",
+    longDescription: "The Hearthwood Lounge blends modern minimalism with warm natural textures to create a refined and inviting living environment. A sculptural fireplace wall anchors the composition, framed by rich walnut shelving that introduces depth, balance, and curated display opportunities. Soft neutral furnishings and layered textures enhance the calming atmosphere, while the linear fireplace adds warmth and subtle ambient movement to the space. Clean architectural lines, integrated lighting, and organic material tones come together to create a living area that feels both sophisticated and effortlessly comfortable.",
     images: [
-      "/home_animation/building-3.png",
-      "/home_animation/building-4.png",
-      "/home_animation/building-5.png",
+      "https://images.dsrenders.com/all_images/07_FIREPLACE_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/07_FIREPLACE_2_Page_2.jpg",
     ],
-    features: ["Open floor plan", "Industrial accents", "Smart home integration"],
+    features: ["Linear fireplace", "Walnut shelving", "Ambient lighting"],
+    icon: "◎",
   },
   {
-    slug: "coastal-dining-room",
-    title: "Coastal Dining Room",
-    category: "Dining",
-    location: "Goa, India",
-    year: "2024",
-    description:
-      "Elegant dining space inspired by coastal serenity and natural light.",
-    longDescription:
-      "Drawing inspiration from the nearby coastline, this dining space captures the essence of seaside living. Light floods through expansive windows, playing across textured surfaces that evoke sand and sea. The dining table becomes a gathering point where memories are made and stories are shared.",
+    id: "8",
+    slug: "the-aure-desk",
+    title: "The Aure Desk",
+    category: "Furniture",
+    description: "Walnut and stone geometry merge into a calm, minimal workspace.",
+    longDescription: "The Aure Desk embraces modern minimalism through soft geometry, clean architectural lines, and a carefully balanced material palette. A warm walnut wood surface contrasts elegantly against the smooth stone-toned structure, creating a composition that feels both refined and inviting. The rounded drawer module introduces sculptural softness to the otherwise linear form, while concealed storage maintains a seamless and uncluttered appearance. Designed with simplicity, utility, and visual harmony in mind, the desk creates a calm and sophisticated workspace suited for contemporary interiors.",
     images: [
-      "/home_animation/building-6.png",
-      "/home_animation/building-7.png",
-      "/home_animation/building-8.png",
+      "https://images.dsrenders.com/all_images/08_TABLE.jpg",
     ],
-    features: ["Bay windows", "Custom dining table", "Coastal palette"],
+    features: ["Clean geometry", "Concealed storage", "Walnut surface"],
+    icon: "◎",
   },
+  {
+    id: "9",
+    slug: "the-alabaster-living-room",
+    title: "The Alabaster Living Room",
+    category: "Living Room",
+    description: "Soft minimalism and sculptural shelving create a timeless, airy retreat.",
+    longDescription: "The Alabaster Living Room embraces soft minimalism through a carefully balanced composition of warm wood tones, textured finishes, and sculptural forms. A custom open shelving feature wall introduces rhythm and visual depth while serving as both functional storage and curated display. The curved lounge chairs soften the architectural geometry of the space, creating an inviting conversational setting layered with warmth and comfort. Natural light, muted textures, and restrained material contrasts come together to establish a serene environment that feels timeless, airy, and refined.",
+    images: [
+      "https://images.dsrenders.com/all_images/09_WALL%20DESIGN_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/09_WALL%20DESIGN_2_Page_2.jpg",
+    ],
+    features: ["Open shelving", "Curved furniture", "Natural light"],
+    icon: "◎",
+  },
+  {
+    id: "10",
+    slug: "the-evergreen-living-kitchen",
+    title: "The Evergreen Living Kitchen",
+    category: "Outdoor",
+    description: "An open-air patio designed for relaxed living under golden light.",
+    longDescription: "The Evergreen Living Kitchen blends modern simplicity with nature-inspired warmth to create a calm and inviting open-concept interior. Soft green cabinetry, light oak flooring, and textured neutral finishes establish a balanced material palette that feels both fresh and timeless. The kitchen, dining, and lounge areas flow seamlessly together, encouraging connection and everyday comfort while maintaining a refined architectural composition. Sculptural lighting, curated wall niches, and layered organic textures add depth and personality, while expansive natural light enhances the airy and serene atmosphere throughout the space.",
+    images: [
+    ],
+    features: ["Natural stone", "Lush greenery", "Open-air design"],
+    icon: "◎",
+  },
+  {
+    id: "11",
+    slug: "the-moonshadow-carrier",
+    title: "The Moonshadow Carrier",
+    category: "Kitchen & Living",
+    description: "A cinematic travel chest fusing Japanese fantasy with traditional craft.",
+    longDescription: "The Moonshadow Carrier reinterprets the iconic traveling box through a detailed blend of traditional craftsmanship and stylized fantasy aesthetics. Constructed with rich wood textures, reinforced metal framing, and ornamental corner detailing, the design balances durability with visual character. Functional strap systems and articulated hinges emphasize portability and practicality, while the compact vertical proportions create a strong sculptural presence. Inspired by Japanese anime storytelling and historical transport chests, the piece captures a cinematic atmosphere that feels both protective and symbolic.",
+    images: [
+      "https://images.dsrenders.com/all_images/11_NEZUKO'S%20BOX.jpg",
+    ],
+    features: ["Metal framing", "Articulated hinges", "Ornamental detailing"],
+    icon: "◎",
+  },
+  {
+    id: "12",
+    slug: "the-forma-vanity",
+    title: "The Forma Vanity",
+    category: "Furniture",
+    description: "Clean geometry and seamless drawer pulls define this minimalist vanity.",
+    longDescription: "The Forma Vanity embraces minimalist design through clean geometry, precise detailing, and functional simplicity. Defined by its seamless drawer composition and soft neutral finish, the piece creates a refined architectural presence while maintaining practical everyday usability. Integrated cutout pulls preserve the uninterrupted visual flow of the form, while the layered drawer configuration introduces depth and proportion to the overall silhouette. Designed with clarity and restraint, the vanity balances utility, craftsmanship, and contemporary elegance.",
+    images: [
+      "https://images.dsrenders.com/all_images/12_VANITY.jpg",
+    ],
+    features: ["Cutout pulls", "Layered drawers", "Neutral finish"],
+    icon: "◎",
+  },
+  {
+    id: "13",
+    slug: "the-olive-grove-bedroom",
+    title: "The Olive Grove Bedroom",
+    category: "Bedroom",
+    description: "Bohemian warmth meets tropical murals in this nature-inspired sanctuary.",
+    longDescription: "The Olive Grove Bedroom embraces a soft bohemian aesthetic through layered natural textures, earthy tones, and botanical-inspired detailing. Deep olive accents, warm oak flooring, and tropical mural wallpaper create a calming connection to nature while establishing a rich and immersive atmosphere. Floating wooden ledges, woven textures, and curated greenery introduce warmth and personality throughout the space, balancing simplicity with visual depth. Soft ambient lighting and organic forms complete the composition, resulting in a serene retreat that feels intimate, grounded, and effortlessly inviting.",
+    images: [
+      "https://images.dsrenders.com/all_images/13_BEDROOM_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/13_BEDROOM_2_Page_2.jpg",
+    ],
+    features: ["Tropical murals", "Olive accents", "Woven textures"],
+    icon: "◎",
+  },
+  {
+    id: "14",
+    slug: "the-noirwood-office",
+    title: "The Noirwood Office",
+    category: "Office",
+    description: "Oak millwork and a marble desk craft a focused, quietly elegant workspace.",
+    longDescription: "The Noirwood Office combines contemporary minimalism with rich materiality to create a workspace that feels both sophisticated and inviting. Warm oak millwork and deep wood flooring establish a grounded architectural presence, while the dramatic marble desk surface introduces contrast and refinement. Integrated shelving with ambient lighting provides curated display and functional storage, adding depth and visual rhythm to the composition. Soft neutral wall finishes and controlled lighting complete the atmosphere, resulting in a calm and focused environment designed for productivity and quiet elegance.",
+    images: [
+      "https://images.dsrenders.com/all_images/14_OFFICE_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/14_OFFICE_2_Page_2.jpg",
+    ],
+    features: ["Marble desk", "Integrated shelving", "Ambient lighting"],
+    icon: "◎",
+  },
+  {
+    id: "15",
+    slug: "terracotta-breeze",
+    title: "Terracotta Breeze",
+    category: "Bedroom",
+    description: "Mediterranean brick and arched windows bathe this retreat in warm daylight.",
+    longDescription: "Terracotta Breeze is a warm Mediterranean-inspired retreat designed around natural textures, earthy materials, and soft daylight. Rich terracotta brick walls introduce depth and character, while large arched French windows flood the interior with natural light, creating an airy and tranquil atmosphere. Warm oak finishes, woven rattan details, and layered textiles soften the architectural composition and enhance the room's relaxed elegance. Balanced by textured beige walls and polished concrete flooring, the space feels grounded, inviting, and effortlessly timeless.",
+    images: [
+      "https://images.dsrenders.com/all_images/15_BNB_1_Page_1.jpg",
+      "https://images.dsrenders.com/all_images/15_BNB_2_Page_2.jpg",
+      "https://images.dsrenders.com/all_images/15_BNB_3_Page_3.jpg",
+    ],
+    features: ["Terracotta brick", "Arched windows", "Rattan details"],
+    icon: "◎",
+  },
+  {
+    id: "16",
+    slug: "the-blooming-arcade",
+    title: "The Blooming Arcade",
+    category: "Outdoor",
+    description: "Moroccan tiles and cascading bougainvillea define this courtyard escape.",
+    longDescription: "The Blooming Arcade is a Mediterranean-inspired courtyard designed to celebrate light, texture, and lush greenery through a refined architectural composition. Patterned Moroccan tiles establish a vibrant visual rhythm across the patio floor, while cascading bougainvillea softens the structured geometry with natural movement and color. Arched decorative niches, textured plaster walls, woven rattan furnishings, and warm oak accents create a serene outdoor retreat that feels both timeless and inviting. The open arcade and expansive glazing allow natural light to filter through the space, enhancing its airy, tranquil atmosphere.",
+    images: [
+        "https://images.dsrenders.com/all_images/16_PATIO_1_Page_1.jpg",
+        "https://images.dsrenders.com/all_images/16_PATIO_2_Page_2.jpg",
+    ],
+    features: ["Moroccan tiles", "Bougainvillea", "Arched niches"],
+    icon: "◎",
+  }
 ];

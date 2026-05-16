@@ -13,140 +13,7 @@ import {
     SheetTitle,
 } from "@/components/ui/sheet";
 import { IconRuler, IconPencil, IconPalette, IconChevronLeft, IconChevronRight, IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-
-interface DesignItem {
-    id: string;
-    name: string;
-    image: string;
-    images: string[];  // Array of images for gallery
-    category: string;
-    description: string;
-    materials: { name: string; color: string }[];
-    dimensions: string;
-    designNotes: string[];
-    scale?: string;
-}
-
-const designItems: DesignItem[] = [
-    {
-        id: "1",
-        name: "Meridian Chair",
-        image: "/home_animation/test.jpeg",
-        images: ["/home_animation/test.jpeg", "/woods/chair.png", "/woods/black-chair.png"],
-        category: "Seating",
-        description: "A sculptural masterpiece that redefines comfort. The Meridian Chair features an organically curved backrest that cradles the body while making a bold design statement.",
-        materials: [
-            { name: "Solid Walnut", color: "#5D4037" },
-            { name: "Premium Leather", color: "#8D6E63" },
-            { name: "Brass Accents", color: "#D4AF37" },
-        ],
-        dimensions: "W 28\" × D 32\" × H 34\"",
-        designNotes: [
-            "Inspired by principles of MINIMALISM - simplicity, utility, and harmony",
-            "The curved backrest adds softness to the geometric structure",
-            "Contrasting materials bring warmth and character",
-        ],
-        scale: "1\" = 1'-0\"",
-    },
-    {
-        id: "2",
-        name: "Horizon Table",
-        image: "/woods/table.png",
-        images: ["/woods/table.png", "/woods/hero-woods.png"],
-        category: "Tables",
-        description: "Clean lines meet exceptional craftsmanship. The Horizon Table showcases the natural beauty of reclaimed oak with a live edge that celebrates imperfection.",
-        materials: [
-            { name: "Walnut Wood", color: "#5D4037" },
-            { name: "Skimming Stone", color: "#D5D0C8" },
-        ],
-        dimensions: "W 84\" × D 42\" × H 30\"",
-        designNotes: [
-            "Rounded drawer module adds softness to geometric structure",
-            "Contrasting wood top brings warmth and character",
-            "Seamless finish with rounded edges throughout",
-        ],
-        scale: "3\" = 1'-0\"",
-    },
-    {
-        id: "3",
-        name: "Solace Sofa",
-        image: "/woods/sofa.png",
-        images: ["/woods/sofa.png", "/woods/modern-sofa.png"],
-        category: "Seating",
-        description: "Sink into pure luxury. The Solace Sofa combines cloud-like comfort with modern minimalism, featuring deep seats and precisely tailored cushions.",
-        materials: [
-            { name: "Italian Bouclé", color: "#F5F5DC" },
-            { name: "Kiln-dried Hardwood", color: "#A1887F" },
-            { name: "Down Fill", color: "#FFFEF0" },
-        ],
-        dimensions: "W 96\" × D 42\" × H 32\"",
-        designNotes: [
-            "Low-profile silhouette for contemporary spaces",
-            "Modular design allows for custom configurations",
-            "Hidden joinery for seamless appearance",
-        ],
-        scale: "1\" = 1'-0\"",
-    },
-    {
-        id: "4",
-        name: "Modern Sofa",
-        image: "/woods/modern-sofa.png",
-        images: ["/woods/modern-sofa.png", "/woods/sofa.png"],
-        category: "Seating",
-        description: "Contemporary elegance at its finest. Low-profile design meets plush comfort in this statement piece designed for the modern living space.",
-        materials: [
-            { name: "Velvet Upholstery", color: "#4A4A4A" },
-            { name: "Oak Legs", color: "#DEB887" },
-        ],
-        dimensions: "W 88\" × D 38\" × H 28\"",
-        designNotes: [
-            "Streamlined form emphasizes horizontal lines",
-            "Generous seating depth for maximum comfort",
-            "Tapered legs elevate the visual weight",
-        ],
-        scale: "1\" = 1'-0\"",
-    },
-    {
-        id: "5",
-        name: "Studio Chair",
-        image: "/woods/studio-chair.png",
-        images: ["/woods/studio-chair.png", "/woods/chair.png", "/woods/modern-chair.png"],
-        category: "Seating",
-        description: "The perfect balance of form and function. Designed for the creative professional who demands both beauty and ergonomic support.",
-        materials: [
-            { name: "Molded Plywood", color: "#C4A484" },
-            { name: "Leather Cushion", color: "#2C2C2C" },
-            { name: "Chrome Base", color: "#C0C0C0" },
-        ],
-        dimensions: "W 24\" × D 26\" × H 36\"",
-        designNotes: [
-            "Ergonomic contours support natural posture",
-            "Swivel mechanism for fluid movement",
-            "Adjustable height for workspace flexibility",
-        ],
-        scale: "1\" = 1'-0\"",
-    },
-    {
-        id: "6",
-        name: "Aura Lamps",
-        image: "/woods/lamps.png",
-        images: ["/woods/lamps.png", "/woods/hero-woods.png"],
-        category: "Lighting",
-        description: "Ambient lighting elevated to art form. These sculptural lamps cast a warm, diffused glow that transforms any room into a sanctuary.",
-        materials: [
-            { name: "Hand-blown Glass", color: "#FAFAFA" },
-            { name: "Brushed Brass", color: "#D4AF37" },
-            { name: "Marble Base", color: "#F5F5F5" },
-        ],
-        dimensions: "Ø 12\" × H 24\"",
-        designNotes: [
-            "Organic glass forms create unique light patterns",
-            "Warm temperature LED for cozy ambiance",
-            "Weighted base ensures stability",
-        ],
-        scale: "1\" = 1'-0\"",
-    },
-];
+import { FurnitureItem, furnitureItems } from "@/lib/content/furniture-items";
 
 const designPhilosophy = [
     {
@@ -173,7 +40,7 @@ const toSlug = (value: string) =>
         .replace(/(^-|-$)/g, "");
 
 export default function FurniturePage() {
-    const [selectedItem, setSelectedItem] = useState<DesignItem | null>(null);
+    const [selectedItem, setSelectedItem] = useState<FurnitureItem | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const breadcrumbSchema = {
@@ -208,21 +75,21 @@ export default function FurniturePage() {
         url: "https://dsrenders.com/furniture",
     };
 
-    const openItem = (item: DesignItem, index: number) => {
+    const openItem = (item: FurnitureItem, index: number) => {
         setSelectedItem(item);
         setSelectedIndex(index);
     };
 
     const goToPrevItem = () => {
-        const newIndex = selectedIndex === 0 ? designItems.length - 1 : selectedIndex - 1;
+        const newIndex = selectedIndex === 0 ? furnitureItems.length - 1 : selectedIndex - 1;
         setSelectedIndex(newIndex);
-        setSelectedItem(designItems[newIndex]);
+        setSelectedItem(furnitureItems[newIndex]);
     };
 
     const goToNextItem = () => {
-        const newIndex = selectedIndex === designItems.length - 1 ? 0 : selectedIndex + 1;
+        const newIndex = selectedIndex === furnitureItems.length - 1 ? 0 : selectedIndex + 1;
         setSelectedIndex(newIndex);
-        setSelectedItem(designItems[newIndex]);
+        setSelectedItem(furnitureItems[newIndex]);
     };
 
     return (
@@ -334,7 +201,7 @@ export default function FurniturePage() {
                     </FadeIn>
 
                     <div className="space-y-0">
-                        {designItems.map((item, index) => (
+                        {furnitureItems.map((item, index) => (
                             <motion.div
                                 key={item.id}
                                 initial={{ opacity: 0, y: 50 }}
@@ -411,7 +278,7 @@ export default function FurniturePage() {
             <DesignDetailSheet
                 item={selectedItem}
                 itemIndex={selectedIndex}
-                totalItems={designItems.length}
+                totalItems={furnitureItems.length}
                 onClose={() => setSelectedItem(null)}
                 onPrev={goToPrevItem}
                 onNext={goToNextItem}
@@ -423,7 +290,7 @@ export default function FurniturePage() {
 
 // Furniture Row Component (Vertical Scroll Style)
 interface FurnitureRowProps {
-    item: DesignItem;
+    item: FurnitureItem;
     index: number;
     onClick: () => void;
 }
@@ -471,23 +338,6 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                     {item.description}
                 </p>
 
-                {/* Materials Preview */}
-                <div className="flex items-center gap-4 mb-8">
-                    <div className="flex -space-x-3">
-                        {item.materials.slice(0, 3).map((material, idx) => (
-                            <div
-                                key={idx}
-                                className="w-10 h-10 rounded-full border-2 border-background ring-1 ring-border shadow-sm"
-                                style={{ backgroundColor: material.color }}
-                                title={material.name}
-                            />
-                        ))}
-                    </div>
-                    {item.materials.length > 3 && (
-                        <span className="text-xs text-muted-foreground">+{item.materials.length - 3} more</span>
-                    )}
-                </div>
-
                 <div className="flex items-center gap-6 mt-auto">
                     <motion.div
                         className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-accent group-hover:text-accent transition-colors"
@@ -505,7 +355,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
             <div className="relative h-[300px] sm:h-[350px] overflow-hidden rounded-2xl bg-secondary/5 order-1 lg:order-2">
                 <motion.div className="absolute inset-0 flex items-center justify-center p-8" style={{ y: imageY }}>
                     <Image
-                        src={item.image}
+                        src={item.images[0]}
                         alt={item.name}
                         fill
                         className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
@@ -525,7 +375,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
 
 // Design Detail Sheet Component
 interface DesignDetailSheetProps {
-    item: DesignItem | null;
+    item: FurnitureItem | null;
     itemIndex: number;
     totalItems: number;
     onClose: () => void;
@@ -570,7 +420,7 @@ function DesignDetailSheet({ item, itemIndex, totalItems, onClose, onPrev, onNex
                                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                     >
                                         <Image
-                                            src={images[currentImageIndex] || item.image}
+                                            src={images[currentImageIndex] || item.images[0]}
                                             alt={`${item.name} - Image ${currentImageIndex + 1}`}
                                             fill
                                             className="object-cover"
@@ -615,14 +465,6 @@ function DesignDetailSheet({ item, itemIndex, totalItems, onClose, onPrev, onNex
                                         ))}
                                     </div>
                                 )}
-
-                                {item.scale && (
-                                    <div className="absolute top-4 right-4 z-20">
-                                        <span className="px-3 py-1.5 text-xs font-mono bg-background/90 backdrop-blur-sm rounded text-foreground border border-border/50">
-                                            Scale: {item.scale}
-                                        </span>
-                                    </div>
-                                )}
                             </div>
 
                             <div className="p-6 sm:p-8 lg:p-10 flex-1 overflow-y-auto">
@@ -637,37 +479,6 @@ function DesignDetailSheet({ item, itemIndex, totalItems, onClose, onPrev, onNex
                                         {item.description}
                                     </SheetDescription>
                                 </SheetHeader>
-
-                                <div className="mb-6 sm:mb-8">
-                                    <h4 className="text-sm font-display font-semibold text-foreground mb-4 uppercase tracking-wider">
-                                        Materials
-                                    </h4>
-                                    <div className="flex flex-wrap gap-3">
-                                        {item.materials.map((material, idx) => (
-                                            <div
-                                                key={idx}
-                                                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-secondary/50 border border-border/50"
-                                            >
-                                                <div
-                                                    className="w-5 h-5 rounded-full border border-border"
-                                                    style={{ backgroundColor: material.color }}
-                                                />
-                                                <span className="text-sm font-body text-foreground">
-                                                    {material.name}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="mb-6 sm:mb-8">
-                                    <h4 className="text-sm font-display font-semibold text-foreground mb-3 uppercase tracking-wider">
-                                        Dimensions
-                                    </h4>
-                                    <p className="text-sm text-muted-foreground font-mono bg-secondary/30 px-4 py-3 rounded-lg border border-border/50">
-                                        {item.dimensions}
-                                    </p>
-                                </div>
 
                                 <div className="mb-8">
                                     <h4 className="text-sm font-display font-semibold text-foreground mb-4 uppercase tracking-wider">

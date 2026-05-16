@@ -1,81 +1,93 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/motion-primitives";
+import { FadeIn } from "@/components/motion/motion-primitives";
 
 interface Project {
     id: string;
     title: string;
     category: string;
-    location: string;
-    year: string;
     image: string;
+    link: string;
     size?: "large" | "medium" | "small";
 }
 
-const toSlug = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
 
 const projects: Project[] = [
     {
         id: "1",
         title: "Urban Sanctuary",
         category: "Architecture",
-        location: "Dubai, UAE",
-        year: "2024",
         image: "/home_animation/building-1.png",
         size: "large",
+        link: "/architecture/urban-sanctuary",
     },
     {
         id: "2",
-        title: "Serene Living Space",
-        category: "Interiors",
-        location: "Singapore",
-        year: "2024",
-        image: "/home_animation/building-2.png",
-        size: "medium",
+        title: "Urban Sanctuary",
+        category: "Architecture",
+        image: "/home_animation/building-1.png",
+        size: "small",
+        link: "/architecture/urban-sanctuary",
     },
     {
         id: "3",
-        title: "Eco Residence",
+        title: "Urban Sanctuary",
         category: "Architecture",
-        location: "Copenhagen",
-        year: "2023",
-        image: "/home_animation/building-3.png",
+        image: "/home_animation/building-1.png",
         size: "medium",
+        link: "/architecture/urban-sanctuary",
     },
     {
         id: "4",
-        title: "Meridian Chair",
-        category: "Furniture",
-        location: "Stockholm",
-        year: "2024",
-        image: "/home_animation/building-4.png",
-        size: "small",
+        title: "The Sagewood Kitchen",
+        category: "Interiors",
+        image: "https://images.dsrenders.com/all_images/01_kitchen_1_Page_1.jpg",
+        size: "large",
+        link: "/interiors/the-sagewood-kitchen",
     },
     {
         id: "5",
-        title: "Zen Gardens",
-        category: "Architecture",
-        location: "Kyoto, Japan",
-        year: "2023",
-        image: "/home_animation/building-5.png",
+        title: "Midnight Cove Mudroom",
+        category: "Interiors",
+        image: "https://images.dsrenders.com/all_images/02_MODERN%20MUDROOM_1_Page_1.jpg",
         size: "small",
+        link: "/interiors/midnight-cove-mudroom",
     },
     {
         id: "6",
-        title: "Glass Pavilion",
-        category: "Architecture",
-        location: "California",
-        year: "2024",
-        image: "/home_animation/building-6.png",
+        title: "The Bordeaux Coffee Bar",
+        category: "Interiors",
+        image: "https://images.dsrenders.com/all_images/03_COFFEE%20BAR%20LAYOUT.jpg",
         size: "medium",
+        link: "/interiors/the-bordeaux-coffee-bar",
+    },
+    {
+        id: "7",
+        title: "The Olive Grove Bedroom",
+        category: "Furniture",
+        image: "https://images.dsrenders.com/ai_renders/B1.png",
+        size: "large",
+        link: "/furniture/olive-grove-bedroom",
+    },
+    {
+        id: "8",
+        title: "Terracotta Breeze",
+        category: "Furniture",
+        image: "https://images.dsrenders.com/ai_renders/BNB_1.png",
+        size: "small",
+        link: "/furniture/terracotta-breeze",
+    },
+    {
+        id: "9",
+        title: "The Hearthwood Lounge",
+        category: "Furniture",
+        image: "https://images.dsrenders.com/ai_renders/FIREPLACE.png",
+        size: "medium",
+        link: "/furniture/hearthwood-lounge",
     },
 ];
 
@@ -84,10 +96,12 @@ const categories = ["All", "Architecture", "Interiors", "Furniture"];
 export function PortfolioGrid() {
     const [activeCategory, setActiveCategory] = useState("All");
 
-    const filteredProjects =
-        activeCategory === "All"
+    const filteredProjects = useMemo(
+        () => activeCategory === "All"
             ? projects
-            : projects.filter((p) => p.category === activeCategory);
+            : projects.filter((p) => p.category === activeCategory),
+        [activeCategory]
+    );
 
     return (
         <section className="bg-background relative overflow-hidden z-15">
@@ -134,21 +148,22 @@ export function PortfolioGrid() {
                 </FadeIn>
 
                 {/* Projects Grid - Bento Layout */}
-                <StaggerContainer key={activeCategory} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {filteredProjects.map((project, index) => (
-                        <StaggerItem
+                        <div
                             key={project.id}
-                            className={`${project.size === "large"
+                            className={`animate-fade-in-up ${project.size === "large"
                                 ? "sm:col-span-2 sm:row-span-2"
                                 : project.size === "medium"
                                     ? "sm:row-span-2"
                                     : ""
                                 }`}
+                            style={{ animationDelay: `${index * 80}ms` }}
                         >
                             <ProjectCard project={project} index={index} />
-                        </StaggerItem>
+                        </div>
                     ))}
-                </StaggerContainer>
+                </div>
 
                 {/* View All Link */}
                 <FadeIn delay={0.5}>
@@ -179,85 +194,51 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, index }: ProjectCardProps) {
-    const [isHovered, setIsHovered] = useState(false);
-
     return (
         <Link
-            href={`/${project.category.toLowerCase()}/${toSlug(project.title)}`}
+            href={project.link}
             className="group block relative overflow-hidden rounded-xl sm:rounded-2xl bg-card h-[280px] sm:h-[320px] lg:h-full lg:min-h-[320px]"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             {/* Image */}
-            <motion.div
-                className="absolute inset-0"
-                animate={{ scale: isHovered ? 1.05 : 1 }}
-                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            >
+            <div className="absolute inset-0 transition-transform duration-600 ease-out group-hover:scale-105">
                 <Image
                     src={project.image}
                     alt={project.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    loading={index < 3 ? "eager" : "lazy"}
                 />
-            </motion.div>
+            </div>
 
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
             {/* Hover Overlay */}
-            <motion.div
-                className="absolute inset-0 bg-black/40"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isHovered ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-            />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {/* Content */}
             <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-end">
                 {/* Category Tag */}
-                <motion.span
-                    className="inline-block self-start px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-body tracking-wider uppercase bg-white/10 backdrop-blur-sm text-white rounded-full mb-2 sm:mb-3"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 + 0.2 }}
-                >
+                <span className="inline-block self-start px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-body tracking-wider uppercase bg-white/10 backdrop-blur-sm text-white rounded-full mb-2 sm:mb-3">
                     {project.category}
-                </motion.span>
+                </span>
 
                 {/* Title */}
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-white leading-tight">
                     {project.title}
                 </h3>
 
-                {/* Meta */}
-                <div className="flex items-center gap-2 sm:gap-3 mt-2 text-xs sm:text-sm text-white/70 font-body">
-                    <span>{project.location}</span>
-                    <span className="w-1 h-1 rounded-full bg-white/50" />
-                    <span>{project.year}</span>
-                </div>
-
                 {/* Hover Arrow */}
-                <motion.div
-                    className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.5 }}
-                    transition={{ duration: 0.3 }}
-                >
+                <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
                     <span className="text-black text-lg sm:text-xl">→</span>
-                </motion.div>
+                </div>
             </div>
 
             {/* Border Glow on Hover */}
-            <motion.div
-                className="absolute inset-0 rounded-xl sm:rounded-2xl pointer-events-none"
-                style={{
-                    boxShadow: "inset 0 0 0 1px rgba(201, 169, 97, 0.3)",
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isHovered ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
+            <div
+                className="absolute inset-0 rounded-xl sm:rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ boxShadow: "inset 0 0 0 1px rgba(201, 169, 97, 0.3)" }}
             />
         </Link>
     );

@@ -1,139 +1,166 @@
-export interface FurnitureItemContent {
+export interface FurnitureItem {
+  id: string;
   slug: string;
   name: string;
-  image: string;
   images: string[];
   category: string;
   description: string;
-  materials: { name: string; color: string }[];
-  dimensions: string;
   designNotes: string[];
-  scale?: string;
 }
 
-export const furnitureItems: FurnitureItemContent[] = [
+export const furnitureItems: FurnitureItem[] = [
   {
-    slug: "meridian-chair",
-    name: "Meridian Chair",
-    image: "/home_animation/test.jpeg",
-    images: ["/home_animation/test.jpeg", "/woods/chair.png", "/woods/black-chair.png"],
+    id: "1",
+    slug: "olive-grove-bedroom",
+    name: "The Olive Grove Bedroom",
+    images: [
+      "https://images.dsrenders.com/ai_renders/B1.png",
+      "https://images.dsrenders.com/ai_renders/B2.png",
+    ],
     category: "Seating",
     description:
-      "A sculptural masterpiece that redefines comfort. The Meridian Chair features an organically curved backrest that cradles the body while making a bold design statement.",
-    materials: [
-      { name: "Solid Walnut", color: "#5D4037" },
-      { name: "Premium Leather", color: "#8D6E63" },
-      { name: "Brass Accents", color: "#D4AF37" },
-    ],
-    dimensions: "W 28\" × D 32\" × H 34\"",
+      "The Olive Grove Bedroom embraces a soft bohemian aesthetic through layered natural textures, earthy tones, and botanical-inspired detailing. Deep olive accents, warm oak flooring, and tropical mural wallpaper create a calming connection to nature while establishing a rich and immersive atmosphere. Floating wooden ledges, woven textures, and curated greenery introduce warmth and personality throughout the space, balancing simplicity with visual depth. Soft ambient lighting and organic forms complete the composition, resulting in a serene retreat that feels intimate, grounded, and effortlessly inviting.",
     designNotes: [
-      "Inspired by principles of MINIMALISM - simplicity, utility, and harmony",
-      "The curved backrest adds softness to the geometric structure",
-      "Contrasting materials bring warmth and character",
+      "Layered natural textures and earthy tones create a bohemian warmth",
+      "Tropical mural wallpaper establishes an immersive connection to nature",
+      "Floating wooden ledges and woven textures balance simplicity with depth",
     ],
-    scale: "1\" = 1'-0\"",
   },
   {
-    slug: "horizon-table",
-    name: "Horizon Table",
-    image: "/woods/table.png",
-    images: ["/woods/table.png", "/woods/hero-woods.png"],
+    id: "2",
+    slug: "terracotta-breeze",
+    name: "Terracotta Breeze",
+    images: [
+      "https://images.dsrenders.com/ai_renders/BNB_1.png",
+      "https://images.dsrenders.com/ai_renders/BNB_2.png",
+      "https://images.dsrenders.com/ai_renders/BNB_3.png",
+    ],
     category: "Tables",
     description:
-      "Clean lines meet exceptional craftsmanship. The Horizon Table showcases the natural beauty of reclaimed oak with a live edge that celebrates imperfection.",
-    materials: [
-      { name: "Walnut Wood", color: "#5D4037" },
-      { name: "Skimming Stone", color: "#D5D0C8" },
-    ],
-    dimensions: "W 84\" × D 42\" × H 30\"",
+      "Terracotta Breeze is a warm Mediterranean-inspired retreat designed around natural textures, earthy materials, and soft daylight. Rich terracotta brick walls introduce depth and character, while large arched French windows flood the interior with natural light, creating an airy and tranquil atmosphere. Warm oak finishes, woven rattan details, and layered textiles soften the architectural composition and enhance the room’s relaxed elegance. Balanced by textured beige walls and polished concrete flooring, the space feels grounded, inviting, and effortlessly timeless.",
     designNotes: [
-      "Rounded drawer module adds softness to geometric structure",
-      "Contrasting wood top brings warmth and character",
-      "Seamless finish with rounded edges throughout",
+      "Rich terracotta brick walls introduce depth and Mediterranean character",
+      "Arched French windows flood the space with natural light",
+      "Woven rattan details and layered textiles soften the composition",
     ],
-    scale: "3\" = 1'-0\"",
   },
   {
-    slug: "solace-sofa",
-    name: "Solace Sofa",
-    image: "/woods/sofa.png",
-    images: ["/woods/sofa.png", "/woods/modern-sofa.png"],
-    category: "Seating",
-    description:
-      "Sink into pure luxury. The Solace Sofa combines cloud-like comfort with modern minimalism, featuring deep seats and precisely tailored cushions.",
-    materials: [
-      { name: "Italian Bouclé", color: "#F5F5DC" },
-      { name: "Kiln-dried Hardwood", color: "#A1887F" },
-      { name: "Down Fill", color: "#FFFEF0" },
+    id: "3",
+    slug: "bordeaux-coffee-bar",
+    name: "The Bordeaux Coffee Bar",
+    images: [
+      "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.png",
+      "https://images.dsrenders.com/ai_renders/COFFEE_BAR_2.png",
     ],
-    dimensions: "W 96\" × D 42\" × H 32\"",
-    designNotes: [
-      "Low-profile silhouette for contemporary spaces",
-      "Modular design allows for custom configurations",
-      "Hidden joinery for seamless appearance",
-    ],
-    scale: "1\" = 1'-0\"",
-  },
-  {
-    slug: "modern-sofa",
-    name: "Modern Sofa",
-    image: "/woods/modern-sofa.png",
-    images: ["/woods/modern-sofa.png", "/woods/sofa.png"],
-    category: "Seating",
-    description:
-      "Contemporary elegance at its finest. Low-profile design meets plush comfort in this statement piece designed for the modern living space.",
-    materials: [
-      { name: "Velvet Upholstery", color: "#4A4A4A" },
-      { name: "Oak Legs", color: "#DEB887" },
-    ],
-    dimensions: "W 88\" × D 38\" × H 28\"",
-    designNotes: [
-      "Streamlined form emphasizes horizontal lines",
-      "Generous seating depth for maximum comfort",
-      "Tapered legs elevate the visual weight",
-    ],
-    scale: "1\" = 1'-0\"",
-  },
-  {
-    slug: "studio-chair",
-    name: "Studio Chair",
-    image: "/woods/studio-chair.png",
-    images: ["/woods/studio-chair.png", "/woods/chair.png", "/woods/modern-chair.png"],
-    category: "Seating",
-    description:
-      "The perfect balance of form and function. Designed for the creative professional who demands both beauty and ergonomic support.",
-    materials: [
-      { name: "Molded Plywood", color: "#C4A484" },
-      { name: "Leather Cushion", color: "#2C2C2C" },
-      { name: "Chrome Base", color: "#C0C0C0" },
-    ],
-    dimensions: "W 24\" × D 26\" × H 36\"",
-    designNotes: [
-      "Ergonomic contours support natural posture",
-      "Swivel mechanism for fluid movement",
-      "Adjustable height for workspace flexibility",
-    ],
-    scale: "1\" = 1'-0\"",
-  },
-  {
-    slug: "aura-lamps",
-    name: "Aura Lamps",
-    image: "/woods/lamps.png",
-    images: ["/woods/lamps.png", "/woods/hero-woods.png"],
     category: "Lighting",
     description:
-      "Ambient lighting elevated to art form. These sculptural lamps cast a warm, diffused glow that transforms any room into a sanctuary.",
-    materials: [
-      { name: "Hand-blown Glass", color: "#FAFAFA" },
-      { name: "Brushed Brass", color: "#D4AF37" },
-      { name: "Marble Base", color: "#F5F5F5" },
-    ],
-    dimensions: "Ø 12\" × H 24\"",
+      "The Bordeaux Coffee Bar combines rich materiality with timeless detailing to create a warm and sophisticated beverage station. Deep burgundy millwork is paired with softly illuminated oak shelving, fluted glass cabinetry, and elegant Calacatta marble surfaces, establishing a refined balance between contrast and warmth. The arched composition introduces a sense of architectural softness, while integrated lighting enhances depth and ambiance throughout the space. Designed for both functionality and display, the coffee bar transforms a simple daily ritual into an elevated experience.",
     designNotes: [
-      "Organic glass forms create unique light patterns",
-      "Warm temperature LED for cozy ambiance",
-      "Weighted base ensures stability",
+      "Deep burgundy millwork paired with fluted glass cabinetry",
+      "Arched composition introduces architectural softness",
+      "Calacatta marble surfaces establish refined contrast and warmth",
     ],
-    scale: "1\" = 1'-0\"",
+  },
+  {
+    id: "4",
+    slug: "hearthwood-lounge",
+    name: "The Hearthwood Lounge",
+    images: ["https://images.dsrenders.com/ai_renders/FIREPLACE.png"],
+    category: "Seating",
+    description:
+      "The Hearthwood Lounge blends modern minimalism with warm natural textures to create a refined and inviting living environment. A sculptural fireplace wall anchors the composition, framed by rich walnut shelving that introduces depth, balance, and curated display opportunities. Soft neutral furnishings and layered textures enhance the calming atmosphere, while the linear fireplace adds warmth and subtle ambient movement to the space. Clean architectural lines, integrated lighting, and organic material tones come together to create a living area that feels both sophisticated and effortlessly comfortable.",
+    designNotes: [
+      "Sculptural fireplace wall anchors the entire composition",
+      "Rich walnut shelving introduces depth and curated display",
+      "Linear fireplace adds warmth and subtle ambient movement",
+    ],
+  },
+  {
+    id: "5",
+    slug: "evergreen-living-kitchen",
+    name: "The Evergreen Living Kitchen",
+    images: [
+      "https://images.dsrenders.com/ai_renders/kitchen.png",
+    ],
+    category: "Seating",
+    description:"The Evergreen Living Kitchen blends modern simplicity with nature-inspired warmth to create a calm and inviting open-concept interior. Soft green cabinetry, light oak flooring, and textured neutral finishes establish a balanced material palette that feels both fresh and timeless. The kitchen, dining, and lounge areas flow seamlessly together, encouraging connection and everyday comfort while maintaining a refined architectural composition. Sculptural lighting, curated wall niches, and layered organic textures add depth and personality, while expansive natural light enhances the airy and serene atmosphere throughout the space.",
+    designNotes: [
+      "Soft green cabinetry paired with light oak for a fresh palette",
+      "Seamless open-concept flow between kitchen, dining, and lounge",
+      "Sculptural lighting and wall niches add personality and depth",
+    ],
+  },
+  {
+    id: "6",
+    slug: "sagewood-kitchen",
+    name: "The Sagewood Kitchen",
+    images: ["https://images.dsrenders.com/ai_renders/kitchen_1.png"],
+    category: "Seating",
+    description: "The Sagewood Kitchen blends timeless craftsmanship with a refined modern aesthetic, creating a warm and inviting culinary space. Soft sage cabinetry is paired with rich oak wood accents and elegant reeded glass details, bringing depth and texture to the composition. The marble waterfall island serves as the focal point of the design, offering both functional workspace and casual seating while enhancing the kitchen’s sculptural presence. Balanced by classic tilework, layered materials, and clean architectural lines, the space feels sophisticated, calm, and effortlessly livable.",
+    designNotes: [
+      "Sage cabinetry with rich oak accents and reeded glass details",
+      "Marble waterfall island serves as sculptural focal point",
+      "Classic tilework and layered materials create timeless sophistication",
+    ],
+  },
+  {
+    id: "7",
+    slug: "midnight-cove-mudroom",
+    name: "Midnight Cove Mudroom",
+    images: [
+      "https://images.dsrenders.com/ai_renders/MUDROOM_VIEW.png",
+    ],
+    category: "Seating",
+    description: "The Midnight Cove Mudroom transforms a functional entryway into a refined architectural moment through rich color, texture, and thoughtful detailing. Deep navy cabinetry is paired with vertically fluted wall panels to create depth and visual rhythm, while warm brass accents and a sculptural pendant light introduce softness and contrast. Integrated seating, concealed storage, and open shelving provide practical everyday organization without compromising the elevated aesthetic. Anchored by bold geometric floor tile, the space feels sophisticated, welcoming, and quietly luxurious.",
+    designNotes: [
+      "Deep navy cabinetry with vertically fluted wall panels",
+      "Warm brass accents and sculptural pendant introduce contrast",
+      "Bold geometric floor tile anchors the elevated aesthetic",
+    ],
+  },
+  {
+    id: "8",
+    slug: "the-noirwood-office",
+    name: "The Noirwood Office",
+    images: [
+      "https://images.dsrenders.com/ai_renders/OFFICE_1.png",
+      "https://images.dsrenders.com/ai_renders/OFFICE_2.png",
+    ],
+    category: "Seating",
+    description: "The Noirwood Office combines contemporary minimalism with rich materiality to create a workspace that feels both sophisticated and inviting. Warm oak millwork and deep wood flooring establish a grounded architectural presence, while the dramatic marble desk surface introduces contrast and refinement. Integrated shelving with ambient lighting provides curated display and functional storage, adding depth and visual rhythm to the composition. Soft neutral wall finishes and controlled lighting complete the atmosphere, resulting in a calm and focused environment designed for productivity and quiet elegance.",
+    designNotes: [
+      "Warm oak millwork with dramatic marble desk surface",
+      "Integrated shelving with ambient lighting for curated display",
+      "Controlled lighting creates a calm, focused atmosphere",
+    ],
+  },
+  {
+    id: "9",
+    slug: "the-blooming-arcade",
+    name: "The Blooming Arcade",
+    images: ["https://images.dsrenders.com/ai_renders/PATIO.png"],
+    category: "Lighting",
+    description: "The Blooming Arcade is a Mediterranean-inspired courtyard designed to celebrate light, texture, and lush greenery through a refined architectural composition. Patterned Moroccan tiles establish a vibrant visual rhythm across the patio floor, while cascading bougainvillea softens the structured geometry with natural movement and color. Arched decorative niches, textured plaster walls, woven rattan furnishings, and warm oak accents create a serene outdoor retreat that feels both timeless and inviting. The open arcade and expansive glazing allow natural light to filter through the space, enhancing its airy, tranquil atmosphere.",
+    designNotes: [
+      "Patterned Moroccan tiles establish vibrant visual rhythm",
+      "Cascading bougainvillea softens structured geometry with color",
+      "Arched niches and textured plaster walls create serene depth",
+    ],
+  },
+  {
+    id: "10",
+    slug: "the-alabaster-living-room",
+    name: "The Alabaster Living Room",
+    images: [
+      "https://images.dsrenders.com/ai_renders/WALL_DESIGN.png",
+    ],
+    category: "Lighting",
+    description: "The Alabaster Living Room embraces soft minimalism through a carefully balanced composition of warm wood tones, textured finishes, and sculptural forms. A custom open shelving feature wall introduces rhythm and visual depth while serving as both functional storage and curated display. The curved lounge chairs soften the architectural geometry of the space, creating an inviting conversational setting layered with warmth and comfort. Natural light, muted textures, and restrained material contrasts come together to establish a serene environment that feels timeless, airy, and refined.",
+    designNotes: [
+      "Custom open shelving wall introduces rhythm and visual depth",
+      "Curved lounge chairs soften the architectural geometry",
+      "Restrained material contrasts create a serene, airy environment",
+    ],
   },
 ];
+
