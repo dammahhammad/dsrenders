@@ -97,7 +97,7 @@ export default function InteriorsPage() {
 
       <main>
         <section className="relative h-[100svh] min-h-[700px] z-10">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0  bg-black/20">
             <Image
               src="https://images.dsrenders.com/background/ai%20new.jpg.jpeg"
               alt="Luxurious interior space"
@@ -106,32 +106,38 @@ export default function InteriorsPage() {
               priority
               sizes="100vw"
             />
+            <div className="absolute inset-0 bg-black/10" />
           </div>
 
-          <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
+          <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-8 lg:px-16">
             <div className="max-w-7xl mx-auto w-full">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div>
                   <FadeIn delay={0.3}>
                     <span className="text-[10px] sm:text-xs font-body tracking-[0.4em] uppercase text-white/60 mb-4 sm:mb-6 block">
-                      Interior Design Studio
+                      2D Drafting & 3D Modeling Studio
                     </span>
                   </FadeIn>
 
                   <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
                     <FadeIn delay={0.5}>
                       <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
-                        Spaces
+                        Precision
                       </span>
                     </FadeIn>
                     <FadeIn delay={0.7}>
-                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">
-                        That Tell
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
+                        Plans,
                       </span>
                     </FadeIn>
                     <FadeIn delay={0.9}>
-                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">
-                        Stories
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic text-[#eec49e]">
+                        Powerful
+                      </span>
+                    </FadeIn>
+                    <FadeIn delay={1.0}>
+                      <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic text-[#eec49e]">
+                        Designs
                       </span>
                     </FadeIn>
                   </h1>
@@ -140,11 +146,15 @@ export default function InteriorsPage() {
                 {/* Right: Description */}
                 <FadeIn delay={1.1}>
                   <div className="lg:pl-8">
-                    <p className="text-base sm:text-lg lg:text-xl text-white/70 font-body leading-relaxed max-w-lg">
-                      We craft interiors that reflect individuality and comfort,
-                      blending aesthetics, material, and light into environments
-                      that feel both elegant and livable.
+                    <p className="text-base sm:text-lg lg:text-xl text-white font-body leading-relaxed max-w-lg">
+                      We deliver accurate 2D drawings and high-quality 3D models that bring your visions to life with clarity, precision, and detail.
                     </p>
+                    <div className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50">
+                      <span className="w-8 h-px bg-white" />
+                      <span className="text-white font-body tracking-widest uppercase">
+                        Scroll to explore
+                      </span>
+                    </div>
                   </div>
                 </FadeIn>
               </div>

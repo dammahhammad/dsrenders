@@ -182,55 +182,55 @@ export default function ArchitecturePage() {
             priority
             sizes="100vw"
           />
+          <div className="absolute inset-0 bg-black/10" />
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
+        <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
               <div>
                 <FadeIn delay={0.3}>
                   <span className="text-[10px] sm:text-xs font-body tracking-[0.4em] uppercase text-white/60 mb-4 sm:mb-6 block">
-                    Architectural Excellence
+                    2D Interior Black & White Line Drawings
                   </span>
                 </FadeIn>
 
                 <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
                   <FadeIn delay={0.5}>
                     <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
-                      Designing for
+                      Precision
                     </span>
                   </FadeIn>
                   <FadeIn delay={0.7}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">
-                      People &
+                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
+                      Drafted.
                     </span>
                   </FadeIn>
                   <FadeIn delay={0.9}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">
-                      Communities
+                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic text-[#eec49e]">
+                      Professionally
+                    </span>
+                  </FadeIn>
+                  <FadeIn delay={1.0}>
+                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic text-[#eec49e]">
+                      Delivered.
                     </span>
                   </FadeIn>
                 </h1>
               </div>
 
               <FadeIn delay={1.1}>
-                <div className="lg:pl-8 lg:border-l lg:border-white/20">
-                  <p className="text-base sm:text-lg lg:text-xl text-white/70 font-body leading-relaxed max-w-lg">
-                    70 years of transforming visions into landmark structures
-                    that define skylines and enrich lives across continents.
+                <div className="lg:pl-8">
+                  <p className="text-base sm:text-lg lg:text-xl text-white font-body leading-relaxed max-w-lg">
+                    We create accurate 2D interior black and white line drawings drafted on AutoCAD—detailed, organized, and ready for construction.
                   </p>
-                  <motion.div
-                    className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.5 }}
-                  >
-                    <span className="w-8 h-px bg-white/30" />
-                    <span className="text-xs font-body tracking-widest uppercase">
+                  <div className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50">
+                    <span className="w-8 h-px bg-white" />
+                    <span className="text-white font-body tracking-widest uppercase">
                       Scroll to explore
                     </span>
-                  </motion.div>
+                  </div>
                 </div>
               </FadeIn>
             </div>

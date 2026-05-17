@@ -108,36 +108,64 @@ export default function FurniturePage() {
                 <div className="absolute inset-0">
                     <Image
                         src="https://images.dsrenders.com/background/ai%20background.png"
-                        alt="Bespoke furniture craftsmanship"
+                        alt="AI architectural renders"
                         fill
                         className="object-cover"
                         priority
                         sizes="100vw"
                     />
+                    <div className="absolute inset-0 bg-black/10" />
                 </div>
 
-                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
-                    <FadeIn delay={0.3}>
-                        <span className="text-xs sm:text-sm font-body tracking-[0.3em] uppercase text-white/70 mb-4 block">
-                            Design Portfolio
-                        </span>
-                    </FadeIn>
+                <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-8 lg:px-16">
+                    <div className="max-w-7xl mx-auto w-full">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
+                            <div>
+                                <FadeIn delay={0.3}>
+                                    <span className="text-[10px] sm:text-xs font-body tracking-[0.4em] uppercase text-white/60 mb-4 sm:mb-6 block">
+                                        AI Renders Studio
+                                    </span>
+                                </FadeIn>
 
-                    <h1 className="font-display font-bold text-white leading-tight max-w-4xl">
-                        <FadeIn delay={0.5}>
-                            <span className="block">From Concept</span>
-                        </FadeIn>
-                        <FadeIn delay={0.7}>
-                            <span className="block text-gradient">to Creation</span>
-                        </FadeIn>
-                    </h1>
+                                <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
+                                    <FadeIn delay={0.5}>
+                                        <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white">
+                                            Intelligent
+                                        </span>
+                                    </FadeIn>
+                                    <FadeIn delay={0.7}>
+                                        <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white">
+                                            Renders,
+                                        </span>
+                                    </FadeIn>
+                                    <FadeIn delay={0.9}>
+                                        <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-white">
+                                            Stunning
+                                        </span>
+                                    </FadeIn>
+                                    <FadeIn delay={1.0}>
+                                        <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-[#eec49e]">
+                                            Realism
+                                        </span>
+                                    </FadeIn>
+                                </h1>
+                            </div>
 
-                    <FadeIn delay={0.9}>
-                        <p className="mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg lg:text-xl text-white/80 font-body">
-                            Bespoke furniture designed with precision,
-                            crafted with purpose, built to last generations.
-                        </p>
-                    </FadeIn>
+                            <FadeIn delay={1.1}>
+                                <div className="lg:pl-8">
+                                    <p className="text-base sm:text-lg lg:text-xl text-white font-body leading-relaxed max-w-lg">
+                                        We use the power of AI to create photorealistic renders that bring your concepts to life with speed, accuracy, and unmatched visual quality.
+                                    </p>
+                                    <div className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50">
+                                        <span className="w-8 h-px bg-white" />
+                                        <span className="text-white font-body tracking-widest uppercase">
+                                            Scroll to explore
+                                        </span>
+                                    </div>
+                                </div>
+                            </FadeIn>
+                        </div>
+                    </div>
                 </div>
             </section>
 
