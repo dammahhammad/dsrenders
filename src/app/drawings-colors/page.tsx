@@ -167,7 +167,7 @@ export default function InteriorsPage() {
             {/* Projects List */}
             <div className="space-y-0">
               {drawingsColorProjects.map(
-                (project: DrawingsColor, index: any) => (
+                (project: DrawingsColor, index: number) => (
                   <div key={project.id}>
                     <ProjectRow
                       project={project}
@@ -372,7 +372,7 @@ function ProjectDetailSheet({
                 {/* Image Dots */}
                 {images.length > 1 && (
                   <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-                    {images.map((_i: any, idx: any) => (
+                    {images.map((_i: string, idx: number) => (
                       <button
                         key={idx}
                         onClick={() => setCurrentImageIndex(idx)}
@@ -427,7 +427,7 @@ function ProjectDetailSheet({
                         Key Features
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {project.features.map((feature: any, idx: any) => (
+                        {project.features.map((feature: string, idx: number) => (
                           <span
                             key={idx}
                             className="px-3 sm:px-4 py-1.5 text-xs font-body border border-border rounded-full text-muted-foreground hover:border-accent hover:text-accent transition-colors duration-300"

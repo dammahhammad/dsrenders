@@ -169,6 +169,15 @@ function MobileHeroShowcase({
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isUserScrolling = useRef(false);
 
+  const scrollToIndex = useCallback((index: number) => {
+    if (!scrollRef.current) return;
+    const cardWidth = scrollRef.current.scrollWidth / showcaseItems.length;
+    scrollRef.current.scrollTo({
+      left: cardWidth * index,
+      behavior: "smooth",
+    });
+  }, [showcaseItems.length]);
+
   // Auto-play logic
   const startAutoPlay = useCallback(() => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
@@ -180,16 +189,7 @@ function MobileHeroShowcase({
         return next;
       });
     }, 3500);
-  }, [showcaseItems.length]);
-
-  const scrollToIndex = (index: number) => {
-    if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.scrollWidth / showcaseItems.length;
-    scrollRef.current.scrollTo({
-      left: cardWidth * index,
-      behavior: "smooth",
-    });
-  };
+  }, [showcaseItems.length, scrollToIndex]);
 
   useEffect(() => {
     startAutoPlay();
