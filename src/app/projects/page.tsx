@@ -14,17 +14,17 @@ const categories = [
   {
     title: "Architecture",
     description: "Large-scale residential, commercial, and civic architecture projects.",
-    href: "/architecture",
+    href: "/drawings-bw",
   },
   {
     title: "Interiors",
     description: "Residential and hospitality interiors focused on atmosphere and function.",
-    href: "/interiors",
+    href: "/drawings-colors",
   },
   {
     title: "Furniture",
     description: "Bespoke furniture collections balancing material, craft, and usability.",
-    href: "/furniture",
+    href: "/ai-renders",
   },
 ];
 

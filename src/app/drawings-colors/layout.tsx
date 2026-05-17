@@ -5,14 +5,14 @@ export const metadata: Metadata = {
   description:
     "Explore interior design projects by DS Renders with contemporary aesthetics, material-driven spaces, and lifestyle-focused planning.",
   alternates: {
-    canonical: "/interiors",
+    canonical: "/drawings-colors",
   },
   openGraph: {
-    title: "Interior Design Portfolio | DS Renders",
+    title: "Drawings (Color) | DS Renders",
     description:
       "Explore interior design projects by DS Renders with contemporary aesthetics and material-driven spaces.",
-    url: "https://dsrenders.com/interiors",
-    images: ["/home_animation/interior.jpg"],
+    url: "https://dsrenders.com/drawings-colors",
+    images: ["/home_animation/drawings-colors.jpg"],
   },
 };
 

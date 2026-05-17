@@ -1,4 +1,4 @@
-export interface FurnitureItem {
+export interface AiRenderItems {
   id: string;
   slug: string;
   name: string;
@@ -8,7 +8,7 @@ export interface FurnitureItem {
   designNotes: string[];
 }
 
-export const furnitureItems: FurnitureItem[] = [
+export const aiRenderItems: AiRenderItems[] = [
   {
     id: "1",
     slug: "olive-grove-bedroom",

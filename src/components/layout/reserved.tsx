@@ -1,22 +1,18 @@
 "use client";
 
 import {
-    IconBrandFacebook,
     IconBrandInstagram,
-    IconBrandLinkedin,
-    IconBrandTwitter,
-    IconBrandPinterest,
+    IconBrandWhatsapp,
+    IconMail,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "motion/react";
 
 export default function Reserved() {
     const socialLinks = [
-        { icon: IconBrandInstagram, href: "#", label: "Instagram", color: "hover:text-[#E1306C]" },
-        { icon: IconBrandLinkedin, href: "#", label: "LinkedIn", color: "hover:text-[#0077B5]" },
-        { icon: IconBrandTwitter, href: "#", label: "Twitter", color: "hover:text-[#1DA1F2]" },
-        { icon: IconBrandFacebook, href: "#", label: "Facebook", color: "hover:text-[#1877F2]" },
-        { icon: IconBrandPinterest, href: "#", label: "Pinterest", color: "hover:text-[#BD081C]" },
+        { icon: IconBrandInstagram, href: "https://www.instagram.com/dsrenders_official", label: "Instagram", color: "hover:text-[#E1306C]" },
+        { icon: IconMail, href: "mailto:contact@dsrenders.com", label: "Email", color: "hover:text-[#EA4335]" },
+        { icon: IconBrandWhatsapp, href: "https://wa.me/+919219683383", label: "WhatsApp", color: "hover:text-[#25D366]" },
     ];
 
     return (

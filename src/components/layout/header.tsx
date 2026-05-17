@@ -16,9 +16,9 @@ const ContactDialog = dynamic(
 );
 
 const navItems = [
-  { name: "Drawings (B&W)", href: "/architecture" },
-  { name: "Drawings (Color)", href: "/interiors" },
-  { name: "AI Renders", href: "/furniture" },
+  { name: "Drawings (Color)", href: "/drawings-colors" },
+  { name: "Drawings (B&W)", href: "/drawings-bw" },
+  { name: "AI Renders", href: "/ai-renders" },
 ];
 
 export function Header() {

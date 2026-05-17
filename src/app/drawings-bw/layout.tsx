@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     "Discover DS Renders architecture portfolio featuring residential, commercial, and cultural projects designed for timeless impact.",
   alternates: {
-    canonical: "/architecture",
+    canonical: "/drawings-bw",
   },
   openGraph: {
-    title: "Architecture Projects | DS Renders",
+    title: "Drawings (B&W) | DS Renders",
     description:
       "Discover DS Renders architecture portfolio featuring residential, commercial, and cultural projects.",
-    url: "https://dsrenders.com/architecture",
+    url: "https://dsrenders.com/drawings-bw",
     images: ["/home_animation/building-1.png"],
   },
 };

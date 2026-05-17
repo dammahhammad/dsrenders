@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     "Browse DS Renders furniture collection with bespoke seating, tables, and lighting crafted for performance, elegance, and longevity.",
   alternates: {
-    canonical: "/furniture",
+    canonical: "/ai-renders",
   },
   openGraph: {
-    title: "Furniture Design Collection | DS Renders",
+    title: "AI Renders | DS Renders",
     description:
       "Browse DS Renders furniture collection with bespoke seating, tables, and lighting.",
-    url: "https://dsrenders.com/furniture",
+    url: "https://dsrenders.com/ai-renders",
     images: ["/woods/hero-woods.png"],
   },
 };

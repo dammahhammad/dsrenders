@@ -25,9 +25,9 @@ export function Footer() {
   };
 
   const mainNav = [
-    { name: "Architecture", href: "/architecture" },
-    { name: "Interiors", href: "/interiors" },
-    { name: "Furniture", href: "/furniture" },
+    { name: "Architecture", href: "/drawings-bw" },
+    { name: "Interiors", href: "/drawings-colors" },
+    { name: "Furniture", href: "/ai-renders" },
   ];
 
   return (

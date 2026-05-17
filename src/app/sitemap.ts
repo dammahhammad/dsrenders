@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
-import { architectureProjects } from "@/lib/content/architecture-projects";
-import { interiorProjects } from "@/lib/content/interior-projects";
-import { furnitureItems } from "@/lib/content/furniture-items";
+import { drawingsBWProjects } from "@/lib/content/drawingsbw-projects";
+import { aiRenderItems } from "@/lib/content/airender-items";
+import { drawingsColorProjects } from "@/lib/content/drawings-colors-projects";
+
 
 export const revalidate = 86400;
 
 const routes = [
   "",
-  "/architecture",
-  "/interiors",
-  "/furniture",
+  "/drawings-bw",
+  "/drawings-colors",
+  "/ai-renders",
   "/projects",
   "/about",
   "/contact",
@@ -19,9 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const detailRoutes = [
-    ...architectureProjects.map((project) => `/architecture/${project.slug}`),
-    ...interiorProjects.map((project) => `/interiors/${project.slug}`),
-    ...furnitureItems.map((item) => `/furniture/${item.slug}`),
+    ...drawingsBWProjects.map((project) => `/drawings-bw/${project.slug}`),
+    ...drawingsColorProjects.map((project) => `/drawings-colors/${project.slug}`),
+    ...aiRenderItems.map((item) => `/ai-renders/${item.slug}`),
   ];
 
   const allRoutes = [...routes, ...detailRoutes];

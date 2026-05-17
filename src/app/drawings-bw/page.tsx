@@ -4,9 +4,19 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FadeIn, StaggerContainer, StaggerItem, Counter } from "@/components/motion/motion-primitives";
+import {
+  FadeIn,
+  StaggerContainer,
+  StaggerItem,
+  Counter,
+} from "@/components/motion/motion-primitives";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { IconArrowLeft, IconArrowRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import {
+  IconArrowLeft,
+  IconArrowRight,
+  IconChevronLeft,
+  IconChevronRight,
+} from "@tabler/icons-react";
 
 interface ArchitectureProject {
   title: string;
@@ -23,41 +33,61 @@ const projects: ArchitectureProject[] = [
     title: "Urban Sanctuary Tower",
     location: "Dubai, UAE",
     year: "2024",
-    description: "A 52-story mixed-use development redefining luxury living in the heart of Dubai.",
+    description:
+      "A 52-story mixed-use development redefining luxury living in the heart of Dubai.",
     longDescription:
       "An exploration of vertical urbanism where residential, retail, and hospitality programs stack seamlessly into one continuous ecosystem. The tower is shaped to optimize daylight and views while reducing solar gain through calibrated façade articulation.",
     image: "/home_animation/building-1.png",
-    images: ["/home_animation/building-1.png", "/home_animation/building-2.png", "/home_animation/building-4.png"],
+    images: [
+      "/home_animation/building-1.png",
+      "/home_animation/building-2.png",
+      "/home_animation/building-4.png",
+    ],
   },
   {
     title: "Eco Residence Complex",
     location: "Copenhagen, Denmark",
     year: "2023",
-    description: "Net-zero residential community setting new standards for sustainable urban living.",
+    description:
+      "Net-zero residential community setting new standards for sustainable urban living.",
     longDescription:
       "Designed as a climate-positive neighborhood, the complex combines passive design strategies, recycled materials, and renewable systems to achieve near self-sufficiency. Shared green courts and walkable circulation reinforce a socially connected living environment.",
     image: "/home_animation/building-2.png",
-    images: ["/home_animation/building-2.png", "/home_animation/building-3.png", "/home_animation/building-6.png"],
+    images: [
+      "/home_animation/building-2.png",
+      "/home_animation/building-3.png",
+      "/home_animation/building-6.png",
+    ],
   },
   {
     title: "Glass Pavilion",
     location: "California, USA",
     year: "2024",
-    description: "Minimalist retreat blending seamlessly with its natural surroundings.",
+    description:
+      "Minimalist retreat blending seamlessly with its natural surroundings.",
     longDescription:
       "A restrained architectural language allows landscape to become the primary visual event. Carefully framed vistas, recessed structural details, and seamless thresholds blur the boundaries between interior and exterior experience.",
     image: "/home_animation/building-3.png",
-    images: ["/home_animation/building-3.png", "/home_animation/building-5.png", "/home_animation/building-8.png"],
+    images: [
+      "/home_animation/building-3.png",
+      "/home_animation/building-5.png",
+      "/home_animation/building-8.png",
+    ],
   },
   {
     title: "Cultural Arts Center",
     location: "Singapore",
     year: "2023",
-    description: "Dynamic performing arts venue celebrating Asian heritage through modern design.",
+    description:
+      "Dynamic performing arts venue celebrating Asian heritage through modern design.",
     longDescription:
       "The center is organized as a sequence of civic rooms that host performance, exhibition, and public gathering. The tectonic expression merges contemporary geometry with local material references, creating a culturally rooted yet forward-looking landmark.",
     image: "/home_animation/building-4.png",
-    images: ["/home_animation/building-4.png", "/home_animation/building-7.png", "/home_animation/building-1.png"],
+    images: [
+      "/home_animation/building-4.png",
+      "/home_animation/building-7.png",
+      "/home_animation/building-1.png",
+    ],
   },
 ];
 
@@ -75,7 +105,8 @@ const toSlug = (value: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function ArchitecturePage() {
-  const [selectedProject, setSelectedProject] = useState<ArchitectureProject | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<ArchitectureProject | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const breadcrumbSchema = {
@@ -92,7 +123,7 @@ export default function ArchitecturePage() {
         "@type": "ListItem",
         position: 2,
         name: "Architecture",
-        item: "https://dsrenders.com/architecture",
+        item: "https://dsrenders.com/drawings-bw",
       },
     ],
   };
@@ -107,7 +138,7 @@ export default function ArchitecturePage() {
       url: "https://dsrenders.com",
     },
     areaServed: "Worldwide",
-    url: "https://dsrenders.com/architecture",
+    url: "https://dsrenders.com/drawings-bw",
   };
 
   const openProject = (project: ArchitectureProject, index: number) => {
@@ -116,13 +147,15 @@ export default function ArchitecturePage() {
   };
 
   const goToPrevProject = () => {
-    const newIndex = selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
+    const newIndex =
+      selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
     setSelectedIndex(newIndex);
     setSelectedProject(projects[newIndex]);
   };
 
   const goToNextProject = () => {
-    const newIndex = selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
+    const newIndex =
+      selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
     setSelectedIndex(newIndex);
     setSelectedProject(projects[newIndex]);
   };
@@ -139,25 +172,17 @@ export default function ArchitecturePage() {
       />
 
       {/* Hero Section with Video Background - KEPT AS IS */}
-      <section className="relative h-[100svh] min-h-[700px] z-10 top-0 sticky">
-        <motion.div
-          className="absolute inset-0"
-        >
-          {/* Video Background */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/home_animation/building-1.png"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/architecture-hero.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
-        </motion.div>
+      <section className="relative h-[100svh] min-h-[700px] z-10">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.dsrenders.com/background/b%26w%20background.png"
+            alt="Luxurious interior space"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
 
         {/* Hero Content */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
@@ -172,13 +197,19 @@ export default function ArchitecturePage() {
 
                 <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
                   <FadeIn delay={0.5}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">Designing for</span>
+                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
+                      Designing for
+                    </span>
                   </FadeIn>
                   <FadeIn delay={0.7}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">People &</span>
+                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white/60">
+                      People &
+                    </span>
                   </FadeIn>
                   <FadeIn delay={0.9}>
-                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">Communities</span>
+                    <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic font-light text-accent">
+                      Communities
+                    </span>
                   </FadeIn>
                 </h1>
               </div>
@@ -186,8 +217,8 @@ export default function ArchitecturePage() {
               <FadeIn delay={1.1}>
                 <div className="lg:pl-8 lg:border-l lg:border-white/20">
                   <p className="text-base sm:text-lg lg:text-xl text-white/70 font-body leading-relaxed max-w-lg">
-                    70 years of transforming visions into landmark structures that
-                    define skylines and enrich lives across continents.
+                    70 years of transforming visions into landmark structures
+                    that define skylines and enrich lives across continents.
                   </p>
                   <motion.div
                     className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50"
@@ -196,7 +227,9 @@ export default function ArchitecturePage() {
                     transition={{ delay: 1.5 }}
                   >
                     <span className="w-8 h-px bg-white/30" />
-                    <span className="text-xs font-body tracking-widest uppercase">Scroll to explore</span>
+                    <span className="text-xs font-body tracking-widest uppercase">
+                      Scroll to explore
+                    </span>
                   </motion.div>
                 </div>
               </FadeIn>
@@ -228,7 +261,8 @@ export default function ArchitecturePage() {
                 </h2>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
-                Our practice connects communities through design, committed to the stewardship of people, place, and environment.
+                Our practice connects communities through design, committed to
+                the stewardship of people, place, and environment.
               </p>
             </div>
           </FadeIn>
@@ -242,7 +276,11 @@ export default function ArchitecturePage() {
                 >
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     <span className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-500 mb-4 block">
-                      <Counter to={stat.value} suffix={stat.suffix} duration={2} />
+                      <Counter
+                        to={stat.value}
+                        suffix={stat.suffix}
+                        duration={2}
+                      />
                     </span>
 
                     <div>
@@ -274,7 +312,8 @@ export default function ArchitecturePage() {
                 </h2>
               </div>
               <p className="text-sm text-muted-foreground font-body max-w-sm">
-                A curated selection of our architectural achievements, defining skylines globally.
+                A curated selection of our architectural achievements, defining
+                skylines globally.
               </p>
             </div>
           </FadeIn>
@@ -321,10 +360,14 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
     target: rowRef,
     offset: ["start end", "end start"],
   });
-  const projectHref = `/architecture/${toSlug(project.title)}`;
+  const projectHref = `/drawings-bw/${toSlug(project.title)}`;
 
   const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0.4, 1, 1, 0.4],
+  );
 
   return (
     <motion.div
@@ -339,8 +382,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
     >
       <div className="flex flex-col justify-center lg:sticky lg:top-32 lg:self-start">
         <span className="text-3xl sm:text-4xl mb-4 text-accent/40 group-hover:text-accent transition-colors duration-500">
-          {/* Icon placeholder if needed, or just number */}
-          0{index + 1}
+          {/* Icon placeholder if needed, or just number */}0{index + 1}
         </span>
         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
           <Link
@@ -357,14 +399,20 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
           <span>{project.year}</span>
         </div>
         <div className="mt-6">
-          <p className="text-sm text-muted-foreground line-clamp-3">{project.description}</p>
+          <p className="text-sm text-muted-foreground line-clamp-3">
+            {project.description}
+          </p>
         </div>
         <motion.div
           className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-accent transition-colors duration-300"
           initial={{ x: 0 }}
           whileHover={{ x: 5 }}
         >
-          <Link href={projectHref} onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-2">
+          <Link
+            href={projectHref}
+            onClick={(event) => event.stopPropagation()}
+            className="inline-flex items-center gap-2"
+          >
             <span>View Project</span>
           </Link>
           <span className="text-lg">→</span>
@@ -422,7 +470,10 @@ function ArchitectureDetailSheet({
 
   return (
     <Sheet open={!!project} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[100vh] w-full p-0 border-t border-border rounded-t-3xl">
+      <SheetContent
+        side="bottom"
+        className="h-[100vh] w-full p-0 border-t border-border rounded-t-3xl"
+      >
         {project && (
           <div className="flex flex-col h-full">
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 min-h-0">
@@ -508,14 +559,21 @@ function ArchitectureDetailSheet({
                   whileHover={{ x: -3 }}
                 >
                   <IconArrowLeft size={18} />
-                  <span className="hidden sm:inline uppercase tracking-wider text-xs">Prev</span>
+                  <span className="hidden sm:inline uppercase tracking-wider text-xs">
+                    Prev
+                  </span>
                 </motion.button>
 
                 <div className="text-center">
                   <p className="text-xs sm:text-sm font-body text-foreground">
                     <span className="hidden md:inline">{project.title}</span>
-                    <span className="hidden md:inline text-muted-foreground"> — </span>
-                    <span className="text-muted-foreground">{project.location}</span>
+                    <span className="hidden md:inline text-muted-foreground">
+                      {" "}
+                      —{" "}
+                    </span>
+                    <span className="text-muted-foreground">
+                      {project.location}
+                    </span>
                   </p>
                   <p className="text-[10px] sm:text-xs text-muted-foreground/60 mt-1 tracking-wider">
                     {projectIndex + 1} / {totalProjects}
@@ -527,7 +585,9 @@ function ArchitectureDetailSheet({
                   className="flex items-center gap-2 sm:gap-3 text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
                   whileHover={{ x: 3 }}
                 >
-                  <span className="hidden sm:inline uppercase tracking-wider text-xs">Next</span>
+                  <span className="hidden sm:inline uppercase tracking-wider text-xs">
+                    Next
+                  </span>
                   <IconArrowRight size={18} />
                 </motion.button>
               </div>

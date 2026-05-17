@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AboutMeSection } from "@/components/sections/about-me-section";
-import { TeamSection } from "@/components/sections/team-section";
 
 export const metadata: Metadata = {
   title: "About",
@@ -15,7 +14,6 @@ export default function AboutPage() {
   return (
     <main className="bg-background">
       <AboutMeSection />
-      <TeamSection />
     </main>
   );
 }

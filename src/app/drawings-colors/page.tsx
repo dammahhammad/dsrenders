@@ -12,30 +12,10 @@ import {
   IconArrowLeft,
   IconArrowRight,
 } from "@tabler/icons-react";
-import { InteriorProject, interiorProjects } from "@/lib/content/interior-projects";
-
-const philosophy = [
-  {
-    title: "Form Follows Function",
-    description:
-      "Every element serves a purpose while contributing to aesthetic harmony.",
-  },
-  {
-    title: "Material Authenticity",
-    description:
-      "We celebrate natural materials, allowing their inherent beauty to shine.",
-  },
-  {
-    title: "Light as Design Element",
-    description:
-      "Natural and artificial lighting work together to create atmosphere.",
-  },
-  {
-    title: "Timeless Over Trendy",
-    description:
-      "Designs that transcend fleeting trends for enduring elegance.",
-  },
-];
+import {
+  DrawingsColor,
+  drawingsColorProjects,
+} from "@/lib/content/drawings-colors-projects";
 
 const toSlug = (value: string) =>
   value
@@ -44,7 +24,9 @@ const toSlug = (value: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function InteriorsPage() {
-  const [selectedProject, setSelectedProject] = useState<InteriorProject | null>(null);
+  const [selectedProject, setSelectedProject] = useState<DrawingsColor | null>(
+    null,
+  );
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   const breadcrumbSchema = {
@@ -61,7 +43,7 @@ export default function InteriorsPage() {
         "@type": "ListItem",
         position: 2,
         name: "Interiors",
-        item: "https://dsrenders.com/interiors",
+        item: "https://dsrenders.com/drawings-colors",
       },
     ],
   };
@@ -76,26 +58,30 @@ export default function InteriorsPage() {
       url: "https://dsrenders.com",
     },
     areaServed: "Worldwide",
-    url: "https://dsrenders.com/interiors",
+    url: "https://dsrenders.com/drawings-colors",
   };
 
-  const openProject = useCallback((project: InteriorProject, index: number) => {
+  const openProject = useCallback((project: DrawingsColor, index: number) => {
     setSelectedProject(project);
     setSelectedIndex(index);
   }, []);
 
   const goToPrevProject = useCallback(() => {
     const newIndex =
-      selectedIndex === 0 ? interiorProjects.length - 1 : selectedIndex - 1;
+      selectedIndex === 0
+        ? drawingsColorProjects.length - 1
+        : selectedIndex - 1;
     setSelectedIndex(newIndex);
-    setSelectedProject(interiorProjects[newIndex]);
+    setSelectedProject(drawingsColorProjects[newIndex]);
   }, [selectedIndex]);
 
   const goToNextProject = useCallback(() => {
     const newIndex =
-      selectedIndex === interiorProjects.length - 1 ? 0 : selectedIndex + 1;
+      selectedIndex === drawingsColorProjects.length - 1
+        ? 0
+        : selectedIndex + 1;
     setSelectedIndex(newIndex);
-    setSelectedProject(interiorProjects[newIndex]);
+    setSelectedProject(drawingsColorProjects[newIndex]);
   }, [selectedIndex]);
 
   return (
@@ -113,7 +99,7 @@ export default function InteriorsPage() {
         <section className="relative h-[100svh] min-h-[700px] z-10">
           <div className="absolute inset-0">
             <Image
-              src="/home_animation/interior.jpg"
+              src="https://images.dsrenders.com/background/ai%20new.jpg.jpeg"
               alt="Luxurious interior space"
               fill
               className="object-cover"
@@ -153,23 +139,12 @@ export default function InteriorsPage() {
 
                 {/* Right: Description */}
                 <FadeIn delay={1.1}>
-                  <div className="lg:pl-8 lg:border-l lg:border-white/20">
+                  <div className="lg:pl-8">
                     <p className="text-base sm:text-lg lg:text-xl text-white/70 font-body leading-relaxed max-w-lg">
                       We craft interiors that reflect individuality and comfort,
                       blending aesthetics, material, and light into environments
                       that feel both elegant and livable.
                     </p>
-                    <motion.div
-                      className="mt-6 sm:mt-8 flex items-center gap-3 text-white/50"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 1.5 }}
-                    >
-                      <span className="w-8 h-px bg-white/30" />
-                      <span className="text-xs font-body tracking-widest uppercase">
-                        Scroll to explore
-                      </span>
-                    </motion.div>
                   </div>
                 </FadeIn>
               </div>
@@ -177,83 +152,21 @@ export default function InteriorsPage() {
           </div>
         </section>
 
-        <section className="philosophy relative z-20 bg-background">
-          <div className="container-custom py-20 sm:py-32">
-            <FadeIn>
-              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 sm:mb-20">
-                <div className="max-w-2xl">
-                  <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
-                    Our Philosophy
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
-                    Design Principles <br className="hidden sm:block" />
-                    <span className="text-accent">That Guide Us</span>
-                  </h2>
-                </div>
-                <p className="text-sm sm:text-base text-muted-foreground font-body max-w-md lg:text-right">
-                  Every space we create is rooted in these fundamental beliefs
-                  about what makes design truly resonate.
-                </p>
-              </div>
-            </FadeIn>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {philosophy.map((item, index) => (
-                <div
-                  key={index}
-                  className="relative p-6 sm:p-8 lg:p-10 bg-secondary/20 border border-border/50 h-full group hover:bg-secondary/40 hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 rounded-xl"
-                >
-                  <div className="relative z-10 flex flex-col h-full justify-between">
-                    <div>
-                      <span className="text-4xl sm:text-5xl font-display font-bold text-accent/80 group-hover:text-accent transition-colors duration-500 mb-6 block">
-                        0{index + 1}
-                      </span>
-                      <h4 className="text-lg sm:text-xl font-display font-semibold text-foreground group-hover:text-foreground/90 transition-colors duration-300">
-                        {item.title}
-                      </h4>
-                    </div>
-
-                    <p className="mt-4 text-sm text-muted-foreground font-body leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="main bg-background relative z-30">
           <div className="container-custom">
-            {/* Section Header */}
-            <FadeIn className="mb-16 sm:mb-20">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-border pb-8">
-                <div>
-                  <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent mb-3 block">
-                    Selected Work
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
-                    Interior Projects
-                  </h2>
-                </div>
-                <p className="text-sm text-muted-foreground font-body max-w-sm">
-                  A curated selection of our interior design projects, each
-                  crafted with intention and care.
-                </p>
-              </div>
-            </FadeIn>
-
             {/* Projects List */}
             <div className="space-y-0">
-              {interiorProjects.map((project, index) => (
-                <div key={project.id}>
-                  <ProjectRow
-                    project={project}
-                    index={index}
-                    onClick={() => openProject(project, index)}
-                  />
-                </div>
-              ))}
+              {drawingsColorProjects.map(
+                (project: DrawingsColor, index: any) => (
+                  <div key={project.id}>
+                    <ProjectRow
+                      project={project}
+                      index={index}
+                      onClick={() => openProject(project, index)}
+                    />
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </section>
@@ -263,7 +176,7 @@ export default function InteriorsPage() {
       <ProjectDetailSheet
         project={selectedProject}
         projectIndex={selectedIndex}
-        totalProjects={interiorProjects.length}
+        totalProjects={drawingsColorProjects.length}
         onClose={() => setSelectedProject(null)}
         onPrev={goToPrevProject}
         onNext={goToNextProject}
@@ -274,13 +187,13 @@ export default function InteriorsPage() {
 
 // Project Row Component - BIG Style with enhanced visuals
 interface ProjectRowProps {
-  project: InteriorProject;
+  project: DrawingsColor;
   index: number;
   onClick: () => void;
 }
 
 function ProjectRow({ project, index, onClick }: ProjectRowProps) {
-  const projectHref = `/interiors/${toSlug(project.title)}`;
+  const projectHref = `/drawings-colors/${toSlug(project.title)}`;
 
   return (
     <div
@@ -302,9 +215,9 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
 
         {/* Location & Year */}
         <div className="mt-4 flex items-center gap-4 text-xs sm:text-sm font-body text-muted-foreground">
-          <span className="uppercase tracking-wider">{project.location}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
-          <span>{project.year}</span>
+          <p className="text-sm text-muted-foreground font-body leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
+            {project.description}
+          </p>
         </div>
 
         {/* Category Tag */}
@@ -363,7 +276,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
 
 // Fullscreen Project Detail Sheet
 interface ProjectDetailSheetProps {
-  project: InteriorProject | null;
+  project: DrawingsColor | null;
   projectIndex: number;
   totalProjects: number;
   onClose: () => void;
@@ -449,7 +362,7 @@ function ProjectDetailSheet({
                 {/* Image Dots */}
                 {images.length > 1 && (
                   <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-                    {images.map((_, idx) => (
+                    {images.map((_i: any, idx: any) => (
                       <button
                         key={idx}
                         onClick={() => setCurrentImageIndex(idx)}
@@ -504,7 +417,7 @@ function ProjectDetailSheet({
                         Key Features
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {project.features.map((feature, idx) => (
+                        {project.features.map((feature: any, idx: any) => (
                           <span
                             key={idx}
                             className="px-3 sm:px-4 py-1.5 text-xs font-body border border-border rounded-full text-muted-foreground hover:border-accent hover:text-accent transition-colors duration-300"

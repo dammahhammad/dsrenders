@@ -22,16 +22,15 @@ export const metadata: Metadata = {
 };
 
 const products = [
-  { title: "The Sagewood Kitchen", link: "/interiors/the-sagewood-kitchen", thumbnail: "https://images.dsrenders.com/drawings_color/01_kitchen_1_Page_1.webp" },
-  { title: "The Olive Grove Bedroom", link: "/furniture/olive-grove-bedroom", thumbnail: "https://images.dsrenders.com/ai_renders/B1.webp" },
-  { title: "Eco Residence", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Terracotta Breeze", link: "/furniture/terracotta-breeze", thumbnail: "https://images.dsrenders.com/ai_renders/BNB_1.webp" },
-  { title: "The Bordeaux Coffee Bar", link: "/interiors/the-bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/drawings_color/03_COFFEE%20BAR%20LAYOUT.webp" },
-  { title: "Glass Pavilion", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Coastal Retreat", link: "/architecture", thumbnail: "/home_animation/test.jpeg" },
-  { title: "Midnight Cove Mudroom", link: "/interiors/midnight-cove-mudroom", thumbnail: "https://images.dsrenders.com/drawings_color/02_MODERN%20MUDROOM_1_Page_1.webp" },
-  { title: "Modern Living", link: "/interiors", thumbnail: "/home_animation/test.jpeg" },
-  { title: "The Bordeaux Coffee Bar", link: "/furniture/bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.webp" },
+  { title: "Eco Residence", link: "/drawings-bw", thumbnail: "https://images.dsrenders.com/drawings_b%26w/CAD_page-0001.webp" },
+  { title: "The Sagewood Kitchen", link: "/drawings-colors/the-sagewood-kitchen", thumbnail: "https://images.dsrenders.com/drawings_color/01_kitchen_1_Page_1.webp" },
+  { title: "The Olive Grove Bedroom", link: "/ai-renders/olive-grove-bedroom", thumbnail: "https://images.dsrenders.com/ai_renders/B1.webp" },
+  { title: "Terracotta Breeze", link: "/ai-renders/terracotta-breeze", thumbnail: "https://images.dsrenders.com/ai_renders/BNB_1.webp" },
+  { title: "The Bordeaux Coffee Bar", link: "/drawings-colors/the-bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/drawings_color/03_COFFEE%20BAR%20LAYOUT.webp" },
+  { title: "Midnight Cove Mudroom", link: "/drawings-colors/midnight-cove-mudroom", thumbnail: "https://images.dsrenders.com/drawings_color/02_MODERN%20MUDROOM_1_Page_1.webp" },
+  { title: "The Hearthwood Lounge", link: "/drawings-colors", thumbnail: "https://images.dsrenders.com/drawings_color/07_FIREPLACE_2_Page_2.webp" },
+  { title: "Glass Pavilion", link: "/drawings-bw", thumbnail: "https://images.dsrenders.com/drawings_b%26w/CAD_page-0001.webp" },
+  { title: "The Bordeaux Coffee Bar", link: "/ai-renders/bordeaux-coffee-bar", thumbnail: "https://images.dsrenders.com/ai_renders/COFFEE_BAR_1.webp" },
 ];
 
 export default function Home() {

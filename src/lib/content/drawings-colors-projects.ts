@@ -1,4 +1,4 @@
-export interface InteriorProject {
+export interface DrawingsColor {
   id?: string;
   title: string;
   category: string;
@@ -12,7 +12,7 @@ export interface InteriorProject {
   slug: string;
 }
 
-export const interiorProjects: InteriorProject[] = [
+export const drawingsColorProjects: DrawingsColor[] = [
   {
     id: "1",
     slug: "the-sagewood-kitchen",
@@ -55,32 +55,6 @@ export const interiorProjects: InteriorProject[] = [
     icon: "◇",
   },
   {
-    id: "4",
-    slug: "the-solara-fauteuil",
-    title: "The Solara Fauteuil",
-    category: "Furniture",
-    description: "A sculptural lounge chair blending tropical modernism with organic comfort.",
-    longDescription: "The Solara Fauteuil blends natural craftsmanship with contemporary minimalism to create a lounge chair that feels both sculptural and inviting. Defined by its gently curved backrest and open slatted framework, the design introduces a sense of lightness while maintaining structural strength and ergonomic comfort. Crafted in warm timber tones and paired with soft linen upholstery, the chair embraces a calm organic aesthetic inspired by tropical modernism and nature-driven design. The result is a timeless statement piece that balances elegance, comfort, and everyday functionality.",
-    images: [
-      "https://images.dsrenders.com/drawings_color/04_CAROLINE%20FAUTEUIL.webp",
-    ],
-    features: ["Curved backrest", "Slatted framework", "Linen upholstery"],
-    icon: "⬡",
-  },
-  {
-    id: "5",
-    slug: "the-atelier-chaise",
-    title: "The Atelier Chaise",
-    category: "Furniture",
-    description: "Mid-century teak and woven wicker unite in an artisan dining chair.",
-    longDescription: "The Atelier Chaise combines timeless craftsmanship with a refined mid-century silhouette, creating a dining chair that feels both elegant and approachable. Warm teak wood framing is paired with woven wicker detailing on the seat and backrest, introducing natural texture and artisanal character to the composition. The gently curved rear legs and clean linear structure create a balanced visual softness while maintaining durability and ergonomic comfort. Lightweight in appearance yet structurally grounded, the chair embodies a calm, organic aesthetic suited for both contemporary and classic interiors.",
-    images: [
-      "https://images.dsrenders.com/drawings_color/05_CECILE%20chaise.webp",
-    ],
-    features: ["Teak framing", "Woven wicker", "Ergonomic design"],
-    icon: "◎",
-  },
-  {
     id: "6",
     slug: "maison-rouge-powder-room",
     title: "Maison Rouge Powder Room",
@@ -119,6 +93,32 @@ export const interiorProjects: InteriorProject[] = [
       "https://images.dsrenders.com/drawings_color/08_TABLE.webp",
     ],
     features: ["Clean geometry", "Concealed storage", "Walnut surface"],
+    icon: "◎",
+  },
+  {
+    id: "4",
+    slug: "the-solara-fauteuil",
+    title: "The Solara Fauteuil",
+    category: "Furniture",
+    description: "A sculptural lounge chair blending tropical modernism with organic comfort.",
+    longDescription: "The Solara Fauteuil blends natural craftsmanship with contemporary minimalism to create a lounge chair that feels both sculptural and inviting. Defined by its gently curved backrest and open slatted framework, the design introduces a sense of lightness while maintaining structural strength and ergonomic comfort. Crafted in warm timber tones and paired with soft linen upholstery, the chair embraces a calm organic aesthetic inspired by tropical modernism and nature-driven design. The result is a timeless statement piece that balances elegance, comfort, and everyday functionality.",
+    images: [
+      "https://images.dsrenders.com/drawings_color/04_CAROLINE%20FAUTEUIL.webp",
+    ],
+    features: ["Curved backrest", "Slatted framework", "Linen upholstery"],
+    icon: "⬡",
+  },
+  {
+    id: "5",
+    slug: "the-atelier-chaise",
+    title: "The Atelier Chaise",
+    category: "Furniture",
+    description: "Mid-century teak and woven wicker unite in an artisan dining chair.",
+    longDescription: "The Atelier Chaise combines timeless craftsmanship with a refined mid-century silhouette, creating a dining chair that feels both elegant and approachable. Warm teak wood framing is paired with woven wicker detailing on the seat and backrest, introducing natural texture and artisanal character to the composition. The gently curved rear legs and clean linear structure create a balanced visual softness while maintaining durability and ergonomic comfort. Lightweight in appearance yet structurally grounded, the chair embodies a calm, organic aesthetic suited for both contemporary and classic interiors.",
+    images: [
+      "https://images.dsrenders.com/drawings_color/05_CECILE%20chaise.webp",
+    ],
+    features: ["Teak framing", "Woven wicker", "Ergonomic design"],
     icon: "◎",
   },
   {

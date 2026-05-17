@@ -13,7 +13,7 @@ import {
     SheetTitle,
 } from "@/components/ui/sheet";
 import { IconRuler, IconPencil, IconPalette, IconChevronLeft, IconChevronRight, IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { FurnitureItem, furnitureItems } from "@/lib/content/furniture-items";
+import { AiRenderItems, aiRenderItems } from "@/lib/content/airender-items";
 
 const designPhilosophy = [
     {
@@ -40,7 +40,7 @@ const toSlug = (value: string) =>
         .replace(/(^-|-$)/g, "");
 
 export default function FurniturePage() {
-    const [selectedItem, setSelectedItem] = useState<FurnitureItem | null>(null);
+    const [selectedItem, setSelectedItem] = useState<AiRenderItems | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const breadcrumbSchema = {
@@ -57,7 +57,7 @@ export default function FurniturePage() {
                 "@type": "ListItem",
                 position: 2,
                 name: "Furniture",
-                item: "https://dsrenders.com/furniture",
+                item: "https://dsrenders.com/ai-renders",
             },
         ],
     };
@@ -72,24 +72,24 @@ export default function FurniturePage() {
             url: "https://dsrenders.com",
         },
         areaServed: "Worldwide",
-        url: "https://dsrenders.com/furniture",
+        url: "https://dsrenders.com/ai-renders",
     };
 
-    const openItem = (item: FurnitureItem, index: number) => {
+    const openItem = (item: AiRenderItems, index: number) => {
         setSelectedItem(item);
         setSelectedIndex(index);
     };
 
     const goToPrevItem = () => {
-        const newIndex = selectedIndex === 0 ? furnitureItems.length - 1 : selectedIndex - 1;
+        const newIndex = selectedIndex === 0 ? aiRenderItems.length - 1 : selectedIndex - 1;
         setSelectedIndex(newIndex);
-        setSelectedItem(furnitureItems[newIndex]);
+        setSelectedItem(aiRenderItems[newIndex]);
     };
 
     const goToNextItem = () => {
-        const newIndex = selectedIndex === furnitureItems.length - 1 ? 0 : selectedIndex + 1;
+        const newIndex = selectedIndex === aiRenderItems.length - 1 ? 0 : selectedIndex + 1;
         setSelectedIndex(newIndex);
-        setSelectedItem(furnitureItems[newIndex]);
+        setSelectedItem(aiRenderItems[newIndex]);
     };
 
     return (
@@ -107,7 +107,7 @@ export default function FurniturePage() {
             <section className="relative h-[100svh] min-h-[700px] z-10">
                 <div className="absolute inset-0">
                     <Image
-                        src="/woods/hero-woods.png"
+                        src="https://images.dsrenders.com/background/ai%20background.png"
                         alt="Bespoke furniture craftsmanship"
                         fill
                         className="object-cover"
@@ -141,7 +141,7 @@ export default function FurniturePage() {
                 </div>
             </section>
 
-            {/* Philosophy Section - Consistent with Interiors/Architecture */}
+            {/* Philosophy Section - Consistent with Interiors/drawings-bw */}
             <section className="philosophy relative z-20 bg-background">
                 <div className="container-custom py-20 sm:py-32">
                     <FadeIn>
@@ -200,7 +200,7 @@ export default function FurniturePage() {
                     </FadeIn>
 
                     <div className="space-y-0">
-                        {furnitureItems.map((item, index) => (
+                        {aiRenderItems.map((item, index) => (
                             <div key={item.id}>
                                 <FurnitureRow
                                     item={item}
@@ -271,7 +271,7 @@ export default function FurniturePage() {
             <DesignDetailSheet
                 item={selectedItem}
                 itemIndex={selectedIndex}
-                totalItems={furnitureItems.length}
+                totalItems={aiRenderItems.length}
                 onClose={() => setSelectedItem(null)}
                 onPrev={goToPrevItem}
                 onNext={goToNextItem}
@@ -283,13 +283,13 @@ export default function FurniturePage() {
 
 // Furniture Row Component (Vertical Scroll Style)
 interface FurnitureRowProps {
-    item: FurnitureItem;
+    item: AiRenderItems;
     index: number;
     onClick: () => void;
 }
 
 function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
-    const productHref = `/furniture/${toSlug(item.name)}`;
+    const productHref = `/ai-renders/${toSlug(item.name)}`;
 
     return (
         <div
@@ -358,7 +358,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
 
 // Design Detail Sheet Component
 interface DesignDetailSheetProps {
-    item: FurnitureItem | null;
+    item: AiRenderItems | null;
     itemIndex: number;
     totalItems: number;
     onClose: () => void;

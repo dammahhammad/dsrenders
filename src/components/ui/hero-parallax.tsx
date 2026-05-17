@@ -131,10 +131,10 @@ export const Header = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
       >
-        {["Architecture", "Interiors", "Furniture"].map((category) => (
+        {["Drawings (Color)", "Drawings (B&W)", "AI Renders"].map((category) => (
           <Link
             key={category}
-            href={`/${category.toLowerCase()}`}
+            href={`/${category == "Drawings (Color)" ? "interior" : category == "Drawings (B&W)" ? "architecture" : "furniture"}`}
             className="px-4 py-2 rounded-full border border-border/50 text-sm font-body text-muted-foreground hover:bg-foreground hover:text-background hover:border-transparent transition-all duration-300"
           >
             {category}

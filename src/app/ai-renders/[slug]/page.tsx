@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { furnitureItems } from "@/lib/content/furniture-items";
+import { aiRenderItems } from "@/lib/content/airender-items";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -13,14 +13,14 @@ export const dynamicParams = true;
 export const revalidate = 86400;
 
 export function generateStaticParams() {
-  return furnitureItems.map((item) => ({ slug: item.slug }));
+  return aiRenderItems.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const item = furnitureItems.find((entry) => entry.slug === slug);
+  const item = aiRenderItems.find((entry) => entry.slug === slug);
 
   if (!item) {
     return {
@@ -31,7 +31,7 @@ export async function generateMetadata({
 
   const title = `${item.name} | Furniture Collection`;
   const description = item.description;
-  const url = `/furniture/${item.slug}`;
+  const url = `/ai-renders/${item.slug}`;
 
   return {
     title,
@@ -55,13 +55,13 @@ export async function generateMetadata({
 
 export default async function FurnitureDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const item = furnitureItems.find((entry) => entry.slug === slug);
+  const item = aiRenderItems.find((entry) => entry.slug === slug);
 
   if (!item) {
     notFound();
   }
 
-  const itemUrl = `https://dsrenders.com/furniture/${item.slug}`;
+  const itemUrl = `https://dsrenders.com/ai-renders/${item.slug}`;
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -76,7 +76,7 @@ export default async function FurnitureDetailPage({ params }: PageProps) {
         "@type": "ListItem",
         position: 2,
         name: "Furniture",
-        item: "https://dsrenders.com/furniture",
+        item: "https://dsrenders.com/ai-renders",
       },
       {
         "@type": "ListItem",
@@ -101,7 +101,7 @@ export default async function FurnitureDetailPage({ params }: PageProps) {
     }
   };
 
-  const relatedItems = furnitureItems
+  const relatedItems = aiRenderItems
     .filter((entry) => entry.slug !== item.slug)
     .slice(0, 3);
 
@@ -118,7 +118,7 @@ export default async function FurnitureDetailPage({ params }: PageProps) {
 
       <div className="mb-8">
         <Link
-          href="/furniture"
+          href="/ai-renders"
           className="text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:text-foreground"
         >
           ← Back to Furniture
@@ -182,7 +182,7 @@ export default async function FurnitureDetailPage({ params }: PageProps) {
           {relatedItems.map((entry) => (
             <Link
               key={entry.slug}
-              href={`/furniture/${entry.slug}`}
+              href={`/ai-renders/${entry.slug}`}
               className="rounded-lg border border-border/60 bg-secondary/20 px-4 py-3 text-sm text-foreground/80 transition hover:border-foreground/40 hover:text-foreground"
             >
               {entry.name}

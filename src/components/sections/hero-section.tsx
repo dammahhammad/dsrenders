@@ -7,9 +7,9 @@ import { FadeIn, ScrollIndicator } from "@/components/motion/motion-primitives";
 import Link from "next/link";
 
 const categories = [
-    { name: "Architecture", href: "/architecture" },
-    { name: "Interiors", href: "/interiors" },
-    { name: "Furniture", href: "/furniture" },
+    { name: "Architecture", href: "/drawings-bw" },
+    { name: "Interiors", href: "/drawings-colors" },
+    { name: "Furniture", href: "/ai-renders" },
 ];
 
 export function HeroSection() {
