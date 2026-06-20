@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -17,79 +17,7 @@ import {
   IconChevronLeft,
   IconChevronRight,
 } from "@tabler/icons-react";
-
-interface ArchitectureProject {
-  title: string;
-  location: string;
-  year: string;
-  description: string;
-  longDescription: string;
-  image: string;
-  images: string[];
-}
-
-const projects: ArchitectureProject[] = [
-  {
-    title: "Urban Sanctuary Tower",
-    location: "Dubai, UAE",
-    year: "2024",
-    description:
-      "A 52-story mixed-use development redefining luxury living in the heart of Dubai.",
-    longDescription:
-      "An exploration of vertical urbanism where residential, retail, and hospitality programs stack seamlessly into one continuous ecosystem. The tower is shaped to optimize daylight and views while reducing solar gain through calibrated façade articulation.",
-    image: "/home_animation/building-1.png",
-    images: [
-      "/home_animation/building-1.png",
-      "/home_animation/building-2.png",
-      "/home_animation/building-4.png",
-    ],
-  },
-  {
-    title: "Eco Residence Complex",
-    location: "Copenhagen, Denmark",
-    year: "2023",
-    description:
-      "Net-zero residential community setting new standards for sustainable urban living.",
-    longDescription:
-      "Designed as a climate-positive neighborhood, the complex combines passive design strategies, recycled materials, and renewable systems to achieve near self-sufficiency. Shared green courts and walkable circulation reinforce a socially connected living environment.",
-    image: "/home_animation/building-2.png",
-    images: [
-      "/home_animation/building-2.png",
-      "/home_animation/building-3.png",
-      "/home_animation/building-6.png",
-    ],
-  },
-  {
-    title: "Glass Pavilion",
-    location: "California, USA",
-    year: "2024",
-    description:
-      "Minimalist retreat blending seamlessly with its natural surroundings.",
-    longDescription:
-      "A restrained architectural language allows landscape to become the primary visual event. Carefully framed vistas, recessed structural details, and seamless thresholds blur the boundaries between interior and exterior experience.",
-    image: "/home_animation/building-3.png",
-    images: [
-      "/home_animation/building-3.png",
-      "/home_animation/building-5.png",
-      "/home_animation/building-8.png",
-    ],
-  },
-  {
-    title: "Cultural Arts Center",
-    location: "Singapore",
-    year: "2023",
-    description:
-      "Dynamic performing arts venue celebrating Asian heritage through modern design.",
-    longDescription:
-      "The center is organized as a sequence of civic rooms that host performance, exhibition, and public gathering. The tectonic expression merges contemporary geometry with local material references, creating a culturally rooted yet forward-looking landmark.",
-    image: "/home_animation/building-4.png",
-    images: [
-      "/home_animation/building-4.png",
-      "/home_animation/building-7.png",
-      "/home_animation/building-1.png",
-    ],
-  },
-];
+import { DrawingsBW, drawingsBWProjects } from "@/lib/content/drawingsbw-projects";
 
 const stats = [
   { value: 70, suffix: "+", label: "Years of Excellence" },
@@ -105,8 +33,7 @@ const toSlug = (value: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function ArchitecturePage() {
-  const [selectedProject, setSelectedProject] =
-    useState<ArchitectureProject | null>(null);
+  const [selectedProject, setSelectedProject] = useState<DrawingsBW | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const breadcrumbSchema = {
@@ -141,23 +68,23 @@ export default function ArchitecturePage() {
     url: "https://dsrenders.com/drawings-bw",
   };
 
-  const openProject = (project: ArchitectureProject, index: number) => {
+  const openProject = (project: DrawingsBW, index: number) => {
     setSelectedProject(project);
     setSelectedIndex(index);
   };
 
   const goToPrevProject = () => {
     const newIndex =
-      selectedIndex === 0 ? projects.length - 1 : selectedIndex - 1;
+      selectedIndex === 0 ? drawingsBWProjects.length - 1 : selectedIndex - 1;
     setSelectedIndex(newIndex);
-    setSelectedProject(projects[newIndex]);
+    setSelectedProject(drawingsBWProjects[newIndex]);
   };
 
   const goToNextProject = () => {
     const newIndex =
-      selectedIndex === projects.length - 1 ? 0 : selectedIndex + 1;
+      selectedIndex === drawingsBWProjects.length - 1 ? 0 : selectedIndex + 1;
     setSelectedIndex(newIndex);
-    setSelectedProject(projects[newIndex]);
+    setSelectedProject(drawingsBWProjects[newIndex]);
   };
 
   return (
@@ -175,7 +102,7 @@ export default function ArchitecturePage() {
       <section className="relative h-[100svh] min-h-[700px] z-10">
         <div className="absolute inset-0">
           <Image
-            src="https://images.dsrenders.com/background/b%26w%20background.png"
+            src="https://images.dsrenders.com/background/bw-background.webp"
             alt="Luxurious interior space"
             fill
             className="object-cover"
@@ -313,24 +240,20 @@ export default function ArchitecturePage() {
               </div>
               <p className="text-sm text-muted-foreground font-body max-w-sm">
                 A curated selection of our architectural achievements, defining
-                skylines globally.
+                skylines globally. Test
               </p>
             </div>
           </FadeIn>
 
           {/* Projects List */}
           <div className="space-y-0">
-            {projects.map((project, index) => (
-              <motion.div
+            {drawingsBWProjects.map((project, index) => (
+              <ProjectRow
                 key={index}
-                className="origin-center will-change-transform"
-              >
-                <ProjectRow
-                  project={project}
-                  index={index}
-                  onClick={() => openProject(project, index)}
-                />
-              </motion.div>
+                project={project}
+                index={index}
+                onClick={() => openProject(project, index)}
+              />
             ))}
           </div>
         </div>
@@ -339,7 +262,7 @@ export default function ArchitecturePage() {
       <ArchitectureDetailSheet
         project={selectedProject}
         projectIndex={selectedIndex}
-        totalProjects={projects.length}
+        totalProjects={drawingsBWProjects.length}
         onClose={() => setSelectedProject(null)}
         onPrev={goToPrevProject}
         onNext={goToNextProject}
@@ -349,42 +272,29 @@ export default function ArchitecturePage() {
 }
 
 interface ProjectRowProps {
-  project: ArchitectureProject;
+  project: DrawingsBW;
   index: number;
   onClick: () => void;
 }
 
 function ProjectRow({ project, index, onClick }: ProjectRowProps) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: rowRef,
-    offset: ["start end", "end start"],
-  });
   const projectHref = `/drawings-bw/${toSlug(project.title)}`;
-
-  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0.4, 1, 1, 0.4],
-  );
 
   return (
     <motion.div
-      ref={rowRef}
       className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-16 py-10 sm:py-14 border-b border-border/20 cursor-pointer group"
       onClick={onClick}
-      style={{ opacity }}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      style={{ contentVisibility: "auto", containIntrinsicSize: "0 550px" }}
     >
       <div className="flex flex-col justify-center lg:sticky lg:top-32 lg:self-start">
         <span className="text-3xl sm:text-4xl mb-4 text-accent/40 group-hover:text-accent transition-colors duration-500">
           {/* Icon placeholder if needed, or just number */}0{index + 1}
         </span>
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-[#eec49e] transition-colors duration-300 leading-tight">
           <Link
             href={projectHref}
             onClick={(event) => event.stopPropagation()}
@@ -393,18 +303,13 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
             {project.title}
           </Link>
         </h3>
-        <div className="mt-4 flex items-center gap-4 text-xs sm:text-sm font-body text-muted-foreground">
-          <span className="uppercase tracking-wider">{project.location}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
-          <span>{project.year}</span>
-        </div>
         <div className="mt-6">
           <p className="text-sm text-muted-foreground line-clamp-3">
             {project.description}
           </p>
         </div>
         <motion.div
-          className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-accent transition-colors duration-300"
+          className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-[#eec49e] transition-colors duration-300"
           initial={{ x: 0 }}
           whileHover={{ x: 5 }}
         >
@@ -420,15 +325,17 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
       </div>
 
       <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg sm:rounded-xl">
-        <motion.div className="absolute inset-0" style={{ y: imageY }}>
+        <div className="absolute inset-0">
           <Image
-            src={project.image}
+            src={project.images[0]}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 1024px) 100vw, 60vw"
+            loading={index < 2 ? "eager" : "lazy"}
+            decoding="async"
           />
-        </motion.div>
+        </div>
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
       </div>
     </motion.div>
@@ -436,7 +343,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
 }
 
 interface ArchitectureDetailSheetProps {
-  project: ArchitectureProject | null;
+  project: DrawingsBW  | null;
   projectIndex: number;
   totalProjects: number;
   onClose: () => void;
@@ -519,15 +426,6 @@ function ArchitectureDetailSheet({
                   </h2>
                 </div>
 
-                <div className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8">
-                  <span className="px-3 sm:px-4 py-1.5 text-xs font-body bg-secondary rounded-full text-foreground">
-                    {project.location}
-                  </span>
-                  <span className="px-3 sm:px-4 py-1.5 text-xs font-body bg-secondary rounded-full text-foreground">
-                    {project.year}
-                  </span>
-                </div>
-
                 <div className="flex-1">
                   <p className="text-base sm:text-lg lg:text-xl text-foreground font-body leading-relaxed mb-6">
                     {project.description}
@@ -567,13 +465,6 @@ function ArchitectureDetailSheet({
                 <div className="text-center">
                   <p className="text-xs sm:text-sm font-body text-foreground">
                     <span className="hidden md:inline">{project.title}</span>
-                    <span className="hidden md:inline text-muted-foreground">
-                      {" "}
-                      —{" "}
-                    </span>
-                    <span className="text-muted-foreground">
-                      {project.location}
-                    </span>
                   </p>
                   <p className="text-[10px] sm:text-xs text-muted-foreground/60 mt-1 tracking-wider">
                     {projectIndex + 1} / {totalProjects}

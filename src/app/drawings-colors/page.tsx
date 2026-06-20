@@ -99,7 +99,7 @@ export default function InteriorsPage() {
         <section className="relative h-[100svh] min-h-[700px] z-10">
           <div className="absolute inset-0  bg-black/20">
             <Image
-              src="https://images.dsrenders.com/background/ai%20new.jpg.jpeg"
+              src="https://images.dsrenders.com/background/ai-new.webp"
               alt="Luxurious interior space"
               fill
               className="object-cover"
@@ -206,20 +206,24 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
   const projectHref = `/drawings-colors/${toSlug(project.title)}`;
 
   return (
-    <div
+    <motion.div
       className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-16 py-10 sm:py-14 border-b border-border/20 cursor-pointer group"
       onClick={onClick}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       style={{ contentVisibility: "auto", containIntrinsicSize: "0 550px" }}
     >
       {/* Left: Project Info */}
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center lg:sticky lg:top-32 lg:self-start">
         {/* Icon */}
         <span className="text-3xl sm:text-4xl mb-4 text-accent/40 group-hover:text-accent group-hover:rotate-90 transition-all duration-500">
           {project.icon}
         </span>
 
         {/* Title */}
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground group-hover:text-[#eec49e] transition-colors duration-300 leading-tight">
           {project.title}
         </h3>
 
@@ -238,7 +242,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
         </div>
 
         {/* View indicator - Desktop */}
-        <div className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
+        <div className="hidden lg:flex mt-8 items-center gap-2 text-sm font-body text-muted-foreground group-hover:text-[#eec49e] group-hover:translate-x-1 transition-all duration-300">
           <Link
             href={projectHref}
             onClick={(event) => event.stopPropagation()}
@@ -257,7 +261,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
             src={project.images[0]}
             alt={project.title}
             fill
-            className="object-contain"
+            className="object-contain transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 1024px) 100vw, 60vw"
             loading={index < 2 ? "eager" : "lazy"}
             decoding="async"
@@ -280,7 +284,7 @@ function ProjectRow({ project, index, onClick }: ProjectRowProps) {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

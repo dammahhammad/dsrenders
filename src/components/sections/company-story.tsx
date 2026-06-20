@@ -56,7 +56,7 @@ export function CompanyStory() {
                         <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden">
                             <motion.div className="absolute inset-0" style={{ y: imageY }}>
                                 <Image
-                                    src="/home_animation/building-7.png"
+                                    src="https://images.dsrenders.com/logo.svg"
                                     alt="Our architectural legacy"
                                     fill
                                     className="object-cover scale-110"

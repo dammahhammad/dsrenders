@@ -34,7 +34,7 @@ export function HeroSection() {
                 style={{ scale, opacity }}
             >
                 <Image
-                    src="/home_animation/building-1.png"
+                    src="https://images.dsrenders.com/logo.svg"
                     alt="Modern architecture"
                     fill
                     className="object-cover"

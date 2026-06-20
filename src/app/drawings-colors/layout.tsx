@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description:
       "Explore interior design projects by DS Renders with contemporary aesthetics and material-driven spaces.",
     url: "https://dsrenders.com/drawings-colors",
-    images: ["/home_animation/drawings-colors.jpg"],
+    images: ["https://images.dsrenders.com/logo.svg"],
   },
 };
 

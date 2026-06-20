@@ -19,7 +19,7 @@ export const WhyUsSection: React.FC = () => {
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <Image
-                        src="/home_animation/landscape.jpg"
+                        src="https://images.dsrenders.com/logo.svg"
                         alt="Landscape"
                         fill
                         className="object-cover"

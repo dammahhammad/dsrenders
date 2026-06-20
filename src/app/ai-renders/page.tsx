@@ -39,6 +39,11 @@ const toSlug = (value: string) =>
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "");
 
+const truncateWords = (text: string, max = 10) => {
+    const words = text.trim().split(/\s+/);
+    return words.length > max ? `${words.slice(0, max).join(" ")}…` : text;
+};
+
 export default function FurniturePage() {
     const [selectedItem, setSelectedItem] = useState<AiRenderItems | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -107,7 +112,7 @@ export default function FurniturePage() {
             <section className="relative h-[100svh] min-h-[700px] z-10">
                 <div className="absolute inset-0">
                     <Image
-                        src="https://images.dsrenders.com/background/ai%20background.png"
+                        src="https://images.dsrenders.com/background/ai-background.webp"
                         alt="AI architectural renders"
                         fill
                         className="object-cover"
@@ -252,9 +257,9 @@ export default function FurniturePage() {
                             <span className="text-xs sm:text-sm font-body tracking-[0.2em] uppercase text-accent mb-4 block">
                                 Commission
                             </span>
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-accent mb-6 leading-tight">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6 leading-tight">
                                 DS <br />
-                                <span className="text-accent/80">Renders</span>
+                                <span className="text-foreground">Renders</span>
                             </h2>
                             <p className="text-lg text-white/70 font-body leading-relaxed mb-8 max-w-md">
                                 Collaborate with us to create furniture that is uniquely yours. From initial sketch to final installation.
@@ -281,13 +286,13 @@ export default function FurniturePage() {
                         </FadeIn>
 
                         <FadeIn direction="left" delay={0.2}>
-                            <div className="relative h-[400px] sm:h-[500px] w-full bg-white/10 rounded-2xl overflow-hidden glass border-white/10 border">
+                            <div className="relative h-[200px] sm:h-[600px] w-full bg-white/10 rounded-2xl overflow-hidden glass border-white/10 border">
                                 <Image
-                                    src="/woods/modern-sofa.png"
-                                    alt="Custom furniture design"
+                                    src="https://images.dsrenders.com/ai_renders/FIREPLACE.webp"
+                                    alt="AI rendered furniture piece"
                                     fill
-                                    className="object-contain p-12"
-                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                    className="object-contain p-6 rounded-2xl transition-transform duration-500 hover:scale-105"
+                                    sizes="(max-width: 1024px) 100vw, 60vw"
                                 />
                             </div>
                         </FadeIn>
@@ -320,13 +325,17 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
     const productHref = `/ai-renders/${toSlug(item.name)}`;
 
     return (
-        <div
+        <motion.div
             className="grid grid-cols-1 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_500px] gap-8 lg:gap-16 py-12 border-b border-border/10 cursor-pointer group"
             onClick={onClick}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{ contentVisibility: "auto", containIntrinsicSize: "0 450px" }}
         >
             {/* Left: Content */}
-            <div className="flex flex-col justify-center order-2 lg:order-1">
+            <div className="flex flex-col justify-center order-2 lg:order-1 lg:sticky lg:top-32 lg:self-start">
                 <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] sm:text-xs font-body tracking-[0.3em] uppercase text-accent">
                         {item.category}
@@ -336,7 +345,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                     </span>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight mb-6">
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-foreground group-hover:text-[#eec49e] transition-colors duration-300 leading-tight mb-6">
                     <Link
                         href={productHref}
                         onClick={(event) => event.stopPropagation()}
@@ -346,12 +355,12 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                     </Link>
                 </h3>
 
-                <p className="text-base text-muted-foreground font-body leading-relaxed max-w-xl mb-8">
-                    {item.description}
+                <p className="text-base text-muted-foreground font-body leading-relaxed max-w-xl">
+                    {truncateWords(item.description)}
                 </p>
 
-                <div className="flex items-center gap-6 mt-auto">
-                    <div className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-accent group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
+                <div className="flex items-center gap-6 mt-6">
+                    <div className="flex items-center gap-2 text-sm font-body text-foreground border-b border-foreground/30 pb-0.5 group-hover:border-[#eec49e] group-hover:text-[#eec49e] group-hover:translate-x-1 transition-all duration-300">
                         <Link href={productHref} onClick={(event) => event.stopPropagation()} className="inline-flex items-center gap-2">
                             <span>View Details</span>
                         </Link>
@@ -361,7 +370,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
             </div>
 
             {/* Right: Image */}
-            <div className="relative h-[300px] sm:h-[350px] overflow-hidden rounded-2xl bg-secondary/5 order-1 lg:order-2">
+            <div className="relative h-[300px] sm:h-[350px] lg:h-[500px] overflow-hidden rounded-2xl bg-secondary/5 order-1 lg:order-2">
                 <div className="absolute inset-0 flex items-center justify-center p-8">
                     <Image
                         src={item.images[0]}
@@ -380,7 +389,7 @@ function FurnitureRow({ item, index, onClick }: FurnitureRowProps) {
                     </span>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

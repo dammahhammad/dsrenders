@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/home_animation/test.jpeg",
+        url: "https://images.dsrenders.com/logo.svg",
         width: 1200,
         height: 630,
         alt: "DS Renders architecture and design showcase",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     title: "DS Renders | Architecture, Interiors & Furniture Design",
     description:
       "Architecture, interiors, and furniture design powered by precision visualization.",
-    images: ["/home_animation/test.jpeg"],
+    images: ["https://images.dsrenders.com/logo.svg"],
   },
 };
 

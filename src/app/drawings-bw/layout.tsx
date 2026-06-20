@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description:
       "Discover DS Renders architecture portfolio featuring residential, commercial, and cultural projects.",
     url: "https://dsrenders.com/drawings-bw",
-    images: ["/home_animation/building-1.png"],
+    images: ["https://images.dsrenders.com/logo.svg"],
   },
 };
 
