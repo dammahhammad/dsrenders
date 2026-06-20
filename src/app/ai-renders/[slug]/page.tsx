@@ -121,7 +121,7 @@ export default async function FurnitureDetailPage({ params }: PageProps) {
           href="/ai-renders"
           className="text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:text-foreground"
         >
-          ← Back to Furniture
+          ← Back to AI Renders
         </Link>
       </div>
 

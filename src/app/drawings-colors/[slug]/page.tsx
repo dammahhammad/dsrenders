@@ -125,7 +125,7 @@ export default async function InteriorProjectDetailPage({ params }: PageProps) {
           href="/drawings-colors"
           className="text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:text-foreground"
         >
-          ← Back to Interiors
+          ← Back to Drawings (Colored)
         </Link>
       </div>
 

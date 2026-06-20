@@ -178,7 +178,7 @@ export const drawingsColorProjects: DrawingsColor[] = [
   },
   {
     id: "13",
-    slug: "the-olive-grove-bedroom",
+    slug: "olive-grove-bedroom",
     title: "The Olive Grove Bedroom",
     category: "Bedroom",
     description: "Bohemian warmth meets tropical murals in this nature-inspired sanctuary.",

@@ -119,7 +119,7 @@ export default async function ArchitectureProjectDetailPage({ params }: PageProp
           href="/drawings-bw"
           className="text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:text-foreground"
         >
-          ← Back to Architecture
+          ← Back to Drawings (B&W)
         </Link>
       </div>
 
