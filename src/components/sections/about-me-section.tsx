@@ -114,13 +114,13 @@ export function AboutMeSection() {
                                 {/* Social Links */}
                                 <div className="p-4 sm:p-6 flex items-center justify-center gap-3 sm:gap-4">
                                     {profileInfo.socials.instagram && (
-                                        <SocialButton href={profileInfo.socials.instagram} icon={<IconBrandInstagram size={20} />} />
+                                        <SocialButton href={profileInfo.socials.instagram} icon={<IconBrandInstagram color="#E4405F" size={20} />} />
                                     )}
                                     {profileInfo.socials.email && (
-                                        <SocialButton href={`mailto:${profileInfo.socials.email}`} icon={<IconMail size={20} />} />
+                                        <SocialButton href={`mailto:${profileInfo.socials.email}`} icon={<IconMail color="#EA4335" size={20} />} />
                                     )}
                                     {profileInfo.socials.whatsapp && (
-                                        <SocialButton href={`https://wa.me/${profileInfo.socials.whatsapp}`} icon={<IconBrandWhatsapp size={20} />} />
+                                        <SocialButton href={`https://wa.me/${profileInfo.socials.whatsapp}`} icon={<IconBrandWhatsapp color="#25D366" size={20} />} />
                                     )}
                                 </div>
                             </div>

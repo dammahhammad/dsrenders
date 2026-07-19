@@ -6,7 +6,7 @@ import {
   useTransform,
   useSpring,
   MotionValue,
-  AnimatePresence
+  AnimatePresence,
 } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,27 +32,27 @@ export const HeroParallax = ({
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 500]),
-    springConfig
+    springConfig,
   );
   const translateXReverse = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -500]),
-    springConfig
+    springConfig,
   );
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
+    springConfig,
   );
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig
+    springConfig,
   );
   const rotateZ = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig
+    springConfig,
   );
   const translateY = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [-500, 50]),
-    springConfig
+    springConfig,
   );
 
   return (
@@ -97,6 +97,12 @@ export const HeroParallax = ({
   );
 };
 
+const navItems = [
+  { name: "Drawings (Color)", href: "/drawings-colors" },
+  { name: "Drawings (B&W)", href: "/drawings-bw" },
+  { name: "AI Renders", href: "/ai-renders" },
+];
+
 export const Header = ({
   products,
 }: {
@@ -125,22 +131,17 @@ export const Header = ({
       </motion.p>
 
       {/* Category Pills */}
-      <motion.div
-        className="flex flex-wrap gap-2 sm:gap-3 mt-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-      >
-        {["Drawings (Color)", "Drawings (B&W)", "AI Renders"].map((category) => (
+      <div className="flex flex-wrap gap-2 sm:gap-3 mt-8">
+        {navItems.map((item) => (
           <Link
-            key={category}
-            href={`/${category == "Drawings (Color)" ? "interior" : category == "Drawings (B&W)" ? "architecture" : "furniture"}`}
+            key={item.name}
+            href={item.href}
             className="px-4 py-2 rounded-full border border-border/50 text-sm font-body text-muted-foreground hover:bg-foreground hover:text-background hover:border-transparent transition-all duration-300"
           >
-            {category}
+            {item.name}
           </Link>
         ))}
-      </motion.div>
+      </div>
 
       {/* Mobile Showcase — appears below hero text on small screens */}
       {products && products.length > 0 && (
@@ -169,14 +170,17 @@ function MobileHeroShowcase({
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isUserScrolling = useRef(false);
 
-  const scrollToIndex = useCallback((index: number) => {
-    if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.scrollWidth / showcaseItems.length;
-    scrollRef.current.scrollTo({
-      left: cardWidth * index,
-      behavior: "smooth",
-    });
-  }, [showcaseItems.length]);
+  const scrollToIndex = useCallback(
+    (index: number) => {
+      if (!scrollRef.current) return;
+      const cardWidth = scrollRef.current.scrollWidth / showcaseItems.length;
+      scrollRef.current.scrollTo({
+        left: cardWidth * index,
+        behavior: "smooth",
+      });
+    },
+    [showcaseItems.length],
+  );
 
   // Auto-play logic
   const startAutoPlay = useCallback(() => {
@@ -281,7 +285,12 @@ function MobileHeroShowcase({
                 className="absolute inset-y-0 left-0 rounded-full bg-foreground"
                 initial={{ width: "0%" }}
                 animate={{
-                  width: index === activeIndex ? "100%" : index < activeIndex ? "100%" : "0%",
+                  width:
+                    index === activeIndex
+                      ? "100%"
+                      : index < activeIndex
+                        ? "100%"
+                        : "0%",
                 }}
                 transition={{
                   duration: index === activeIndex ? 3.5 : 0.3,
