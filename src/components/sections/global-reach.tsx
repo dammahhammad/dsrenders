@@ -5,23 +5,18 @@ import { useRef } from "react";
 import { FadeIn, Counter } from "@/components/motion/motion-primitives";
 import { WorldMapComponent } from "@/components/world-map";
 
-const offices = [
-  { city: "New York", country: "USA", projects: 120 },
-  { city: "London", country: "UK", projects: 85 },
-  { city: "Dubai", country: "UAE", projects: 95 },
-  { city: "Singapore", country: "SG", projects: 70 },
-  { city: "Tokyo", country: "Japan", projects: 55 },
-  { city: "Sydney", country: "Australia", projects: 45 },
+const markets = [
+  { city: "New York", country: "USA" },
+  { city: "London", country: "UK" },
+  { city: "Dubai", country: "UAE" },
+  { city: "Singapore", country: "SG" },
+  { city: "Tokyo", country: "Japan" },
+  { city: "Sydney", country: "Australia" },
 ];
 
 export function GlobalReachSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const totalProjects = offices.reduce(
-    (acc, office) => acc + office.projects,
-    0,
-  );
 
   return (
     <section
@@ -32,13 +27,13 @@ export function GlobalReachSection() {
         <FadeIn>
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-2 block text-[11px] font-body uppercase tracking-[0.22em] text-muted-foreground sm:text-xs">
-              Global Presence
+              Global Reach
             </span>
-            <h2 className="font-display font-bold">Designing Across Continents</h2>
+            <h2 className="font-display font-bold">Working Across Continents</h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              We operate as one connected studio across time zones—local
-              insight, global execution, and a consistent design language in
-              every market.
+              I collaborate with architects, builders, and designers across time
+              zones—bringing local context and a consistent design language to
+              every project, wherever it&apos;s built.
             </p>
           </div>
         </FadeIn>
@@ -52,7 +47,7 @@ export function GlobalReachSection() {
 
               <div className="absolute left-3 top-3 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 backdrop-blur-md sm:left-5 sm:top-5 sm:px-3 sm:py-1.5">
                 <span className="text-[10px] font-body uppercase tracking-[0.18em] text-muted-foreground sm:text-[11px]">
-                  DS Renders Network
+                  Where I Work
                 </span>
               </div>
 
@@ -65,8 +60,8 @@ export function GlobalReachSection() {
 
               <div className="absolute inset-x-3 bottom-3 grid grid-cols-2 gap-2 sm:inset-x-5 sm:bottom-5 sm:gap-2.5">
                 {[
-                  { label: "Projects", value: totalProjects },
-                  { label: "Cities", value: offices.length },
+                  { label: "Projects", value: 50 },
+                  { label: "Cities", value: markets.length },
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -92,9 +87,9 @@ export function GlobalReachSection() {
 
         <FadeIn delay={0.35}>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2 sm:mt-6 sm:gap-2.5">
-            {offices.map((office, index) => (
+            {markets.map((market, index) => (
               <motion.div
-                key={office.city}
+                key={market.city}
                 className="rounded-full border border-border/70 bg-card/70 px-3 py-1 text-[11px] text-muted-foreground backdrop-blur-sm sm:px-3.5 sm:py-1.5 sm:text-xs"
                 initial={{ opacity: 0, y: 14 }}
                 animate={
@@ -102,9 +97,9 @@ export function GlobalReachSection() {
                 }
                 transition={{ delay: 0.4 + index * 0.05, duration: 0.4 }}
               >
-                <span className="font-medium text-foreground">{office.city}</span>
+                <span className="font-medium text-foreground">{market.city}</span>
                 <span className="mx-2 text-muted-foreground/60">•</span>
-                <span>{office.country}</span>
+                <span>{market.country}</span>
               </motion.div>
             ))}
           </div>

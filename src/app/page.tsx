@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HeroParallax } from "@/components/ui/hero-parallax";
+import { ServicesSection } from "@/components/sections/services-section";
 import { PortfolioGrid } from "@/components/sections/portfolio-grid";
 import { AboutMeSection } from "@/components/sections/about-me-section";
 import { GlobalReachSection } from "@/components/sections/global-reach";
@@ -55,6 +56,33 @@ export default function Home() {
     sameAs: [],
   };
 
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "DS Renders",
+    url: "https://dsrenders.com",
+    description:
+      "Architectural drafting, interior drafting, 3D modeling, and AI rendering services for architects, builders, and designers.",
+    provider: {
+      "@type": "Person",
+      name: "Daniyal Siddiqui",
+      jobTitle: "Architect & 3D Visualization Artist",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Services",
+      itemListElement: [
+        "2D Architecture Drafting",
+        "2D Interior Drafting",
+        "3D Modeling",
+        "AI Renders",
+      ].map((service) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: service },
+      })),
+    },
+  };
+
   return (
     <>
       <script
@@ -65,8 +93,13 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
       <IntroAnimation />
       <HeroParallax products={products} />
+      <ServicesSection />
       <PortfolioGrid />
       <AboutMeSection />
       <GlobalReachSection />

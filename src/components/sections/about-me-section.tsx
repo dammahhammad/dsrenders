@@ -52,7 +52,7 @@ const profileInfo = {
     ],
     socials: {
         instagram: "https://www.instagram.com/dsrenders_official",
-        email: "daniyal@dsrenders.com",
+        email: "contact@dsrenders.com",
         whatsapp: "+919219683383",
     },
 };

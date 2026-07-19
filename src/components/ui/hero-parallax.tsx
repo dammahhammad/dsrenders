@@ -98,9 +98,9 @@ export const HeroParallax = ({
 };
 
 const navItems = [
-  { name: "Drawings (Color)", href: "/drawings-colors" },
-  { name: "Drawings (B&W)", href: "/drawings-bw" },
-  { name: "AI Renders", href: "/ai-renders" },
+  { name: "Architecture", href: "/drawings-bw" },
+  { name: "Interiors", href: "/drawings-colors" },
+  { name: "Furniture", href: "/ai-renders" },
 ];
 
 export const Header = ({
@@ -125,9 +125,9 @@ export const Header = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        Award-winning architecture studio blending innovation with timeless
-        design. From concept to creation, we shape environments that define the
-        future.
+        I&apos;m Daniyal Siddiqui — an architect and 3D visualization artist. I
+        turn concepts into construction-ready drawings, precise 3D models, and
+        photoreal renders for architects, builders, and designers worldwide.
       </motion.p>
 
       {/* Category Pills */}
