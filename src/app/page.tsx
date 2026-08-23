@@ -65,7 +65,7 @@ export default function Home() {
       "Architectural drafting, interior drafting, 3D modeling, and AI rendering services for architects, builders, and designers.",
     provider: {
       "@type": "Person",
-      name: "Daniyal Siddiqui",
+      name: "Daniyal S.",
       jobTitle: "Architect & 3D Visualization Artist",
     },
     hasOfferCatalog: {

@@ -40,7 +40,7 @@ const skills: Skill[] = [
 ];
 
 const profileInfo = {
-    name: "Daniyal Siddiqui",
+    name: "Daniyal S.",
     role: "Architect & 3D Visualization Artist",
     tagline: "Transforming visions into breathtaking reality",
     bio: "With over a decade of experience in architecture and 3D visualization, I bring creative visions to life through stunning renders and innovative designs. My work spans residential, commercial, and conceptual projects across the globe.",
@@ -89,7 +89,8 @@ export function AboutMeSection() {
                                 {/* Image */}
                                 <div className="relative aspect-[4/5] overflow-hidden">
                                     <Image
-                                        src={profileInfo.image}
+                                        // src={profileInfo.image}
+                                        src="/image.png"
                                         alt={profileInfo.name}
                                         fill
                                         className="object-cover"

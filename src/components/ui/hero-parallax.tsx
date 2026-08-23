@@ -71,7 +71,7 @@ export const HeroParallax = ({
         className="hidden sm:block"
       >
         {/* First Row */}
-        <motion.div className="flex flex-row-reverse space-x-reverse sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
+        <motion.div className="flex flex-row-reverse sm:gap-10 md:gap-20 mb-10 md:mb-20">
           {firstRow.map((product, index) => (
             <ProductCard
               product={product}
@@ -83,7 +83,7 @@ export const HeroParallax = ({
         </motion.div>
 
         {/* Second Row */}
-        <motion.div className="flex flex-row-reverse space-x-reverse sm:space-x-10 md:space-x-20 mb-10 md:mb-20">
+        <motion.div className="flex flex-row-reverse sm:gap-10 md:gap-20 mb-10 md:mb-20">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -116,8 +116,9 @@ export const Header = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.6 }}
       >
-        Crafting Spaces <br className="hidden sm:block" />
-        That <span className="text-gradient">Inspire</span>
+        Precision2D Drafting & 3D Visualization{" "}
+        <br className="hidden sm:block" />
+        for <span className="text-gradient">Interior Designers</span>
       </motion.h1>
       <motion.p
         className="max-w-2xl text-base sm:text-lg md:text-xl mt-6 sm:mt-8 text-muted-foreground font-body leading-relaxed"
@@ -125,9 +126,10 @@ export const Header = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        I&apos;m Daniyal Siddiqui — an architect and 3D visualization artist. I
-        turn concepts into construction-ready drawings, precise 3D models, and
-        photoreal renders for architects, builders, and designers worldwide.
+        I&apos;m Daniyal S. and I provide professional 2D drafting and 3D
+        visualization services for interior designers, homeowners, and builders.
+        From precise CAD drawings and SketchUp models to realistic 3D renders, I
+        turn your ideas and designs into accurate, presentation-ready visuals.
       </motion.p>
 
       {/* Category Pills */}

@@ -74,11 +74,11 @@ export function ServicesSection() {
                             What I Do
                         </span>
                         <h2 className="font-display font-bold text-foreground">
-                            Services Built for Architects &amp; Builders
+                            Services Built for Interior Designers
                         </h2>
                         <p className="mt-4 text-base sm:text-lg text-muted-foreground font-body leading-relaxed">
                             From construction-ready drawings to photoreal renders, I help
-                            architects, builders, and designers move projects from concept
+                            interior designers move projects from concept
                             to reality — accurate, on time, and ready to build.
                         </p>
                     </div>
