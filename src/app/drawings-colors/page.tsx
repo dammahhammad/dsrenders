@@ -122,22 +122,22 @@ export default function InteriorsPage() {
                   <h1 className="font-display font-bold text-white leading-[0.9] tracking-tight">
                     <FadeIn delay={0.5}>
                       <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
-                        Precision
+                        2D
                       </span>
                     </FadeIn>
                     <FadeIn delay={0.7}>
                       <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl">
-                        Plans,
+                        Drafting,
                       </span>
                     </FadeIn>
                     <FadeIn delay={0.9}>
                       <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic text-[#eec49e]">
-                        Powerful
+                        3D
                       </span>
                     </FadeIn>
                     <FadeIn delay={1.0}>
                       <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-8xl italic text-[#eec49e]">
-                        Designs
+                        Modeling
                       </span>
                     </FadeIn>
                   </h1>
